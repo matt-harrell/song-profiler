@@ -2,6 +2,8 @@
 
 ## About the App
 This app shows a user what songs, artist, and albums they listen to on Spotify the most.
+
+Using the Spotify API and D3.js to create a graphs on user data from spotify allow the user to sort through that data
 ## Technologies Used
 - React
 - Redux
