@@ -1,10 +1,12 @@
-// need to add a redux state the updates if the user is logged in
+// might be able to delete
 import {cleintId} from './keys';
 
-const redirectURI = 'http://localhost:3000/';
+const redirectURI:any = 'http://localhost:3000/';
 let accessToken:string = "";
 
+
 const getAccessToken = () => {
+    
     if (accessToken) {
       return accessToken;
     }
