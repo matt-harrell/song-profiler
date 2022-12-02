@@ -1,7 +1,8 @@
+// need to add a redux state the updates if the user is logged in
 import {cleintId} from './keys';
 
 const redirectURI = 'http://localhost:3000/';
-let accessToken:any;
+let accessToken:string = "";
 
 const getAccessToken = () => {
     if (accessToken) {
@@ -19,7 +20,8 @@ const getAccessToken = () => {
     } else {
       const accessUrl:any = `https://accounts.spotify.com/authorize?client_id=${cleintId}&response_type=token&scope=user-top-read&redirect_uri=${redirectURI}`;
       window.location = accessUrl;
+      getAccessToken();
     }
   }
 
-  export default getAccessToken;
+  export {getAccessToken, accessToken};

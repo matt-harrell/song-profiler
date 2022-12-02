@@ -1,4 +1,4 @@
-// create ayncThunk to grab Spofity data and format it
+// create asyncThunk to grab Spofity data and format it
 const spotifySlice = () => {
     
 }

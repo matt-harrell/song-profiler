@@ -1,4 +1,4 @@
-import getAccessToken from './API/spotifyAPI';
+import {getAccessToken,accessToken} from './API/spotifyAPI';
 import './App.css';
 
 function App() {
@@ -16,12 +16,19 @@ function App() {
      
   }
 
+  if(accessToken !== ""){
+    console.log('logged in, accesstoken equals ' + accessToken)
+  }else {
+    console.log('NOT logged in' + accessToken + "<==");
+    
+  }
+
   
 
   return (
     <div className="App">
-      <button onClick={spotifyTest}>Get User Data</button>
-      
+     {/* if user is logged in then show bar chart if not show logged in button*/}
+      <button onClick={spotifyTest}>login</button>
     </div>
   );
 }
