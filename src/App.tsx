@@ -1,56 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import { AppDispatch } from './app/store';
+import LoggedInScreen from './components/LoggedInScreen';
+import LoginButton from './components/LoginButton/LoginButton';
+import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn } from './features/spotifySlice';
 
 function App() {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    const accessToken = window.location.href.match(/access_token=([^&]*)/); 
+    if(accessToken){
+      dispatch(setIsLoggedIn(true))
+      dispatch(fetchTopTracks({}))
+    }
+    
+  },[dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+     {isLoggedIn ? <LoggedInScreen/> : <LoginButton/>}
     </div>
   );
 }
