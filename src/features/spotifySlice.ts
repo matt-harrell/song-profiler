@@ -1,27 +1,26 @@
 // create asyncThunk to grab Spofity data and format it
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
-interface tracks{
-    name:string;
+interface fetchTopTracksType{
+    timeRange?:string;
+    numOfTracks?:number;
 }
 
 const fetchTopTracks = createAsyncThunk(
     'spotifyAPI/fetchTopTracks',
-    async () => {
+    async ({timeRange = 'medium_term',numOfTracks = 20}:fetchTopTracksType) => {
         // const accessToken = getAccessToken();
         const accessToken:any = window.location.href.match(/access_token=([^&]*)/); 
         
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=${numOfTracks}`, {
             headers: {
                 Authorization: `Bearer ${accessToken[1]}`,
             },
         })
         const tracks = await response.json();
-        const trackNames:string[] = []; 
-        tracks.items.forEach((track:tracks) => trackNames.push(track.name));
-        console.log(trackNames);
-        return trackNames;
+        const trackItems:string[] = []; 
+        tracks.items.forEach((track: string) => trackItems.push(track));
+        return trackItems;
     }
 )
 
