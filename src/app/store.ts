@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import spotifyReducer from '../features/spotifySlice';
+import filterButtonsReducer from '../features/filterButtonsSlice'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     spotifyAPI: spotifyReducer,
+    filterButtons: filterButtonsReducer,
   },
 });
 
