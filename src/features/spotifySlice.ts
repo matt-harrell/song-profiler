@@ -31,7 +31,6 @@ interface SpofityState {
 const initialState = {
     isLoggedIn:false,
     tracks:[],
-    accessToken:"",
 } as SpofityState;
 
 const spotifySlice = createSlice({
@@ -51,8 +50,7 @@ const spotifySlice = createSlice({
 })
 export {fetchTopTracks};
 
-export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn;
-export const selectAccessToken = (state: { spotifyAPI: { AccessToken: string; }; }) => state.spotifyAPI.AccessToken; 
+export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 
 export const {setIsLoggedIn} = spotifySlice.actions;
 export default spotifySlice.reducer;
