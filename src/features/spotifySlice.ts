@@ -9,7 +9,6 @@ interface fetchTopTracksType{
 const fetchTopTracks = createAsyncThunk(
     'spotifyAPI/fetchTopTracks',
     async ({timeRange = 'medium_term',numOfTracks = 20}:fetchTopTracksType) => {
-        // const accessToken = getAccessToken();
         const accessToken:any = window.location.href.match(/access_token=([^&]*)/); 
         
         const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=${numOfTracks}`, {
@@ -27,13 +26,11 @@ const fetchTopTracks = createAsyncThunk(
 interface SpofityState {
     isLoggedIn:boolean;
     tracks:any[];
-    accessToken:string;
 }
 
 const initialState = {
     isLoggedIn:false,
     tracks:[],
-    accessToken:"",
 } as SpofityState;
 
 const spotifySlice = createSlice({
@@ -43,9 +40,6 @@ const spotifySlice = createSlice({
         setIsLoggedIn(state,action) {
             state.isLoggedIn = action.payload;
         },
-        setAccessToken(state,action) {
-            state.accessToken = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -56,8 +50,7 @@ const spotifySlice = createSlice({
 })
 export {fetchTopTracks};
 
-export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn;
-export const selectAccessToken = (state: { spotifyAPI: { AccessToken: string; }; }) => state.spotifyAPI.AccessToken; 
+export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 
-export const {setIsLoggedIn, setAccessToken} = spotifySlice.actions;
+export const {setIsLoggedIn} = spotifySlice.actions;
 export default spotifySlice.reducer;

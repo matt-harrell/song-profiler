@@ -1,22 +1,32 @@
-import { ButtonGroup,Button } from "@mui/material";
+import { ToggleButton ,ToggleButtonGroup } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectTimeRange } from "../../features/filterButtonsSlice";
 interface props{
-    handleClick:(timeRange:string) => void;
+    handleChange:(event:React.MouseEvent<HTMLElement>,timeRangeString:string) => void;
 }
 
 
-const TimeRangeButtonsComp = ({handleClick}:props) => {
+const TimeRangeButtonsComp = ({handleChange}:props) => {
+    const timeRange = useSelector(selectTimeRange)
+
     return(
-        <ButtonGroup variant="contained" aria-label="set the time range" disableElevation>
-            <Button onClick={() => handleClick('short_term')}>
+        <ToggleButtonGroup
+            color="primary"
+            value={timeRange}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+        >
+            <ToggleButton value={'short_term'}>
                 Past 4 weeks
-            </Button>
-            <Button onClick={() => handleClick('medium_term')}>
+            </ToggleButton>
+            <ToggleButton value={'medium_term'}>
                 Past 6 months
-            </Button>
-            <Button onClick={() => handleClick('long_term')}>
+            </ToggleButton>
+            <ToggleButton value={'long_term'}>
                 Past years
-            </Button>
-        </ButtonGroup>
+            </ToggleButton>
+        </ToggleButtonGroup>
     );
 }
 
