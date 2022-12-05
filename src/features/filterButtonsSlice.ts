@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface FilterButtonsState {
     timeRange:string;
-    numofTracks:number;
+    numOfTracks:number;
 }
 
 const initialState = {
     timeRange:'medium_term',
-    numofTracks:20,
+    numOfTracks:20,
 } as FilterButtonsState;
 
 const filterButtonsSlice = createSlice({
@@ -16,6 +16,9 @@ const filterButtonsSlice = createSlice({
     reducers: {
         setTimeRange(state,action){
             state.timeRange = action.payload;
+        },
+        setNumOfTracks(state,action){
+            state.numOfTracks = action.payload;
         }
     }
 })
@@ -23,6 +26,6 @@ const filterButtonsSlice = createSlice({
 export const selectTimeRange = (state: { filterButtons: { timeRange: string; }; }) => state.filterButtons.timeRange;
 export const selectNumOfTracks = (state: { filterButtons: { numOfTracks: number; }; }) => state.filterButtons.numOfTracks;
 
-export const {setTimeRange} = filterButtonsSlice.actions;
+export const {setTimeRange,setNumOfTracks} = filterButtonsSlice.actions;
 
 export default filterButtonsSlice.reducer;
