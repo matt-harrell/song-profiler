@@ -23,9 +23,11 @@ const LoggedInScreen = () => {
     },[dispatch,timeRange,numOfTracks])
 
     return(
-        <Grid container spacing={2}>
-            <Grid item xs={8}>
+        <Grid container spacing={2} marginTop={1}>
+            <Grid item xs={12} md={6}>
                 <TimeRangeButtons/>
+            </Grid>
+            <Grid item xs={12} md={6}>
                 <NumOfTrackSlider/>
             </Grid>
         </Grid>
