@@ -4,7 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../features/filterButtonsSlice";
 import { fetchTopTracks, selectLoading } from "../features/spotifySlice";
-import Histogram from "./Histogram";
+import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import TimeRangeButtons from "./TimeRangeButtons/TimeRangeButtons";
 
