@@ -1,6 +1,7 @@
 import { scaleBand, scaleLinear } from 'd3';
 import { useSelector } from 'react-redux';
 import { selectTracks } from '../../features/spotifySlice';
+import Bar from './Bars';
 import XYAxis from './XYAxis';
 
 // create svg 
@@ -10,10 +11,11 @@ const Histogram = () => {
 
     const yScale = scaleBand()
       .domain(tracks.map(d => d.name))
-      .range([height,0]);
+      .range([height,0])
+      .padding(0.26);
 
     const xScale = scaleLinear()
-    .domain([0, 100])
+    .domain([0,100])
     .range([0, 550]);
 
     
@@ -23,6 +25,11 @@ const Histogram = () => {
                 xScale={xScale} 
                 yScale={yScale} 
                 height={height}            
+            />
+            <Bar
+               xScale={xScale} 
+               yScale={yScale}
+               property={'loudness'} 
             />
         </svg>
     );

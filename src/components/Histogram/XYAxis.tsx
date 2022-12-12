@@ -21,7 +21,6 @@ const XYAxis = ({ xScale, yScale, height }:props) => {
     const bottomAxis = axisBottom(xScale);
 
     useEffect(() => {
-        // need to figure out types for this
         select<SVGGElement, Axis<number>>(xAxis.current || "").call(bottomAxis)
         select<SVGGElement, Axis<string>>(yAxis.current || "").call(leftAxis)
     }, [tracks, leftAxis, bottomAxis])
