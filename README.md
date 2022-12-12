@@ -8,7 +8,7 @@ It then creates a auido profiile based on these attributes:
 - danceability
 - energy
 - loudness
-- tempo
+- valence
 
 Using the Spotify API and D3.js to create a graphs on user data from spotify allow the user to sort through that data
 ## Technologies Used

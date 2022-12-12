@@ -44,7 +44,7 @@ const fetchTopTracks = createAsyncThunk(
                 danceability:trackResponse.danceability,
                 energy:trackResponse.energy,
                 loudness:trackResponse.loudness,
-                tempo:trackResponse.tempo,
+                valence:trackResponse.valence,
             })
         }
         return tracks;
