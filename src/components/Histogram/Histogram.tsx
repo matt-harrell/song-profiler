@@ -7,7 +7,7 @@ import XYAxis from './XYAxis';
 // create svg 
 const Histogram = () => {
     const tracks = useSelector(selectTracks);
-    const height = tracks.length * 12; 
+    const height = tracks.length * 20; 
 
     const yScale = scaleBand()
       .domain(tracks.map(d => d.name))
@@ -26,10 +26,15 @@ const Histogram = () => {
                 yScale={yScale} 
                 height={height}            
             />
-            <Bar
+            {/* <Bar
                xScale={xScale} 
                yScale={yScale}
                property={'loudness'} 
+            /> */}
+            <Bar
+               xScale={xScale} 
+               yScale={yScale}
+               property={'energy'} 
             />
         </svg>
     );

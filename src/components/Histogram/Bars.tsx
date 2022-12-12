@@ -4,7 +4,6 @@
 import { NumberValue, ScaleBand, ScaleLinear } from "d3";
 import { useSelector } from "react-redux";
 import { selectTracks } from "../../features/spotifySlice";
-import { GenericObject } from "../../types";
 
 interface props {
     xScale:ScaleLinear<number, number, never>,
@@ -19,12 +18,10 @@ const Bar = ({xScale,yScale,property}:props) => {
     const tracks = useSelector(selectTracks);
 
     const handleXScale = (index:number,objectProp:string):NumberValue => {
-        switch (property) {
-            case 'loudness':
-                return (tracks[index][objectProp] + 60) * (100/60);
-        
-            default:
-                return -1;
+        if(objectProp === 'loudness'){
+            return Math.round((tracks[index].loudness + 60) * (100/60));
+        }else{
+            return Math.round(tracks[index][objectProp] * 100);
         }
     }
 
@@ -33,14 +30,22 @@ const Bar = ({xScale,yScale,property}:props) => {
 
     return (
         <g>
-            {tracks.map((track,index) => 
+            {tracks.map((track,index) =>
+            <g key={index}>
                 <rect
-                    key={index}
                     x={300}
                     y={yScale(track.name)}
                     height={yScale.bandwidth()}
                     width={xScale(handleXScale(index,property))}
                 />
+                <text
+                    x={xScale(handleXScale(index,property))+280}
+                    y={(yScale(track.name) || 1) + 12.5}
+                    fill={'white'}
+                >
+                    {property === 'loudness' ? Math.round((tracks[index].loudness + 60) * (100/60)) : Math.round(tracks[index][property] * 100)}
+                </text>
+            </g>  
             )}
         </g>  
     );
