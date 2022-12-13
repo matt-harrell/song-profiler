@@ -6,6 +6,7 @@ import { selectNumOfTracks, selectTimeRange } from "../features/filterButtonsSli
 import { fetchTopTracks, selectLoading } from "../features/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
+import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
 import TimeRangeButtons from "./TimeRangeButtons/TimeRangeButtons";
 
 const LoggedInScreen = () => {
@@ -31,6 +32,9 @@ const LoggedInScreen = () => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <NumOfTrackSlider/>
+            </Grid>
+            <Grid item xs={12}>
+                <SelectAudiFeature/>
             </Grid>
             <Grid item xs={12}>
                 {loading ? <LinearProgress /> : <Histogram/>}

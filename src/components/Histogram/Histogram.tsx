@@ -1,5 +1,6 @@
 import { scaleBand, scaleLinear } from 'd3';
 import { useSelector } from 'react-redux';
+import { selectAudioFeature } from '../../features/filterButtonsSlice';
 import { selectTracks } from '../../features/spotifySlice';
 import Bar from './Bars';
 import XYAxis from './XYAxis';
@@ -8,6 +9,7 @@ import XYAxis from './XYAxis';
 const Histogram = () => {
     const tracks = useSelector(selectTracks);
     const height = tracks.length * 20; 
+    const audioFeature = useSelector(selectAudioFeature);
 
     const yScale = scaleBand()
       .domain(tracks.map(d => d.name))
@@ -26,15 +28,10 @@ const Histogram = () => {
                 yScale={yScale} 
                 height={height}            
             />
-            {/* <Bar
-               xScale={xScale} 
-               yScale={yScale}
-               property={'loudness'} 
-            /> */}
             <Bar
                xScale={xScale} 
                yScale={yScale}
-               property={'energy'} 
+               property={audioFeature} 
             />
         </svg>
     );
