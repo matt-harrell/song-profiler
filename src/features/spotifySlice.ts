@@ -40,11 +40,11 @@ const fetchTopTracks = createAsyncThunk(
             const trackResponse = await response.json();
             tracks.push({
                 name:track.name,
-                acousticness:trackResponse.acousticness,
-                danceability:trackResponse.danceability,
-                energy:trackResponse.energy,
-                loudness:trackResponse.loudness,
-                valence:trackResponse.valence,
+                acousticness:Math.round(trackResponse.acousticness * 100),
+                danceability:Math.round(trackResponse.danceability * 100),
+                energy:Math.round(trackResponse.energy * 100),
+                loudness:Math.round((trackResponse.loudness + 60) * (100/60)),
+                valence:Math.round(trackResponse.valence * 100),
             })
         }
         return tracks;
