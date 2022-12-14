@@ -33,14 +33,14 @@ const Bar = ({xScale,yScale,property}:props) => {
                 <rect
                     className="bar"
                     ref={rect}
-                    x={300}
-                    y={yScale(track.name)}
+                    x={150}
+                    y={yScale(track.shortName)}
                     height={yScale.bandwidth()}
                     // width={xScale(track[property])}
                 />
                 <text
-                    x={track[property] < 10 ? xScale(track[property])+ 305 : xScale(track[property]) + 280}
-                    y={(yScale(track.name) || 1) + 12.5}
+                    x={track[property] < 10 ? xScale(track[property])+ 155 : xScale(track[property]) + 130}
+                    y={(yScale(track.shortName) || 1) + 14}
                     fill={track[property] < 10 ? 'black': 'white'}
                 >
                     {track[property]}

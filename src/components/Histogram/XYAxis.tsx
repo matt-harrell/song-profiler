@@ -29,11 +29,11 @@ const XYAxis = ({ xScale, yScale, height }:props) => {
     return (
         <g>
             <g
-                transform={`translate(300, 0)`}
+                transform={`translate(150, 0)`}
                 ref={yAxis}
             />
             <g
-                transform={`translate(300, ${height})`}
+                transform={`translate(150, ${height})`}
                 ref={xAxis}
             />
         </g>
