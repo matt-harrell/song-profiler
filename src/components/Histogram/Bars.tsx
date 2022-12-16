@@ -1,6 +1,7 @@
 // bars for chart 
 // each bar is a different color
 // all scale to work on 100%
+import { Tooltip, Typography } from "@mui/material";
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -42,24 +43,34 @@ const Bar = ({xScale,yScale,property}:props) => {
 
     return (
         <g>
-            {tracks.map((track,index) =>
-            <g key={index}>
-                <rect
-                    className="bar"
-                    ref={rect}
-                    x={150}
-                    y={yScale(track.shortName)}
-                    height={yScale.bandwidth()}
-                    // width={xScale(track[property])}
-                />
-                <text
-                    x={track[property] < 10 ? xScale(track[property])+ 155 : xScale(track[property]) + 130}
-                    y={(yScale(track.shortName) || 1) + yTextPadding}
-                    fill={track[property] < 10 ? 'black': 'white'}
+            {tracks.map((track, index) =>
+                <Tooltip
+                    title={
+                        <Typography color="inherit">{track.name}</Typography>
+                    }
+                    key={index}
+                    followCursor
                 >
-                    {track[property]}
-                </text>
-            </g>  
+                    <g>
+
+                        <rect
+                            className="bar"
+                            ref={rect}
+                            x={150}
+                            y={yScale(track.shortName)}
+                            height={yScale.bandwidth()}
+                        // width={xScale(track[property])}
+                        />
+
+                        <text
+                            x={track[property] < 10 ? xScale(track[property]) + 155 : xScale(track[property]) + 130}
+                            y={(yScale(track.shortName) || 1) + yTextPadding}
+                            fill={track[property] < 10 ? 'black' : 'white'}
+                        >
+                            {track[property]}
+                        </text>
+                    </g>
+                </Tooltip>
             )}
         </g>  
     );
