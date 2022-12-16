@@ -11,13 +11,13 @@ const SelectAudiFeatureComp = ({handleChange}:props) => {
     const audioFeature = useSelector(selectAudioFeature);
 
     return (
-        <FormControl style={{maxWidth:200}}>
-            <InputLabel id="demo-simple-select-label">Audio Feature</InputLabel>
+        <FormControl style={{maxWidth:300}}>
+            <InputLabel id="select-audio-feature-label">Audio Feature</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="select-audio-feature-label"
+                id="select-audio-feature"
                 value={audioFeature}
-                label="Age"
+                label="Audio Feature"
                 onChange={handleChange}
             >
                 <MenuItem value={'acousticness'}>Acousticness</MenuItem>

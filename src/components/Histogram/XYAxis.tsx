@@ -1,4 +1,4 @@
-import { axisLeft, axisBottom, select, Axis, ScaleLinear, ScaleBand } from "d3";
+import { axisLeft, select, Axis, ScaleLinear, ScaleBand, axisTop } from "d3";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectTracks } from "../../features/spotifySlice";
@@ -18,12 +18,12 @@ const XYAxis = ({ xScale, yScale, height }:props) => {
 
     // xAxis
     const xAxis = useRef(null);
-    const bottomAxis = axisBottom(xScale);
+    const topAxis = axisTop(xScale);
 
     useEffect(() => {
-        select<SVGGElement, Axis<number>>(xAxis.current || "").call(bottomAxis)
+        select<SVGGElement, Axis<number>>(xAxis.current || "").call(topAxis)
         select<SVGGElement, Axis<string>>(yAxis.current || "").call(leftAxis)
-    }, [tracks, leftAxis, bottomAxis])
+    }, [tracks, leftAxis, topAxis])
 
 
     return (
@@ -33,7 +33,7 @@ const XYAxis = ({ xScale, yScale, height }:props) => {
                 ref={yAxis}
             />
             <g
-                transform={`translate(150, ${height})`}
+                transform={`translate(150, 20)`}
                 ref={xAxis}
             />
         </g>

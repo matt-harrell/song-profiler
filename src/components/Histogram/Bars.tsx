@@ -2,7 +2,7 @@
 // each bar is a different color
 // all scale to work on 100%
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTracks } from "../../features/spotifySlice";
 
@@ -18,6 +18,7 @@ interface props {
 const Bar = ({xScale,yScale,property}:props) => {
     const tracks = useSelector(selectTracks);
     const rect = useRef(null);
+    const [yTextPadding, setYTextPadding] = useState(30)
 
     useEffect(() => {
         selectAll('.bar')
@@ -25,6 +26,19 @@ const Bar = ({xScale,yScale,property}:props) => {
             .transition()
             .attr('width', d => xScale(d[property]));
     },[tracks,property,xScale])
+
+    useEffect(() => {
+        handleResize();
+        window.addEventListener('resize',handleResize,false)
+    },[])
+
+    const handleResize = () => {
+        if(window.screen.width <= 600){
+            setYTextPadding(30)
+        }else{
+            setYTextPadding(14)
+        }
+    }
 
     return (
         <g>
@@ -40,7 +54,7 @@ const Bar = ({xScale,yScale,property}:props) => {
                 />
                 <text
                     x={track[property] < 10 ? xScale(track[property])+ 155 : xScale(track[property]) + 130}
-                    y={(yScale(track.shortName) || 1) + 14}
+                    y={(yScale(track.shortName) || 1) + yTextPadding}
                     fill={track[property] < 10 ? 'black': 'white'}
                 >
                     {track[property]}
