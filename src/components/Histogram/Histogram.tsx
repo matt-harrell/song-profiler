@@ -47,8 +47,7 @@ const Histogram = () => {
         <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
             <XYAxis 
                 xScale={xScale} 
-                yScale={yScale} 
-                height={height}            
+                yScale={yScale}             
             />
             <Bar
                xScale={xScale} 

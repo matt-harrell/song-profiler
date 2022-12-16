@@ -6,10 +6,9 @@ import { selectTracks } from "../../features/spotifySlice";
 interface props {
     xScale:ScaleLinear<number, number, never>,
     yScale: ScaleBand<string>,
-    height:number;
 }
 
-const XYAxis = ({ xScale, yScale, height }:props) => {
+const XYAxis = ({ xScale, yScale }:props) => {
     const tracks = useSelector(selectTracks);
 
     // y axis 
