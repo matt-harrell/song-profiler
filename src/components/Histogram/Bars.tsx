@@ -45,7 +45,7 @@ const Bar = ({xScale,yScale,property}:props) => {
             {tracks.map((track, index) =>
                 <Tooltip
                     title={
-                        <Typography color="inherit">{track.name}</Typography>
+                        <Typography color="inherit">{track.name} - {track.artistsNames}</Typography>
                     }
                     followCursor
                     key={index}

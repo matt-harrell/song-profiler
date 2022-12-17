@@ -50,6 +50,7 @@ const fetchTopTracks = createAsyncThunk(
             
             tracks.unshift({
                 name:track.name,
+                artistsNames:track.artists.map((artist:GenericObject) => artist.name).join(", "),
                 shortName:makeShortName(),
                 acousticness:Math.round(trackResponse.acousticness * 100),
                 danceability:Math.round(trackResponse.danceability * 100),
