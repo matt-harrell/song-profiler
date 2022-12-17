@@ -31,20 +31,32 @@ const fetchTopTracks = createAsyncThunk(
         // });
         for (let i = 0; i< tracksResponse.items.length; i++) {
             const track = tracksResponse.items[i];
-
+            const makeShortName = () => {
+                if(track.name.length > 20){
+                     const shortTitle = track.name.slice(0,20);
+                     return shortTitle.trim() + '...';
+                } else{
+                    return track.name;
+                }
+            }
+            
             const response = await fetch(`https://api.spotify.com/v1/audio-features/${track.id}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken[1]}`,
                 },
             })
             const trackResponse = await response.json();
-            tracks.push({
+            
+            
+            tracks.unshift({
                 name:track.name,
-                acousticness:trackResponse.acousticness,
-                danceability:trackResponse.danceability,
-                energy:trackResponse.energy,
-                loudness:trackResponse.loudness,
-                tempo:trackResponse.tempo,
+                artistsNames:track.artists.map((artist:GenericObject) => artist.name).join(", "),
+                shortName:makeShortName(),
+                acousticness:Math.round(trackResponse.acousticness * 100),
+                danceability:Math.round(trackResponse.danceability * 100),
+                energy:Math.round(trackResponse.energy * 100),
+                loudness:Math.round((trackResponse.loudness + 60) * (100/60)),
+                valence:Math.round(trackResponse.valence * 100),
             })
         }
         return tracks;
