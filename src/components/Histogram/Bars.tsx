@@ -1,6 +1,5 @@
 // bars for chart 
 // each bar is a different color
-// all scale to work on 100%
 import { Tooltip, Typography } from "@mui/material";
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
 import { useEffect, useRef, useState } from "react";
@@ -42,17 +41,25 @@ const Bar = ({xScale,yScale,property}:props) => {
     }
 
     return (
-        <g>
+        <>
             {tracks.map((track, index) =>
                 <Tooltip
                     title={
                         <Typography color="inherit">{track.name}</Typography>
                     }
-                    key={index}
                     followCursor
+                    key={index}
                 >
                     <g>
 
+                        <rect
+                            x={0}
+                            y={yScale(track.shortName)}
+                            height={yScale.bandwidth()}
+                            width={150 + xScale(track[property])}
+                            fill={"rgba(0,0,0,0)"}
+                            style={{ zIndex: '3', position: 'relative' }}
+                        />
                         <rect
                             className="bar"
                             ref={rect}
@@ -72,7 +79,7 @@ const Bar = ({xScale,yScale,property}:props) => {
                     </g>
                 </Tooltip>
             )}
-        </g>  
+        </>  
     );
 }
 
