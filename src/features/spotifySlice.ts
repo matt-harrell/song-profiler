@@ -11,6 +11,7 @@ interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     tracks:GenericObject[];
+    albumURL:string;
 }
 
 const fetchTopTracks = createAsyncThunk(
@@ -50,6 +51,7 @@ const fetchTopTracks = createAsyncThunk(
             
             tracks.unshift({
                 name:track.name,
+                id:track.id,
                 artistsNames:track.artists.map((artist:GenericObject) => artist.name).join(", "),
                 shortName:makeShortName(),
                 acousticness:Math.round(trackResponse.acousticness * 100),
@@ -59,14 +61,31 @@ const fetchTopTracks = createAsyncThunk(
                 valence:Math.round(trackResponse.valence * 100),
             })
         }
+
         return tracks;
     }
+)
+
+const fetchTopAlbum = createAsyncThunk(
+    'spotifyAPI/fetchTopAlbum',
+   async (id:string) => {
+    const accessToken:any = window.location.href.match(/access_token=([^&]*)/);
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken[1]}`,
+            },
+        })
+
+        const track = await response.json();
+        return track.album.images[1].url;
+   }
 )
 
 const initialState = {
     isLoggedIn:false,
     isLoading:false,
     tracks:[],
+    albumURL:'',
 } as SpofityState;
 
 const spotifySlice = createSlice({
@@ -80,16 +99,20 @@ const spotifySlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchTopTracks.fulfilled, (state, action) => {
-                state.isLoading = false;
                 state.tracks = [...action.payload];
             })
             .addCase(fetchTopTracks.pending, (state,action) => {
                 state.isLoading = true;
             })
+            .addCase(fetchTopAlbum.fulfilled,(state,action) => {
+                state.isLoading = false;
+                state.albumURL = action.payload;
+            })
+            
     }
 })
 // async thunk exports
-export {fetchTopTracks};
+export {fetchTopTracks,fetchTopAlbum};
 
 // states
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
