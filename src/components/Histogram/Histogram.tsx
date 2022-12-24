@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAudioFeature } from '../../features/filterButtonsSlice';
 import { selectTracks } from '../../features/spotifySlice';
+import ThemeFromImage from '../ThemeFromImage';
 import Bar from './Bars';
 import XYAxis from './XYAxis';
 
@@ -44,17 +45,21 @@ const Histogram = () => {
 
     
     return(
-        <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
-            <XYAxis 
-                xScale={xScale} 
-                yScale={yScale}             
-            />
-            <Bar
-               xScale={xScale} 
-               yScale={yScale}
-               property={audioFeature} 
-            />
-        </svg>
+        <>
+            <ThemeFromImage/>
+            <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
+                <XYAxis
+                    xScale={xScale}
+                    yScale={yScale}
+                />
+                <Bar
+                    xScale={xScale}
+                    yScale={yScale}
+                    property={audioFeature}
+                />
+            </svg>
+        </>
+        
     );
 }
 

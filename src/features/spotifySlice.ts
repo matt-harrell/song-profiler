@@ -118,6 +118,7 @@ export {fetchTopTracks,fetchTopAlbum};
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 export const selectLoading = (state: { spotifyAPI: { isLoading: boolean; }; }) => state.spotifyAPI.isLoading;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
+export const selectAlbumURL = (state: { spotifyAPI: { albumURL: string; }; }) => state.spotifyAPI.albumURL;
 
 export const {setIsLoggedIn} = spotifySlice.actions;
 export default spotifySlice.reducer;
