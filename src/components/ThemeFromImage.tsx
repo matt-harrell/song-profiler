@@ -1,19 +1,24 @@
 import { prominent } from "color.js";
 import { useEffect } from "react";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectAlbumURL } from "../features/spotifySlice"
+import { setThemeColors } from "../features/ThemeSlice";
 
 const ThemeFromImage = () => {
+    const dispatch = useDispatch();
     const albumURL = useSelector(selectAlbumURL);
+    
 
     const getColors = async (url:string) =>{
         const config = {
-            amount:5,
+            amount:6,
             format:'hex',
-            group:30,
+            group:25,
 
         }
-        const color = await prominent(`${url}`, config)
+        const colors = await prominent(`${url}`, config);
+        dispatch(setThemeColors(colors))
+        
     } 
 
     useEffect(() => {

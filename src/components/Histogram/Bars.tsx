@@ -4,7 +4,9 @@ import { Tooltip, Typography } from "@mui/material";
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { selectAudioFeature } from "../../features/filterButtonsSlice";
 import { selectTracks } from "../../features/spotifySlice";
+import { selectThemeColors } from "../../features/ThemeSlice";
 
 interface props {
     xScale:ScaleLinear<number, number, never>,
@@ -18,7 +20,10 @@ interface props {
 const Bar = ({xScale,yScale,property}:props) => {
     const tracks = useSelector(selectTracks);
     const rect = useRef(null);
-    const [yTextPadding, setYTextPadding] = useState(30)
+    const [yTextPadding, setYTextPadding] = useState(30);
+    const audioFeature = useSelector(selectAudioFeature);
+    const themeColors  = useSelector(selectThemeColors);
+    const [fill,setFill] = useState('black');
 
     useEffect(() => {
         selectAll('.bar')
@@ -31,6 +36,28 @@ const Bar = ({xScale,yScale,property}:props) => {
         handleResize();
         window.addEventListener('resize',handleResize,false)
     },[])
+
+    useEffect(() =>{
+        switch (audioFeature) {
+            case 'acousticness':
+                setFill(themeColors[0])
+                break;
+            case 'danceability':
+                setFill(themeColors[1])
+                break;
+            case 'energy':
+                setFill(themeColors[2])
+                break;
+            case 'loudness':
+                setFill(themeColors[3])
+                break;
+            case 'valence':
+                setFill(themeColors[4])
+                break;
+            default:
+                break;
+        }
+    },[audioFeature,themeColors])
 
     const handleResize = () => {
         if(window.screen.width <= 600){
@@ -66,6 +93,7 @@ const Bar = ({xScale,yScale,property}:props) => {
                             x={150}
                             y={yScale(track.shortName)}
                             height={yScale.bandwidth()}
+                            fill={fill}
                         // width={xScale(track[property])}
                         />
 
