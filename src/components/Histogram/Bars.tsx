@@ -40,19 +40,19 @@ const Bar = ({xScale,yScale,property}:props) => {
     useEffect(() =>{
         switch (audioFeature) {
             case 'acousticness':
-                setFill(themeColors[0])
+                setFill(themeColors.colorOne.color)
                 break;
             case 'danceability':
-                setFill(themeColors[1])
+                setFill(themeColors.colorTwo.color)
                 break;
             case 'energy':
-                setFill(themeColors[2])
+                setFill(themeColors.colorThree.color)
                 break;
             case 'loudness':
-                setFill(themeColors[3])
+                setFill(themeColors.colorFour.color)
                 break;
             case 'valence':
-                setFill(themeColors[4])
+                setFill(themeColors.colorFive.color)
                 break;
             default:
                 break;
