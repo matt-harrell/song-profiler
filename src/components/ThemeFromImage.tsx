@@ -19,7 +19,9 @@ const ThemeFromImage = () => {
         const colors = await prominent(`${url}`, config);
         dispatch(setThemeColors(colors))
         
-    } 
+    }
+    
+    
 
     useEffect(() => {
         if(albumURL !== ''){

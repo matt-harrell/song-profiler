@@ -4,12 +4,15 @@ import './App.css';
 import { AppDispatch } from './app/store';
 import LoggedInScreen from './components/LoggedInScreen';
 import LoginButton from './components/LoginButton/LoginButton';
-import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn } from './features/spotifySlice';
+import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './features/spotifySlice';
+import { selectThemeColors } from './features/ThemeSlice';
 
 function App() {
 
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const themeColors = useSelector(selectThemeColors);
+  const isLoading = useSelector(selectLoading)
 
   useEffect(() => {
     const accessToken = window.location.href.match(/access_token=([^&]*)/); 
@@ -21,7 +24,7 @@ function App() {
   },[dispatch]);
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor:`${isLoading ? 'white' : themeColors.backgroundColor.color}`}}>
      {isLoggedIn ? <LoggedInScreen/> : <LoginButton/>}
     </div>
   );

@@ -24,6 +24,7 @@ const Bar = ({xScale,yScale,property}:props) => {
     const audioFeature = useSelector(selectAudioFeature);
     const themeColors  = useSelector(selectThemeColors);
     const [fill,setFill] = useState('black');
+    const [textFill,setTextFill] = useState('white')
 
     useEffect(() => {
         selectAll('.bar')
@@ -40,19 +41,24 @@ const Bar = ({xScale,yScale,property}:props) => {
     useEffect(() =>{
         switch (audioFeature) {
             case 'acousticness':
-                setFill(themeColors.colorOne.color)
+                setFill(themeColors.colorOne.color);
+                setTextFill(themeColors.colorOne.fontColor);
                 break;
             case 'danceability':
                 setFill(themeColors.colorTwo.color)
+                setTextFill(themeColors.colorTwo.fontColor);
                 break;
             case 'energy':
-                setFill(themeColors.colorThree.color)
+                setFill(themeColors.colorThree.color);
+                setTextFill(themeColors.colorThree.fontColor);
                 break;
             case 'loudness':
-                setFill(themeColors.colorFour.color)
+                setFill(themeColors.colorFour.color);
+                setTextFill(themeColors.colorFour.fontColor);
                 break;
             case 'valence':
-                setFill(themeColors.colorFive.color)
+                setFill(themeColors.colorFive.color);
+                setTextFill(themeColors.colorFive.fontColor);
                 break;
             default:
                 break;
@@ -100,7 +106,7 @@ const Bar = ({xScale,yScale,property}:props) => {
                         <text
                             x={track[property] < 10 ? xScale(track[property]) + 155 : xScale(track[property]) + 130}
                             y={(yScale(track.shortName) || 1) + yTextPadding}
-                            fill={track[property] < 10 ? 'black' : 'white'}
+                            fill={track[property] < 10 ? themeColors.backgroundColor.fontColor : textFill}
                         >
                             {track[property]}
                         </text>
