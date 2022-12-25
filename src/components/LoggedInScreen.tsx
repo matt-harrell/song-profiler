@@ -33,7 +33,7 @@ const LoggedInScreen = () => {
     },[dispatch,tracks])
 
     return(
-        <Grid container spacing={2} marginTop={1}>
+        <Grid container spacing={2} paddingTop={1}>
             <Grid item xs={12} md={6}>
                 <TimeRangeButtons/>
             </Grid>
