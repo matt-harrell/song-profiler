@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { AppDispatch } from './app/store';
+import ThemeComp from './app/ThemeComp';
 import LoggedInScreen from './components/LoggedInScreen';
 import LoginButton from './components/LoginButton/LoginButton';
 import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './features/spotifySlice';
@@ -24,9 +25,11 @@ function App() {
   },[dispatch]);
 
   return (
-    <div className="App" style={{backgroundColor:`${isLoading ? 'white' : themeColors.backgroundColor.color}`}}>
-     {isLoggedIn ? <LoggedInScreen/> : <LoginButton/>}
-    </div>
+    <ThemeComp>
+      <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
+        {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
+      </div>
+    </ThemeComp>
   );
 }
 
