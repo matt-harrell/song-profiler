@@ -7,7 +7,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import { selectThemeColors } from '../../slices/ThemeSlice';
 
-const MenuBarComp = () => {
+interface MenuBarCompProps {
+    handleClick:() => void;
+}
+
+const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
 
     const themeColors = useSelector(selectThemeColors)
 
@@ -21,6 +25,7 @@ const MenuBarComp = () => {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
+                        onClick={handleClick}
                     >
                         <MenuIcon />
                     </IconButton>
