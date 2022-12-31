@@ -4,7 +4,9 @@ import { Tooltip, Typography } from "@mui/material";
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { selectAudioFeature } from "../../features/filterButtonsSlice";
 import { selectTracks } from "../../features/spotifySlice";
+import { selectThemeColors } from "../../features/ThemeSlice";
 
 interface props {
     xScale:ScaleLinear<number, number, never>,
@@ -18,7 +20,11 @@ interface props {
 const Bar = ({xScale,yScale,property}:props) => {
     const tracks = useSelector(selectTracks);
     const rect = useRef(null);
-    const [yTextPadding, setYTextPadding] = useState(30)
+    const [yTextPadding, setYTextPadding] = useState(30);
+    const audioFeature = useSelector(selectAudioFeature);
+    const themeColors  = useSelector(selectThemeColors);
+    const [fill,setFill] = useState('black');
+    const [textFill,setTextFill] = useState('white')
 
     useEffect(() => {
         selectAll('.bar')
@@ -31,6 +37,33 @@ const Bar = ({xScale,yScale,property}:props) => {
         handleResize();
         window.addEventListener('resize',handleResize,false)
     },[])
+
+    useEffect(() =>{
+        switch (audioFeature) {
+            case 'acousticness':
+                setFill(themeColors.colorOne.color);
+                setTextFill(themeColors.colorOne.fontColor);
+                break;
+            case 'danceability':
+                setFill(themeColors.colorTwo.color)
+                setTextFill(themeColors.colorTwo.fontColor);
+                break;
+            case 'energy':
+                setFill(themeColors.colorThree.color);
+                setTextFill(themeColors.colorThree.fontColor);
+                break;
+            case 'loudness':
+                setFill(themeColors.colorFour.color);
+                setTextFill(themeColors.colorFour.fontColor);
+                break;
+            case 'valence':
+                setFill(themeColors.colorFive.color);
+                setTextFill(themeColors.colorFive.fontColor);
+                break;
+            default:
+                break;
+        }
+    },[audioFeature,themeColors])
 
     const handleResize = () => {
         if(window.screen.width <= 600){
@@ -66,13 +99,14 @@ const Bar = ({xScale,yScale,property}:props) => {
                             x={150}
                             y={yScale(track.shortName)}
                             height={yScale.bandwidth()}
+                            fill={fill}
                         // width={xScale(track[property])}
                         />
 
                         <text
                             x={track[property] < 10 ? xScale(track[property]) + 155 : xScale(track[property]) + 130}
                             y={(yScale(track.shortName) || 1) + yTextPadding}
-                            fill={track[property] < 10 ? 'black' : 'white'}
+                            fill={track[property] < 10 ? themeColors.backgroundColor.fontColor : textFill}
                         >
                             {track[property]}
                         </text>

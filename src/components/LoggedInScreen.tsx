@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../features/filterButtonsSlice";
-import { fetchTopTracks, selectLoading } from "../features/spotifySlice";
+import { fetchTopAlbum, fetchTopTracks, selectLoading, selectTracks } from "../features/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
@@ -15,6 +15,7 @@ const LoggedInScreen = () => {
     const timeRange = useSelector(selectTimeRange);
     const numOfTracks = useSelector(selectNumOfTracks);
     const loading = useSelector(selectLoading);
+    const tracks = useSelector(selectTracks);
     
     // handles deplaying api called based on filtered button change
     useEffect(() => {
@@ -25,8 +26,14 @@ const LoggedInScreen = () => {
         return () => clearTimeout(delayChange);
     },[dispatch,timeRange,numOfTracks]);
 
+    useEffect(() => {
+        if(tracks.length > 0){
+            dispatch(fetchTopAlbum(tracks[tracks.length-1].id))
+        }
+    },[dispatch,tracks])
+
     return(
-        <Grid container spacing={2} marginTop={1}>
+        <Grid container spacing={2} paddingTop={1}>
             <Grid item xs={12} md={6}>
                 <TimeRangeButtons/>
             </Grid>

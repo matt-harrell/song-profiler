@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import spotifyReducer from '../features/spotifySlice';
 import filterButtonsReducer from '../features/filterButtonsSlice'
+import ThemeSliceReducer from '../features/ThemeSlice';
 
 export const store = configureStore({
   reducer: {
     spotifyAPI: spotifyReducer,
     filterButtons: filterButtonsReducer,
+    themeSlice:ThemeSliceReducer,
   },
 });
 
