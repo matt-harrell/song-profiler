@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
+import { selectLoading } from "../features/spotifySlice";
 import { selectThemeColors } from "../features/ThemeSlice";
 
 type props = {
@@ -8,37 +9,38 @@ type props = {
 
 const ThemeComp = ({children}:props) => {
 
-    const themeColors = useSelector(selectThemeColors)
+    const themeColors = useSelector(selectThemeColors);
+    const isLoading = useSelector(selectLoading);
 
     const theme = createTheme({
         palette:{
             primary:{
-                main:themeColors.colorOne.color,
-                contrastText:themeColors.colorOne.fontColor,
+                main: isLoading ? '#1976d2' : themeColors.colorOne.color,
+                contrastText:isLoading ? '#fff' : themeColors.colorOne.fontColor,
             },
             text:{
-                primary:themeColors.backgroundColor.fontColor,
-                secondary:themeColors.backgroundColor.fontColor+'60',
-                disabled:themeColors.backgroundColor.fontColor+'38',
+                primary:isLoading ? 'rgba(0,0,0,0.87)' : themeColors.backgroundColor.fontColor,
+                secondary:isLoading ? 'rgba(0,0,0,0.6)' : themeColors.backgroundColor.fontColor+'60',
+                disabled:isLoading ? 'rgba(0,0,0,0.38)' : themeColors.backgroundColor.fontColor+'38',
             },
             background:{
-                paper:themeColors.backgroundColor.color,
-                default:themeColors.backgroundColor.color,
+                paper:isLoading ? '#fff' : themeColors.backgroundColor.color,
+                default:isLoading ? '#fff' : themeColors.backgroundColor.color,
             },
-            divider:themeColors.backgroundColor.fontColor+'12'
+            divider:isLoading ? 'rgba(0,0,0,0.12)' : themeColors.backgroundColor.fontColor+'12'
         },
         components:{
            MuiToggleButton:{
             styleOverrides:{
                 root:{
-                    color:themeColors.backgroundColor.fontColor
+                    color:isLoading ? 'initial' : themeColors.backgroundColor.fontColor
                 }
             }
            },
             MuiTypography:{
                 styleOverrides:{
                     root:{
-                        color:themeColors.backgroundColor.fontColor,
+                        color:isLoading ? 'initial' : themeColors.backgroundColor.fontColor,
                     }
                 }
             }

@@ -1,6 +1,7 @@
 import { FormControl,InputLabel,Select,MenuItem, SelectChangeEvent } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectAudioFeature } from "../../features/filterButtonsSlice";
+import { selectLoading } from "../../features/spotifySlice";
 import { selectThemeColors } from "../../features/ThemeSlice";
 
 interface props {
@@ -9,14 +10,15 @@ interface props {
 
 const SelectAudiFeatureComp = ({handleChange}:props) => {
     
-    const ThemeColors = useSelector(selectThemeColors)
+    const ThemeColors = useSelector(selectThemeColors);
     const audioFeature = useSelector(selectAudioFeature);
+    const isLoading = useSelector(selectLoading);
 
     return (
         <FormControl style={{maxWidth:300}}>
             <InputLabel 
                 id="select-audio-feature-label"
-                sx={{color:ThemeColors.backgroundColor.fontColor}}
+                sx={{color:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor}}
             >
                 Audio Feature
             </InputLabel>
@@ -27,18 +29,18 @@ const SelectAudiFeatureComp = ({handleChange}:props) => {
                 label="Audio Feature"
                 onChange={handleChange}
                 sx={{
-                    color: ThemeColors.backgroundColor.fontColor,
+                    color:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
                     '.MuiOutlinedInput-notchedOutline': {
-                      borderColor: ThemeColors.backgroundColor.fontColor + "25",
+                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor + "25",
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: ThemeColors.backgroundColor.fontColor + "25",
+                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor + "25",
                     },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: ThemeColors.backgroundColor.fontColor,
+                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
                     },
                     '.MuiSvgIcon-root ': {
-                      fill: ThemeColors.backgroundColor.fontColor,
+                      fill:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
                     }
                   }}
             >
