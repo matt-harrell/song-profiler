@@ -1,8 +1,8 @@
 import { scaleBand, scaleLinear } from 'd3';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectAudioFeature } from '../../features/filterButtonsSlice';
-import { selectTracks } from '../../features/spotifySlice';
+import { selectAudioFeature } from '../../slices/filterButtonsSlice';
+import { selectTracks } from '../../slices/spotifySlice';
 import ThemeFromImage from '../ThemeFromImage';
 import Bar from './Bars';
 import XYAxis from './XYAxis';

@@ -1,8 +1,8 @@
 import { prominent } from "color.js";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { selectAlbumURL } from "../features/spotifySlice"
-import { setThemeColors } from "../features/ThemeSlice";
+import { selectAlbumURL } from "../slices/spotifySlice"
+import { setThemeColors } from "../slices/ThemeSlice";
 
 const ThemeFromImage = () => {
     const dispatch = useDispatch();

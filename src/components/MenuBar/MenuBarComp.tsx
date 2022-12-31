@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
-import { selectThemeColors } from '../../features/ThemeSlice';
+import { selectThemeColors } from '../../slices/ThemeSlice';
 
 const MenuBarComp = () => {
 

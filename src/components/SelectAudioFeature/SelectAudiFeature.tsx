@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setAudioFeature } from "../../features/filterButtonsSlice";
+import { setAudioFeature } from "../../slices/filterButtonsSlice";
 import SelectAudiFeatureComp from "./SelectAudiFeatureComp";
 
 const SelectAudiFeature = () => {

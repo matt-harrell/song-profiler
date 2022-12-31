@@ -1,8 +1,8 @@
 import { FormControl,InputLabel,Select,MenuItem, SelectChangeEvent } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectAudioFeature } from "../../features/filterButtonsSlice";
-import { selectLoading } from "../../features/spotifySlice";
-import { selectThemeColors } from "../../features/ThemeSlice";
+import { selectAudioFeature } from "../../slices/filterButtonsSlice";
+import { selectLoading } from "../../slices/spotifySlice";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface props {
     handleChange:(e:SelectChangeEvent) => void;

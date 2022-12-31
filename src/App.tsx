@@ -6,8 +6,8 @@ import ThemeComp from './components/ThemeComp';
 import LoggedInScreen from './components/LoggedInScreen';
 import LoginButton from './components/LoginButton/LoginButton';
 import MenuBar from './components/MenuBar/MenuBar';
-import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './features/spotifySlice';
-import { selectThemeColors } from './features/ThemeSlice';
+import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
+import { selectThemeColors } from './slices/ThemeSlice';
 
 function App() {
 
