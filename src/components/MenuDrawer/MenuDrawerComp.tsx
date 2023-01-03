@@ -1,6 +1,7 @@
 import { AppBar, Box, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GenericObject } from "../../types";
+import SelectAlbum from "../SelectAlbum/SelectAlbum";
 
 interface MenuDrawerCompProps {
     open:boolean;
@@ -18,7 +19,7 @@ const MenuDrawerComp = ({open,themeColors,isLoading,handleClose}:MenuDrawerCompP
             onClose={handleClose(false)}
         >
             <Box
-                sx={{ width: 250 }}
+                sx={{ width: 300 }}
                 role="presentation"
                 onClick={handleClose(false)}
                 onKeyDown={handleClose(false)}
@@ -48,6 +49,9 @@ const MenuDrawerComp = ({open,themeColors,isLoading,handleClose}:MenuDrawerCompP
                             </IconButton>
                         </Toolbar>
                     </AppBar>
+                    <Box sx={{paddingX:1,paddingTop:4}}>
+                        <SelectAlbum/>
+                    </Box>
                 </Box>
             </Box>
 

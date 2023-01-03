@@ -33,15 +33,15 @@ const LoggedInScreen = () => {
     },[dispatch,tracks])
 
     return(
-        <Grid container spacing={2} paddingTop={1}>
-            <Grid item xs={12} md={6}>
+        <Grid container spacing={2} paddingTop={4}>
+            <Grid item xs={12} md={4}>
                 <TimeRangeButtons/>
             </Grid>
-            <Grid item xs={12} md={6}>
-                <NumOfTrackSlider/>
-            </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={4}>
                 <SelectAudiFeature/>
+            </Grid>
+            <Grid item xs={12} md={4}>
+                <NumOfTrackSlider/>
             </Grid>
             <Grid item xs={12}>
                 {loading ? <LinearProgress /> : <Histogram/>}

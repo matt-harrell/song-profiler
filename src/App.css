@@ -26,6 +26,11 @@
   color: rgb(112, 76, 182);
 }
 
+.img-fluid{
+  max-width: 100%;
+  height: auto;
+}
+
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);
