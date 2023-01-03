@@ -12,6 +12,7 @@ interface SpofityState {
     isLoading:boolean;
     tracks:GenericObject[];
     albumURLs:string[],
+    currentAlbum:number,
     albumURL:string;
 }
 
@@ -31,38 +32,55 @@ const fetchTopTracks = createAsyncThunk(
         // tracksResponse.items.forEach((track:GenericObject) => {
         //     tracks.push({name:track.name,})
         // });
-        for (let i = 0; i< tracksResponse.items.length; i++) {
-            const track = tracksResponse.items[i];
-            const makeShortName = () => {
-                if(track.name.length > 20){
-                     const shortTitle = track.name.slice(0,20);
-                     return shortTitle.trim() + '...';
-                } else{
-                    return track.name;
-                }
+        const makeShortName = (trackTitle:string) => {
+            if(trackTitle.length > 20){
+                 const shortTitle = trackTitle.slice(0,20);
+                 return shortTitle.trim() + '...';
+            } else{
+                return trackTitle;
             }
-            
-            const response = await fetch(`https://api.spotify.com/v1/audio-features/${track.id}`, {
+        }
+        const trackIDs = tracksResponse.items.map((item:GenericObject) => item.id);
+        
+        
+        const audioFeaturesFetch = await fetch(`https://api.spotify.com/v1/audio-features?ids=${trackIDs.join()}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken[1]}`,
                 },
             })
-            const trackResponse = await response.json();
-            
+        const audioFeatruresResponse = await audioFeaturesFetch.json();
+        const audioFeatures = audioFeatruresResponse.audio_features;
+
+        const tracksFetch = await fetch(`https://api.spotify.com/v1/tracks?ids=${trackIDs.join()}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken[1]}`,
+                },
+            })
+        const tracksFetchResponse = await tracksFetch.json();
+        const tracksInfo = tracksFetchResponse.tracks;
+        
+                
+        
+
+        for (let i = 0; i< tracksResponse.items.length; i++) {
+            const track = tracksResponse.items[i];
             
             tracks.push({
                 name:track.name,
                 id:track.id,
+                albumName:tracksInfo[i].album.name,
+                albumImage:tracksInfo[i].album.images[1].url,
                 artistsNames:track.artists.map((artist:GenericObject) => artist.name).join(", "),
-                shortName:makeShortName(),
-                acousticness:Math.round(trackResponse.acousticness * 100),
-                danceability:Math.round(trackResponse.danceability * 100),
-                energy:Math.round(trackResponse.energy * 100),
-                loudness:Math.round((trackResponse.loudness + 60) * (100/60)),
-                valence:Math.round(trackResponse.valence * 100),
+                shortName:makeShortName(track.name),
+                acousticness:Math.round(audioFeatures[i].acousticness * 100),
+                danceability:Math.round(audioFeatures[i].danceability * 100),
+                energy:Math.round(audioFeatures[i].energy * 100),
+                loudness:Math.round((audioFeatures[i].loudness + 60) * (100/60)),
+                valence:Math.round(audioFeatures[i].valence * 100),
             })
         }
-
+        
+        
         return tracks;
     }
 )
@@ -87,6 +105,7 @@ const initialState = {
     isLoading:false,
     tracks:[],
     albumURLs:[],
+    currentAlbum:0,
     albumURL:'',
 } as SpofityState;
 
