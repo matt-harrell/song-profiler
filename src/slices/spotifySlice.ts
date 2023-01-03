@@ -11,6 +11,7 @@ interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     tracks:GenericObject[];
+    albumURLs:string[],
     albumURL:string;
 }
 
@@ -49,7 +50,7 @@ const fetchTopTracks = createAsyncThunk(
             const trackResponse = await response.json();
             
             
-            tracks.unshift({
+            tracks.push({
                 name:track.name,
                 id:track.id,
                 artistsNames:track.artists.map((artist:GenericObject) => artist.name).join(", "),
@@ -85,6 +86,7 @@ const initialState = {
     isLoggedIn:false,
     isLoading:false,
     tracks:[],
+    albumURLs:[],
     albumURL:'',
 } as SpofityState;
 

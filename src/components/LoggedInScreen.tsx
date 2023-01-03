@@ -28,7 +28,7 @@ const LoggedInScreen = () => {
 
     useEffect(() => {
         if(tracks.length > 0){
-            dispatch(fetchTopAlbum(tracks[tracks.length-1].id))
+            dispatch(fetchTopAlbum(tracks[0].id))
         }
     },[dispatch,tracks])
 

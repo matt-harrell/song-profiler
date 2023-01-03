@@ -35,7 +35,7 @@ const Histogram = () => {
     
 
     const yScale = scaleBand()
-      .domain(tracks.map(d => d.shortName))
+      .domain(tracks.map(d => d.shortName).reverse())
       .range([height,20])
       .padding(.10);
 
