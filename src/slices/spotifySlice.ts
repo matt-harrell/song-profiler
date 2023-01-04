@@ -116,6 +116,12 @@ const spotifySlice = createSlice({
         },
         setShowGraph(state,action) {
             state.showGraph = action.payload;
+        },
+        nextAlbum(state){
+            state.currentAlbum++;
+        },
+        prevAlbum(state){
+            state.currentAlbum--;
         }
     },
     extraReducers: (builder) => {
@@ -140,5 +146,5 @@ export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; 
 export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
 export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 
 
-export const {setIsLoggedIn,setShowGraph} = spotifySlice.actions;
+export const {setIsLoggedIn,setShowGraph,nextAlbum,prevAlbum} = spotifySlice.actions;
 export default spotifySlice.reducer;
