@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAudioFeature } from '../../slices/filterButtonsSlice';
 import { selectTracks } from '../../slices/spotifySlice';
-import ThemeFromImage from '../ThemeFromImage';
 import Bar from './Bars';
 import XYAxis from './XYAxis';
 
@@ -13,24 +12,25 @@ const Histogram = () => {
     const audioFeature = useSelector(selectAudioFeature);
 
     // const height = window.screen.width < 600 ? tracks.length * 50 : tracks.length * 20;
-    const [height,setHeight] = useState(tracks.length * 50)
+    const [height,setHeight] = useState(window.screen.width <= 600 ? tracks.length * 50 : tracks.length * 20)
     // const width = window.screen.width < 600 ? 200 : 800; 
-    const [width,setWidth] = useState(200);
+    const [width,setWidth] = useState(window.screen.width <= 600 ? 200 : 800);
 
     useEffect(() => {
-        handleResize();
-        window.addEventListener('resize',handleResize,false)
-    },[])
-
-    const handleResize = () => {
-        if(window.screen.width <= 600){
-            setHeight(tracks.length * 50);
-            setWidth(200)
-        }else{
-            setHeight(tracks.length * 20);
-            setWidth(800)
+        const handleResize = () => {
+            if(window.screen.width <= 600){
+                setHeight(tracks.length * 50);
+                setWidth(200)
+            }else{
+                setHeight(tracks.length * 20);
+                setWidth(800)
+            }
         }
-    }
+        handleResize();
+        window.addEventListener('resize',handleResize)
+    },[tracks.length])
+
+    
 
     
 
@@ -46,7 +46,6 @@ const Histogram = () => {
     
     return(
         <>
-            <ThemeFromImage/>
             <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
                 <XYAxis
                     xScale={xScale}

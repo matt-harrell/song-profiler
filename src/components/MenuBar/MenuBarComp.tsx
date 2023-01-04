@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import { selectThemeColors } from '../../slices/ThemeSlice';
-import { selectLoading } from '../../slices/spotifySlice';
+import { selectShowGraph } from '../../slices/spotifySlice';
 
 interface MenuBarCompProps {
     handleClick:() => void;
@@ -15,7 +15,7 @@ interface MenuBarCompProps {
 const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
 
     const themeColors = useSelector(selectThemeColors);
-    const isLoading = useSelector(selectLoading);
+    const showGraph = useSelector(selectShowGraph);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -36,7 +36,7 @@ const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
                         component="div" 
                         sx={{ 
                             flexGrow: 1,
-                            color:isLoading ? 'inherit' :  themeColors.colorOne.fontColor
+                            color:showGraph ? 'inherit' :  themeColors.colorOne.fontColor
                         }}
                     >
                         My Favs

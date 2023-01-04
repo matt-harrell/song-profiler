@@ -10,10 +10,9 @@ interface fetchTopTracksType{
 interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
+    showGraph:boolean;
     tracks:GenericObject[];
-    albumURLs:string[],
     currentAlbum:number,
-    albumURL:string;
 }
 
 const fetchTopTracks = createAsyncThunk(
@@ -103,10 +102,9 @@ const fetchTopAlbum = createAsyncThunk(
 const initialState = {
     isLoggedIn:false,
     isLoading:false,
+    showGraph:false,
     tracks:[],
-    albumURLs:[],
     currentAlbum:0,
-    albumURL:'',
 } as SpofityState;
 
 const spotifySlice = createSlice({
@@ -116,18 +114,18 @@ const spotifySlice = createSlice({
         setIsLoggedIn(state,action) {
             state.isLoggedIn = action.payload;
         },
+        setShowGraph(state,action) {
+            state.showGraph = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchTopTracks.fulfilled, (state, action) => {
                 state.tracks = [...action.payload];
+                state.isLoading = false;
             })
             .addCase(fetchTopTracks.pending, (state,action) => {
                 state.isLoading = true;
-            })
-            .addCase(fetchTopAlbum.fulfilled,(state,action) => {
-                state.isLoading = false;
-                state.albumURL = action.payload;
             })
             
     }
@@ -139,7 +137,8 @@ export {fetchTopTracks,fetchTopAlbum};
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 export const selectLoading = (state: { spotifyAPI: { isLoading: boolean; }; }) => state.spotifyAPI.isLoading;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
-export const selectAlbumURL = (state: { spotifyAPI: { albumURL: string; }; }) => state.spotifyAPI.albumURL;
+export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
+export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 
 
-export const {setIsLoggedIn} = spotifySlice.actions;
+export const {setIsLoggedIn,setShowGraph} = spotifySlice.actions;
 export default spotifySlice.reducer;

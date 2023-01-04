@@ -2,11 +2,12 @@ import { Grid, IconButton } from "@mui/material";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from "react-redux";
-import { selectAlbumURL } from "../../slices/spotifySlice";
+import { selectCurrentAlbum, selectTracks } from "../../slices/spotifySlice";
 
 const SelectAlbumComp = () => {
 
-    const albumURL = useSelector(selectAlbumURL);
+   const tracks = useSelector(selectTracks);
+   const curretAlbum = useSelector(selectCurrentAlbum);
 
     return(
         <Grid container spacing={2}>
@@ -17,7 +18,7 @@ const SelectAlbumComp = () => {
             </Grid>
             <Grid item xs={8}>
                 <img 
-                    src={albumURL} 
+                    src={tracks[curretAlbum].albumImage} 
                     alt=""
                     className="img-fluid"
                 />
