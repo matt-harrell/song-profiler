@@ -21,8 +21,6 @@ const MenuDrawerComp = ({open,themeColors,isLoading,handleClose}:MenuDrawerCompP
             <Box
                 sx={{ width: 300 }}
                 role="presentation"
-                onClick={handleClose(false)}
-                onKeyDown={handleClose(false)}
             >
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static">
