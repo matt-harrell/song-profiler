@@ -10,10 +10,7 @@ import XYAxis from './XYAxis';
 const Histogram = () => {
     const tracks = useSelector(selectTracks);
     const audioFeature = useSelector(selectAudioFeature);
-
-    // const height = window.screen.width < 600 ? tracks.length * 50 : tracks.length * 20;
     const [height,setHeight] = useState(window.screen.width <= 600 ? tracks.length * 50 : tracks.length * 20)
-    // const width = window.screen.width < 600 ? 200 : 800; 
     const [width,setWidth] = useState(window.screen.width <= 600 ? 200 : 800);
 
     useEffect(() => {
