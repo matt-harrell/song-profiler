@@ -1,8 +1,9 @@
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Grow } from "@mui/material";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from "react-redux";
 import { selectCurrentAlbum, selectTracks } from "../../slices/spotifySlice";
+import { selectAlbumAnimationDuration, selectShowAlbum } from "../../slices/menuSlice";
 
 interface props {
     handleNextClick: () => void
@@ -13,6 +14,8 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
 
    const tracks = useSelector(selectTracks);
    const curretAlbum = useSelector(selectCurrentAlbum);
+   const duration = useSelector(selectAlbumAnimationDuration);
+   const showAlbum = useSelector(selectShowAlbum);
 
     return(
         <Grid container spacing={2}>
@@ -27,11 +30,13 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
                 </IconButton>
             </Grid>
             <Grid item xs={8}>
-                <img 
-                    src={tracks[curretAlbum].albumImage} 
-                    alt=""
-                    className="img-fluid"
-                />
+                <Grow in={showAlbum} timeout={duration}>
+                    <img 
+                        src={tracks[curretAlbum].albumImage} 
+                        alt=""
+                        className="img-fluid"
+                    />
+                </Grow>
             </Grid>
             <Grid item xs={2} sx={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
                 <IconButton 
