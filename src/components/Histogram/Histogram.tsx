@@ -1,9 +1,8 @@
 import { scaleBand, scaleLinear } from 'd3';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectAudioFeature } from '../../features/filterButtonsSlice';
-import { selectTracks } from '../../features/spotifySlice';
-import ThemeFromImage from '../ThemeFromImage';
+import { selectAudioFeature } from '../../slices/filterButtonsSlice';
+import { selectTracks } from '../../slices/spotifySlice';
 import Bar from './Bars';
 import XYAxis from './XYAxis';
 
@@ -11,31 +10,29 @@ import XYAxis from './XYAxis';
 const Histogram = () => {
     const tracks = useSelector(selectTracks);
     const audioFeature = useSelector(selectAudioFeature);
-
-    // const height = window.screen.width < 600 ? tracks.length * 50 : tracks.length * 20;
-    const [height,setHeight] = useState(tracks.length * 50)
-    // const width = window.screen.width < 600 ? 200 : 800; 
-    const [width,setWidth] = useState(200);
+    const [height,setHeight] = useState(window.screen.width <= 600 ? tracks.length * 50 : tracks.length * 20)
+    const [width,setWidth] = useState(window.screen.width <= 600 ? 200 : 800);
 
     useEffect(() => {
-        handleResize();
-        window.addEventListener('resize',handleResize,false)
-    },[])
-
-    const handleResize = () => {
-        if(window.screen.width <= 600){
-            setHeight(tracks.length * 50);
-            setWidth(200)
-        }else{
-            setHeight(tracks.length * 20);
-            setWidth(800)
+        const handleResize = () => {
+            if(window.screen.width <= 600){
+                setHeight(tracks.length * 50);
+                setWidth(200)
+            }else{
+                setHeight(tracks.length * 20);
+                setWidth(800)
+            }
         }
-    }
+        handleResize();
+        window.addEventListener('resize',handleResize)
+    },[tracks.length])
+
+    
 
     
 
     const yScale = scaleBand()
-      .domain(tracks.map(d => d.shortName))
+      .domain(tracks.map(d => d.shortName).reverse())
       .range([height,20])
       .padding(.10);
 
@@ -46,7 +43,6 @@ const Histogram = () => {
     
     return(
         <>
-            <ThemeFromImage/>
             <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
                 <XYAxis
                     xScale={xScale}

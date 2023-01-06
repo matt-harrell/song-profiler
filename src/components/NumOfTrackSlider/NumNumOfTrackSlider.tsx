@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectNumOfTracks, setNumOfTracks } from "../../features/filterButtonsSlice";
+import { selectNumOfTracks, setNumOfTracks } from "../../slices/filterButtonsSlice";
 import NumOfTrackSliderComp from "./NumOfTrackSliderComp";
 
 const NumOfTrackSlider = () => {

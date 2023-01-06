@@ -1,8 +1,8 @@
 import { FormControl,InputLabel,Select,MenuItem, SelectChangeEvent } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectAudioFeature } from "../../features/filterButtonsSlice";
-import { selectLoading } from "../../features/spotifySlice";
-import { selectThemeColors } from "../../features/ThemeSlice";
+import { selectAudioFeature } from "../../slices/filterButtonsSlice";
+import { selectShowGraph } from "../../slices/spotifySlice";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface props {
     handleChange:(e:SelectChangeEvent) => void;
@@ -12,13 +12,13 @@ const SelectAudiFeatureComp = ({handleChange}:props) => {
     
     const ThemeColors = useSelector(selectThemeColors);
     const audioFeature = useSelector(selectAudioFeature);
-    const isLoading = useSelector(selectLoading);
+    const showGraph = useSelector(selectShowGraph);
 
     return (
         <FormControl style={{maxWidth:300}}>
             <InputLabel 
                 id="select-audio-feature-label"
-                sx={{color:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor}}
+                sx={{color:showGraph ? ThemeColors.backgroundColor.fontColor : 'initial'}}
             >
                 Audio Feature
             </InputLabel>
@@ -29,18 +29,18 @@ const SelectAudiFeatureComp = ({handleChange}:props) => {
                 label="Audio Feature"
                 onChange={handleChange}
                 sx={{
-                    color:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
+                    color:showGraph ? ThemeColors.backgroundColor.fontColor : 'initial',
                     '.MuiOutlinedInput-notchedOutline': {
-                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor + "25",
+                      borderColor:showGraph ? ThemeColors.backgroundColor.fontColor + "25" : 'initial',
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor + "25",
+                      borderColor:showGraph ? ThemeColors.backgroundColor.fontColor + "25" : 'initial',
                     },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
+                      borderColor:showGraph ? ThemeColors.backgroundColor.fontColor : 'initial',
                     },
                     '.MuiSvgIcon-root ': {
-                      fill:isLoading ? 'initial' : ThemeColors.backgroundColor.fontColor,
+                      fill:showGraph ? ThemeColors.backgroundColor.fontColor : 'initial',
                     }
                   }}
             >

@@ -1,15 +1,22 @@
 import { prominent } from "color.js";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { selectAlbumURL } from "../features/spotifySlice"
-import { setThemeColors } from "../features/ThemeSlice";
+import { selectCurrentAlbum, selectLoading, selectTracks, setShowGraph } from "../slices/spotifySlice"
+import { setThemeColors } from "../slices/ThemeSlice";
 
 const ThemeFromImage = () => {
     const dispatch = useDispatch();
-    const albumURL = useSelector(selectAlbumURL);
+    const tracks = useSelector(selectTracks);
+    const currentAlbum = useSelector(selectCurrentAlbum);
+    const isLoading =  useSelector(selectLoading);
     
 
-    const getColors = async (url:string) =>{
+    
+    
+    
+
+    useEffect(() => {
+        const getColors = async (url:string) =>{
         const config = {
             amount:6,
             format:'hex',
@@ -20,14 +27,13 @@ const ThemeFromImage = () => {
         dispatch(setThemeColors(colors))
         
     }
-    
-    
-
-    useEffect(() => {
-        if(albumURL !== ''){
-            getColors(albumURL);
+        if(!isLoading){
+            getColors(tracks[currentAlbum].albumImage);
+            dispatch(setShowGraph(true))
+        }else{
+            dispatch(setShowGraph(false))
         }
-    },[albumURL])
+    },[tracks, currentAlbum, dispatch,isLoading])
     
     return<></>
 }

@@ -4,9 +4,9 @@ import { Tooltip, Typography } from "@mui/material";
 import { ScaleBand, ScaleLinear, selectAll } from "d3";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectAudioFeature } from "../../features/filterButtonsSlice";
-import { selectTracks } from "../../features/spotifySlice";
-import { selectThemeColors } from "../../features/ThemeSlice";
+import { selectAudioFeature } from "../../slices/filterButtonsSlice";
+import { selectTracks } from "../../slices/spotifySlice";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface props {
     xScale:ScaleLinear<number, number, never>,

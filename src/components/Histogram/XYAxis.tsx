@@ -1,8 +1,8 @@
 import { axisLeft, select, Axis, ScaleLinear, ScaleBand, axisTop } from "d3";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { selectTracks } from "../../features/spotifySlice";
-import { selectThemeColors } from "../../features/ThemeSlice";
+import { selectTracks } from "../../slices/spotifySlice";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface props {
     xScale:ScaleLinear<number, number, never>,

@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { AppDispatch } from './app/store';
-import ThemeComp from './app/ThemeComp';
+import ThemeComp from './components/ThemeComp';
 import LoggedInScreen from './components/LoggedInScreen';
 import LoginButton from './components/LoginButton/LoginButton';
-import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './features/spotifySlice';
-import { selectThemeColors } from './features/ThemeSlice';
+import MenuBar from './components/MenuBar/MenuBar';
+import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
+import { selectThemeColors } from './slices/ThemeSlice';
+import MenuDrawer from './components/MenuDrawer/MenuDrawer';
 
 function App() {
 
@@ -27,6 +29,8 @@ function App() {
   return (
     <ThemeComp>
       <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
+        <MenuBar/>
+        <MenuDrawer/>
         {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
       </div>
     </ThemeComp>

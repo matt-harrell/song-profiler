@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectLoading } from "../features/spotifySlice";
-import { selectThemeColors } from "../features/ThemeSlice";
+import { selectLoading } from "../slices/spotifySlice";
+import { selectThemeColors } from "../slices/ThemeSlice";
 
 type props = {
     children: React.ReactNode; // 👈️ type children

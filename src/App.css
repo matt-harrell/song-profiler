@@ -1,3 +1,7 @@
+*{
+  transition: ease background-color 300ms;
+}
+
 .App {
   text-align: center;
 }
@@ -24,6 +28,11 @@
 
 .App-link {
   color: rgb(112, 76, 182);
+}
+
+.img-fluid{
+  max-width: 100%;
+  height: auto;
 }
 
 @keyframes App-logo-float {

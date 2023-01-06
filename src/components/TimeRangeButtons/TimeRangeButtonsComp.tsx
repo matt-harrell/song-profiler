@@ -1,6 +1,6 @@
 import { ToggleButton ,ToggleButtonGroup } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectTimeRange } from "../../features/filterButtonsSlice";
+import { selectTimeRange } from "../../slices/filterButtonsSlice";
 interface props{
     handleChange:(event:React.MouseEvent<HTMLElement>,timeRangeString:string) => void;
 }
