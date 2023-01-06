@@ -1,4 +1,4 @@
-import { Grid, IconButton, Grow } from "@mui/material";
+import { Grid, IconButton, Grow, Typography } from "@mui/material";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from "react-redux";
@@ -37,6 +37,7 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
                         className="img-fluid"
                     />
                 </Grow>
+                
             </Grid>
             <Grid item xs={2} sx={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
                 <IconButton 
@@ -47,6 +48,10 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
                 >
                     <ArrowRightIcon fontSize="large"/>
                 </IconButton>
+            </Grid>
+            <Grid item xs={12} sx={{textAlign:'center'}}>
+                <Typography>{tracks[curretAlbum].albumName}</Typography>
+                <Typography sx={{fontStyle:'italic'}}>{tracks[curretAlbum].artistsNames}</Typography>
             </Grid>
         </Grid>
     );
