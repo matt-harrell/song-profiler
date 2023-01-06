@@ -28,9 +28,6 @@ const fetchTopTracks = createAsyncThunk(
         })
 
         const tracksResponse = await response.json();
-        // tracksResponse.items.forEach((track:GenericObject) => {
-        //     tracks.push({name:track.name,})
-        // });
         const makeShortName = (trackTitle:string) => {
             if(trackTitle.length > 20){
                  const shortTitle = trackTitle.slice(0,20);
