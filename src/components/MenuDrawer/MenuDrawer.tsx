@@ -18,6 +18,7 @@ const MenuDrawer = () => {
     const [loudnessColor, setLoudnessColor] = useState(themeColors.colorFour.color);
     const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
+    const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
     
     
     useEffect(() => {
@@ -73,6 +74,7 @@ const MenuDrawer = () => {
         setValenceColor(themeColors.colorFive.color)
     },[themeColors.colorFive.color]);
 
+
     useEffect(() => {
         dispatch(changeFontColors({themeColor:'backgroundColor',color:mainFontColor}))
     },[mainFontColor, dispatch]);
@@ -81,7 +83,14 @@ const MenuDrawer = () => {
         setMainFontColor(themeColors.backgroundColor.fontColor)
     },[themeColors.backgroundColor.fontColor]);
 
-    
+
+    useEffect(() => {
+        dispatch(changeFontColors({themeColor:'colorOne',color:secondaryFontColor}))
+    },[secondaryFontColor, dispatch]);
+
+    useEffect(() => {
+        setSecondaryFontColor(themeColors.colorOne.fontColor)
+    },[themeColors.colorOne.fontColor]);
 
     const handleBackgroundColorChange = (e:string) => {
         setBackgroundColor(e)
@@ -109,6 +118,10 @@ const MenuDrawer = () => {
     const handleMainFontColorChange = (e:string) => {
         setMainFontColor(e)
     }
+
+    const handleSecondaryFontColorChange = (e:string) => {
+        setSecondaryFontColor(e)
+    }
     
     const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         dispatch(toggleMenu(value));
@@ -127,6 +140,7 @@ const MenuDrawer = () => {
             loudnessColor={loudnessColor}
             valenceColor={valenceColor}
             mainFontColor={mainFontColor}
+            secondaryFontColor={secondaryFontColor}
             handleBackgroundColorChange={handleBackgroundColorChange}
             handleAcousticnessColorChange={handleAcousticnessColorChange}
             handleDanceabilityColorChange={handleDanceabilityColorChange}
@@ -134,6 +148,7 @@ const MenuDrawer = () => {
             handleLoudnessColorChange={handleLoudnessColorChange}
             handleValenceColorChange={handleValenceColorChange}
             handleMainFontColorChange={handleMainFontColorChange}
+            handleSecondaryFontColorChange={handleSecondaryFontColorChange}
         />
     );
 }

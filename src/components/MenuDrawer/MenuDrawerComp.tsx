@@ -15,6 +15,7 @@ interface MenuDrawerCompProps {
     loudnessColor:string;
     valenceColor:string;
     mainFontColor:string;
+    secondaryFontColor:string;
     handleClose:(value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
     handleBackgroundColorChange:(e:string) => void;
     handleAcousticnessColorChange:(e:string) => void;
@@ -23,6 +24,7 @@ interface MenuDrawerCompProps {
     handleLoudnessColorChange:(e:string) => void;
     handleValenceColorChange:(e:string) => void;
     handleMainFontColorChange:(e:string) => void;
+    handleSecondaryFontColorChange:(e:string) => void;
     
 }
 
@@ -37,6 +39,7 @@ const MenuDrawerComp = ({
         loudnessColor,
         valenceColor,
         mainFontColor,
+        secondaryFontColor,
         handleClose,
         handleBackgroundColorChange,
         handleAcousticnessColorChange,
@@ -45,6 +48,7 @@ const MenuDrawerComp = ({
         handleLoudnessColorChange,
         handleValenceColorChange,
         handleMainFontColorChange,
+        handleSecondaryFontColorChange,
     }:MenuDrawerCompProps) => {
 
     return(
@@ -266,6 +270,32 @@ const MenuDrawerComp = ({
                             </Grid>
                             <Grid item xs={10}>
                                 <Typography>Main Font Color</Typography>
+                            </Grid>
+
+                            <Grid item xs={2}>
+                                <Tooltip
+                                    title={
+                                        <>
+                                            <HexColorPicker color={secondaryFontColor} onChange={handleSecondaryFontColorChange} />
+                                            <HexColorInput color={secondaryFontColor} onChange={handleSecondaryFontColorChange}/>
+                                        </>
+                                    }
+                                    >
+                                    <Paper 
+                                        elevation={4} 
+                                        sx={{
+                                            width:25, 
+                                            height:25,
+                                            backgroundColor:themeColors.colorOne.fontColor,
+                                            '&:hover':{
+                                                cursor:'pointer'
+                                            }
+                                        }} 
+                                    />
+                                </Tooltip>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <Typography>Secondary Font Color</Typography>
                             </Grid>
 
                         </Grid>
