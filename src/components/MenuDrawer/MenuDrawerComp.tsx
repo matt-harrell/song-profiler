@@ -1,4 +1,4 @@
-import { AppBar, Box, Drawer, Grid, IconButton, Paper, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Box, Divider, Drawer, Grid, IconButton, Paper, Toolbar, Tooltip, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GenericObject } from "../../types";
 import SelectAlbum from "../SelectAlbum/SelectAlbum";
@@ -88,7 +88,9 @@ const MenuDrawerComp = ({
                     </AppBar>
                     <Box sx={{marginTop:4}}>
                         <SelectAlbum/>
-                        <Grid container spacing={2} sx={{paddingX:4,paddingTop:4}}>
+                        <Divider sx={{marginY:4}}/>
+                        <Typography variant="h4" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
+                        <Grid container spacing={2} sx={{paddingX:4}}>
 
                             <Grid item xs={2}>
                                 <Tooltip
