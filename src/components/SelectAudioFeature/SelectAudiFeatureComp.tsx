@@ -48,7 +48,7 @@ const SelectAudiFeatureComp = ({handleChange}:props) => {
                 <MenuItem value={'danceability'}>Danceability</MenuItem>
                 <MenuItem value={'energy'}>Energy</MenuItem>
                 <MenuItem value={'loudness'}>Loudness</MenuItem>
-                <MenuItem value={'valence'}>Energy</MenuItem>
+                <MenuItem value={'valence'}>Valence</MenuItem>
             </Select>
         </FormControl>
     );
