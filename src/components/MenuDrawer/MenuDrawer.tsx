@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
 import { selectLoading } from "../../slices/spotifySlice";
-import { changeThemeColors, selectThemeColors } from "../../slices/ThemeSlice";
+import { changeFontColors, changeThemeColors, selectThemeColors } from "../../slices/ThemeSlice";
 import MenuDrawerComp from "./MenuDrawerComp";
 
 const MenuDrawer = () => {
@@ -17,60 +17,69 @@ const MenuDrawer = () => {
     const [energyColor, setEnergyColor] = useState(themeColors.colorThree.color);
     const [loudnessColor, setLoudnessColor] = useState(themeColors.colorFour.color);
     const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
+    const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     
     
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'backgroundColor',color:backgroundColor}))
-    },[backgroundColor, dispatch])
+    },[backgroundColor, dispatch]);
 
     useEffect(() => {
         setBackgroundColor(themeColors.backgroundColor.color)
-    },[themeColors.backgroundColor.color])
+    },[themeColors.backgroundColor.color]);
 
 
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'colorOne',color:acousticnessColor}))
-    },[acousticnessColor, dispatch])
+    },[acousticnessColor, dispatch]);
 
     useEffect(() => {
         setAcousticnessColor(themeColors.colorOne.color)
-    },[themeColors.colorOne.color])
+    },[themeColors.colorOne.color]);
 
 
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'colorTwo',color:danceabilityColor}))
-    },[danceabilityColor, dispatch])
+    },[danceabilityColor, dispatch]);
 
     useEffect(() => {
         setDanceabilityColor(themeColors.colorTwo.color)
-    },[themeColors.colorTwo.color])
+    },[themeColors.colorTwo.color]);
 
 
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'colorThree',color:energyColor}))
-    },[energyColor, dispatch])
+    },[energyColor, dispatch]);
 
     useEffect(() => {
         setEnergyColor(themeColors.colorThree.color)
-    },[themeColors.colorThree.color])
+    },[themeColors.colorThree.color]);
 
 
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'colorFour',color:loudnessColor}))
-    },[loudnessColor, dispatch])
+    },[loudnessColor, dispatch]);
 
     useEffect(() => {
         setLoudnessColor(themeColors.colorFour.color)
-    },[themeColors.colorFour.color])
+    },[themeColors.colorFour.color]);
 
 
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'colorFive',color:valenceColor}))
-    },[valenceColor, dispatch])
+    },[valenceColor, dispatch]);
 
     useEffect(() => {
         setValenceColor(themeColors.colorFive.color)
-    },[themeColors.colorFive.color])
+    },[themeColors.colorFive.color]);
+
+    useEffect(() => {
+        dispatch(changeFontColors({themeColor:'backgroundColor',color:mainFontColor}))
+    },[mainFontColor, dispatch]);
+
+    useEffect(() => {
+        setMainFontColor(themeColors.backgroundColor.fontColor)
+    },[themeColors.backgroundColor.fontColor]);
 
     
 
@@ -97,6 +106,9 @@ const MenuDrawer = () => {
     const handleValenceColorChange = (e:string) => {
         setValenceColor(e)
     }
+    const handleMainFontColorChange = (e:string) => {
+        setMainFontColor(e)
+    }
     
     const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         dispatch(toggleMenu(value));
@@ -114,12 +126,14 @@ const MenuDrawer = () => {
             energyColor={energyColor}
             loudnessColor={loudnessColor}
             valenceColor={valenceColor}
+            mainFontColor={mainFontColor}
             handleBackgroundColorChange={handleBackgroundColorChange}
             handleAcousticnessColorChange={handleAcousticnessColorChange}
             handleDanceabilityColorChange={handleDanceabilityColorChange}
             handleEnergyColorChange={handleEnergyColorChange}
             handleLoudnessColorChange={handleLoudnessColorChange}
             handleValenceColorChange={handleValenceColorChange}
+            handleMainFontColorChange={handleMainFontColorChange}
         />
     );
 }

@@ -84,6 +84,9 @@ const themeSlice = createSlice({
         },
         changeThemeColors(state,action) {
             state.themeColors[action.payload.themeColor as keyof typeof state.themeColors].color = action.payload.color;
+        },
+        changeFontColors(state,action) {
+            state.themeColors[action.payload.themeColor as keyof typeof state.themeColors].fontColor = action.payload.color;
         }
     }
 });
@@ -91,5 +94,5 @@ const themeSlice = createSlice({
 
 export const selectThemeColors = (state: { themeSlice: { themeColors: ThemeColors; }; }) => state.themeSlice.themeColors;
 
-export const {setThemeColors,changeThemeColors} = themeSlice.actions;
+export const {setThemeColors,changeThemeColors,changeFontColors} = themeSlice.actions;
 export default themeSlice.reducer;
