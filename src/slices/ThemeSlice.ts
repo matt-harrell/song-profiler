@@ -42,12 +42,41 @@ const themeColors = {
     }
 }
 
+const defaultAlbumColors = {
+    colorOne:{
+        color:'',
+        fontColor:'',
+    },
+    colorTwo:{
+        color:'',
+        fontColor:'',
+    },
+    colorThree:{
+        color:'',
+        fontColor:'',
+    },
+    colorFour:{
+        color:'',
+        fontColor:'',
+    },
+    colorFive:{
+        color:'',
+        fontColor:'',
+    },
+    backgroundColor:{
+        color:'',
+        fontColor:'',
+    }
+}
+
 interface ThemeState {
     themeColors:ThemeColors;
+    defaultAlbumColors:ThemeColors;
 }
 
 const initialState = {
     themeColors:themeColors,
+    defaultAlbumColors:defaultAlbumColors,
 } as ThemeState;
 
 const themeSlice = createSlice({
@@ -74,11 +103,16 @@ const themeSlice = createSlice({
                     : '#FFFFFF';
             }
 
-            const keys = Object.keys(state.themeColors);
-            for (let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                state.themeColors[key as keyof typeof state.themeColors].color = action.payload[i];
-                state.themeColors[key as keyof typeof state.themeColors].fontColor = invertColors(action.payload[i]);     
+            const themeKeys = Object.keys(state.themeColors);
+            const albumKeys = Object.keys(state.defaultAlbumColors);
+            for (let i = 0; i < themeKeys.length; i++) {
+                const themeKey = themeKeys[i];
+                const albumKey = albumKeys[i]; 
+                state.themeColors[themeKey as keyof typeof state.themeColors].color = action.payload[i];
+                state.themeColors[themeKey as keyof typeof state.themeColors].fontColor = invertColors(action.payload[i]);
+                
+                state.defaultAlbumColors[albumKey as keyof typeof state.themeColors].color = action.payload[i];
+                state.defaultAlbumColors[albumKey as keyof typeof state.themeColors].fontColor = invertColors(action.payload[i]);
             }
             
         },
@@ -93,6 +127,7 @@ const themeSlice = createSlice({
 
 
 export const selectThemeColors = (state: { themeSlice: { themeColors: ThemeColors; }; }) => state.themeSlice.themeColors;
+export const selectDefaultAlbumColors = (state: { themeSlice: { defaultAlbumColors: ThemeColors; }; }) => state.themeSlice.defaultAlbumColors;
 
 export const {setThemeColors,changeThemeColors,changeFontColors} = themeSlice.actions;
 export default themeSlice.reducer;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
 import { selectLoading } from "../../slices/spotifySlice";
-import { changeFontColors, changeThemeColors, selectThemeColors } from "../../slices/ThemeSlice";
+import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../slices/ThemeSlice";
 import MenuDrawerComp from "./MenuDrawerComp";
 
 const MenuDrawer = () => {
@@ -11,6 +11,7 @@ const MenuDrawer = () => {
     const open = useSelector(selectMenuOpen);
     const isLoading = useSelector(selectLoading)
     const themeColors = useSelector(selectThemeColors);
+    const albumDefaultColors = useSelector(selectDefaultAlbumColors);
     const [backgroundColor, setBackgroundColor] = useState(themeColors.backgroundColor.color);
     const [acousticnessColor, setAcousticnessColor] = useState(themeColors.colorOne.color);
     const [danceabilityColor, setDanceabilityColor] = useState(themeColors.colorTwo.color);
@@ -19,7 +20,6 @@ const MenuDrawer = () => {
     const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
-    
     
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'backgroundColor',color:backgroundColor}))
@@ -95,32 +95,64 @@ const MenuDrawer = () => {
     const handleBackgroundColorChange = (e:string) => {
         setBackgroundColor(e)
     }
+    const handleBackgroundColorReset = () => {
+        setBackgroundColor(albumDefaultColors.backgroundColor.color);
+    }
 
     const handleAcousticnessColorChange = (e:string) => {
         setAcousticnessColor(e)
+    }
+
+    const handleAcousticnessColorReset = () => {
+        setAcousticnessColor(albumDefaultColors.colorOne.color);
     }
 
     const handleDanceabilityColorChange = (e:string) => {
         setDanceabilityColor(e)
     }
 
+    const handleDanceabilityColorReset = () => {
+        setDanceabilityColor(albumDefaultColors.colorTwo.color);
+    }
+
     const handleEnergyColorChange = (e:string) => {
         setEnergyColor(e)
+    }
+
+    const handleEnergyColorReset = () => {
+        setEnergyColor(albumDefaultColors.colorThree.color);
     }
 
     const handleLoudnessColorChange = (e:string) => {
         setLoudnessColor(e)
     }
 
-    const handleValenceColorChange = (e:string) => {
-        setValenceColor(e)
+    const handleLoudnessColorReset = () => {
+        setLoudnessColor(albumDefaultColors.colorFour.color);
     }
+
+    const handleValenceColorChange = (e:string) => {
+        setValenceColor(e);
+    }
+
+    const handleValenceColorReset = () => {
+        setValenceColor(albumDefaultColors.colorFive.color);
+    }
+
     const handleMainFontColorChange = (e:string) => {
         setMainFontColor(e)
     }
 
+    const handleMainFontReset = () => {
+        setMainFontColor(albumDefaultColors.backgroundColor.fontColor);
+    }
+
     const handleSecondaryFontColorChange = (e:string) => {
         setSecondaryFontColor(e)
+    }
+
+    const handleSecondaryFontReset = () => {
+        setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
     }
     
     const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -149,6 +181,14 @@ const MenuDrawer = () => {
             handleValenceColorChange={handleValenceColorChange}
             handleMainFontColorChange={handleMainFontColorChange}
             handleSecondaryFontColorChange={handleSecondaryFontColorChange}
+            handleBackgroundColorReset={handleBackgroundColorReset}
+            handleAcousticnessColorReset={handleAcousticnessColorReset}
+            handleDanceabilityColorReset={handleDanceabilityColorReset}
+            handleEnergyColorReset={handleEnergyColorReset}
+            handleLoudnessColorReset={handleLoudnessColorReset}
+            handleValenceColorReset={handleValenceColorReset}
+            handleMainFontReset={handleMainFontReset}
+            handleSecondaryFontReset={handleSecondaryFontReset}
         />
     );
 }

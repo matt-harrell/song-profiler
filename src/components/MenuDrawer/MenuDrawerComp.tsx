@@ -3,6 +3,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GenericObject } from "../../types";
 import SelectAlbum from "../SelectAlbum/SelectAlbum";
 import { HexColorPicker,HexColorInput } from "react-colorful";
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 interface MenuDrawerCompProps {
     open:boolean;
@@ -25,6 +26,14 @@ interface MenuDrawerCompProps {
     handleValenceColorChange:(e:string) => void;
     handleMainFontColorChange:(e:string) => void;
     handleSecondaryFontColorChange:(e:string) => void;
+    handleBackgroundColorReset:() => void;
+    handleAcousticnessColorReset:() => void;
+    handleDanceabilityColorReset:() => void;
+    handleEnergyColorReset:() => void;
+    handleLoudnessColorReset:() => void;
+    handleValenceColorReset:() => void;
+    handleMainFontReset:() => void;
+    handleSecondaryFontReset:() => void;
     
 }
 
@@ -49,6 +58,14 @@ const MenuDrawerComp = ({
         handleValenceColorChange,
         handleMainFontColorChange,
         handleSecondaryFontColorChange,
+        handleBackgroundColorReset,
+        handleAcousticnessColorReset,
+        handleDanceabilityColorReset,
+        handleEnergyColorReset,
+        handleLoudnessColorReset,
+        handleValenceColorReset,
+        handleMainFontReset,
+        handleSecondaryFontReset,
     }:MenuDrawerCompProps) => {
 
     return(
@@ -90,7 +107,7 @@ const MenuDrawerComp = ({
                         <SelectAlbum/>
                         <Divider sx={{marginY:4}}/>
                         <Typography variant="h4" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
-                        <Grid container spacing={2} sx={{paddingX:4}}>
+                        <Grid container spacing={3} sx={{paddingX:4}}>
 
                             <Grid item xs={2}>
                                 <Tooltip
@@ -115,7 +132,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Background</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Background</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset background color" onClick={handleBackgroundColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -141,7 +167,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Acousticness</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Acousticness</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset acousticness color" onClick={handleAcousticnessColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -167,7 +202,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Danceability</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Danceability</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset sanceability color" onClick={handleDanceabilityColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -193,7 +237,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Energy</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Energy</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset background color" onClick={handleEnergyColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -219,7 +272,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Loudness</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Loudness</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset background color" onClick={handleLoudnessColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -245,7 +307,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Valence</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Valence</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset background color" onClick={handleValenceColorReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -271,7 +342,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Main Font Color</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Main Font Color</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset main font color" onClick={handleMainFontReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                             <Grid item xs={2}>
@@ -297,7 +377,16 @@ const MenuDrawerComp = ({
                                 </Tooltip>
                             </Grid>
                             <Grid item xs={10}>
-                                <Typography>Secondary Font Color</Typography>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={11}>
+                                        <Typography>Secondary Font Color</Typography>
+                                    </Grid>
+                                    <Grid item xs={1} >
+                                        <IconButton aria-label="reset secondary font color" onClick={handleSecondaryFontReset} sx={{padding:0}}>
+                                            <RotateLeftIcon sx={{color:mainFontColor}}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                         </Grid>
