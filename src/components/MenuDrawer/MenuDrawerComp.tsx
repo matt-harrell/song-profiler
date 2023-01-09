@@ -34,6 +34,7 @@ interface MenuDrawerCompProps {
     handleValenceColorReset:() => void;
     handleMainFontReset:() => void;
     handleSecondaryFontReset:() => void;
+    handleResetAll:() => void;
     
 }
 
@@ -66,6 +67,7 @@ const MenuDrawerComp = ({
         handleValenceColorReset,
         handleMainFontReset,
         handleSecondaryFontReset,
+        handleResetAll,
     }:MenuDrawerCompProps) => {
 
     return(
@@ -389,7 +391,20 @@ const MenuDrawerComp = ({
                                 </Grid>
                             </Grid>
 
+                            
+
                         </Grid>
+
+                        <Grid container spacing={1} justifyContent='center' sx={{marginTop:2}}>
+                                <Grid item xs={'auto'}>
+                                    <Typography>Reset All</Typography>
+                                </Grid>
+                                <Grid item xs={'auto'} >
+                                    <IconButton aria-label="reset secondary font color" onClick={handleResetAll} sx={{ padding: 0 }}>
+                                        <RotateLeftIcon sx={{ color: mainFontColor }} />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
                    
                     </Box>
                     

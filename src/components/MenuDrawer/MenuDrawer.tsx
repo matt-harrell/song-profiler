@@ -154,6 +154,17 @@ const MenuDrawer = () => {
     const handleSecondaryFontReset = () => {
         setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
     }
+
+    const handleResetAll = () => {
+        setBackgroundColor(albumDefaultColors.backgroundColor.color);
+        setAcousticnessColor(albumDefaultColors.colorOne.color);
+        setDanceabilityColor(albumDefaultColors.colorTwo.color);
+        setEnergyColor(albumDefaultColors.colorThree.color);
+        setLoudnessColor(albumDefaultColors.colorFour.color);
+        setValenceColor(albumDefaultColors.colorFive.color);
+        setMainFontColor(albumDefaultColors.backgroundColor.fontColor);
+        setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
+    }
     
     const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         dispatch(toggleMenu(value));
@@ -189,6 +200,7 @@ const MenuDrawer = () => {
             handleValenceColorReset={handleValenceColorReset}
             handleMainFontReset={handleMainFontReset}
             handleSecondaryFontReset={handleSecondaryFontReset}
+            handleResetAll={handleResetAll}
         />
     );
 }
