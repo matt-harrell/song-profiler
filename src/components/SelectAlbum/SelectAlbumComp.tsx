@@ -2,20 +2,24 @@ import { Grid, IconButton, Grow, Typography } from "@mui/material";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from "react-redux";
-import { selectCurrentAlbum, selectTracks } from "../../slices/spotifySlice";
-import { selectAlbumAnimationDuration, selectShowAlbum } from "../../slices/menuSlice";
+import { selectAlbumAnimationDuration, selectIsNextDisabled, selectIsPrevDisabled, selectShowAlbum } from "../../slices/menuSlice";
+import { GenericObject } from "../../types";
 
 interface props {
-    handleNextClick: () => void
-    handlePrevClick: () => void
+    tracks:GenericObject[],
+    curretAlbum:number,
+    handleNextClick: () => void,
+    handlePrevClick: () => void,
 }
 
-const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
+const SelectAlbumComp = ({curretAlbum,tracks,handleNextClick,handlePrevClick}:props) => {
 
-   const tracks = useSelector(selectTracks);
-   const curretAlbum = useSelector(selectCurrentAlbum);
-   const duration = useSelector(selectAlbumAnimationDuration);
-   const showAlbum = useSelector(selectShowAlbum);
+//    const tracks = useSelector(selectTracks);
+//    const curretAlbum = useSelector(selectCurrentAlbum);
+    const isNextDisabled = useSelector(selectIsNextDisabled);
+    const isPrevDisabled = useSelector(selectIsPrevDisabled);
+    const duration = useSelector(selectAlbumAnimationDuration);
+    const showAlbum = useSelector(selectShowAlbum);
 
     return(
         <Grid container spacing={2}>
@@ -24,7 +28,7 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
                     color="primary" 
                     aria-label="previos"
                     onClick={handlePrevClick}
-                    disabled={curretAlbum === 0 ? true : false}
+                    disabled={isPrevDisabled}
                 >
                     <ArrowLeftIcon fontSize="large"/>
                 </IconButton>
@@ -44,7 +48,7 @@ const SelectAlbumComp = ({handleNextClick,handlePrevClick}:props) => {
                     color="primary" 
                     aria-label="next"
                     onClick={handleNextClick}
-                    disabled={curretAlbum === tracks.length-1 ? true : false} 
+                    disabled={isNextDisabled} 
                 >
                     <ArrowRightIcon fontSize="large"/>
                 </IconButton>

@@ -1,31 +1,60 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAlbumAnimationDuration, setShowAlbum } from "../../slices/menuSlice";
-import { nextAlbum, prevAlbum } from "../../slices/spotifySlice";
+import { selectAlbumAnimationDuration, setNextDisabled, setPrevDisabled, setShowAlbum } from "../../slices/menuSlice";
+import { nextAlbum, prevAlbum, selectCurrentAlbum, selectTracks } from "../../slices/spotifySlice";
 import SelectAlbumComp from "./SelectAlbumComp";
 
 const SelectAlbum = () => {
     
     const dispatch = useDispatch();
     const duration = useSelector(selectAlbumAnimationDuration);
+    const tracks = useSelector(selectTracks);
+    const curretAlbum = useSelector(selectCurrentAlbum);
     
+    useEffect(() => {
+        if (curretAlbum === 0) {
+            dispatch(setPrevDisabled(true));
+        } else{
+            dispatch(setPrevDisabled(false));
+        }
+
+        if(curretAlbum === tracks.length-1){
+            dispatch(setNextDisabled(true));
+        }else{
+            dispatch(setNextDisabled(false));
+        }
+    },[tracks, curretAlbum, dispatch])
+
+
     const handleNextClick = () => {
-        dispatch(setShowAlbum(false));
-        setTimeout(() => {
-            dispatch(nextAlbum());
-            dispatch(setShowAlbum(true))
-        },duration)
+        if(curretAlbum+1 < tracks.length-1){
+            dispatch(setShowAlbum(false));
+            setTimeout(() => {
+                dispatch(nextAlbum());
+                dispatch(setShowAlbum(true));
+            },duration)
+        } else{
+            dispatch(setNextDisabled(true));
+        }
     }
 
     const handlePrevClick = () => {
-        dispatch(setShowAlbum(false));
-        setTimeout(() => {
-            dispatch(prevAlbum());
-            dispatch(setShowAlbum(true))
-        },duration)
+        if (curretAlbum-1 > -1) {
+            dispatch(setShowAlbum(false));
+            setTimeout(() => {
+                dispatch(prevAlbum());
+                dispatch(setShowAlbum(true))
+            },duration)
+        }else {
+            dispatch(setPrevDisabled(true));
+        }
+        
     }
 
     return(
         <SelectAlbumComp
+            tracks={tracks}
+            curretAlbum={curretAlbum}
             handleNextClick={handleNextClick}
             handlePrevClick={handlePrevClick}
         />
