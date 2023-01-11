@@ -10,7 +10,7 @@ const MenuBar = () => {
 
     return (
         <MenuBarComp
-        handleClick={handleClick}
+            handleClick={handleClick}
         />
     );
 }
