@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectNumOfTracks, setNumOfTracks } from "../../slices/filterButtonsSlice";
+import { setCurrentAlbum } from "../../slices/spotifySlice";
 import NumOfTrackSliderComp from "./NumOfTrackSliderComp";
 
 const NumOfTrackSlider = () => {
@@ -8,6 +9,9 @@ const NumOfTrackSlider = () => {
     const numOfTracks = useSelector(selectNumOfTracks);
 
     const handleChange = (event:Event,numOfTracksNum:number | number[]) => {
+        setTimeout(() => {
+            dispatch(setCurrentAlbum(0))    
+        },500)
         dispatch(setNumOfTracks(numOfTracksNum))
     }
 
