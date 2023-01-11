@@ -8,8 +8,6 @@ interface MenuState {
 
 const initialState = {
     open:false,
-    nextAlbum:false,
-    prevAlbum:true,
     showAlbum:true,
     albumAnimationDuration:300,
 } as MenuState;
