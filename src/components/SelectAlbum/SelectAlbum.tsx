@@ -27,7 +27,7 @@ const SelectAlbum = () => {
 
 
     const handleNextClick = () => {
-        if(curretAlbum+1 < tracks.length-1){
+        if(curretAlbum+1 < tracks.length){
             dispatch(setShowAlbum(false));
             setTimeout(() => {
                 dispatch(nextAlbum());

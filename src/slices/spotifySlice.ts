@@ -115,7 +115,7 @@ const spotifySlice = createSlice({
             state.showGraph = action.payload;
         },
         nextAlbum(state){
-            if (state.currentAlbum+1 < state.tracks.length-1) {
+            if (state.currentAlbum+1 < state.tracks.length) {
                 state.currentAlbum++;
             }
         },
