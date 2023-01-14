@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
-import { fetchTopTracks, selectShowGraph } from "../slices/spotifySlice";
+import { fetchTopTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
@@ -17,14 +17,16 @@ const LoggedInScreen = () => {
     const numOfTracks = useSelector(selectNumOfTracks);
     const showGraph = useSelector(selectShowGraph);
     
-    // handles deplaying api called based on filtered button change
     useEffect(() => {
-        // time out prevents too many API calls
+        dispatch(fetchTopTracks({timeRange}));     
+    },[dispatch,timeRange]);
+
+    useEffect(() => {
         const delayChange = setTimeout(() => {
-            dispatch(fetchTopTracks({timeRange,numOfTracks}))
+            dispatch(setCurrentTracks(numOfTracks));
         }, 500);
         return () => clearTimeout(delayChange);
-    },[dispatch,timeRange,numOfTracks]);
+    },[dispatch,numOfTracks]);
 
 
     return(
