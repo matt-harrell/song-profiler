@@ -4,21 +4,28 @@ import { GenericObject } from "../types";
 
 interface fetchTopTracksType{
     timeRange?:string;
+    numOfTracks?: number;
 }
-
 interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     showGraph:boolean;
     allShortRangeTracks:GenericObject[];
     allMedRangeTracks:GenericObject[];
+    allLongRangeTracks:GenericObject[];
     tracks:GenericObject[];
     currentAlbum:number,
 }
 
+interface SpofityArrayState {
+    allShortRangeTracks:GenericObject[];
+    allMedRangeTracks:GenericObject[];
+    allLongRangeTracks:GenericObject[];
+}
+
 const fetchTopTracks = createAsyncThunk(
     'spotifyAPI/fetchTopTracks',
-    async ({timeRange = 'medium_term'}:fetchTopTracksType) => {
+    async ({timeRange = 'medium_term',numOfTracks = 20}:fetchTopTracksType) => {
         const tracks:GenericObject[] = []; 
         const accessToken:any = window.location.href.match(/access_token=([^&]*)/); 
         
@@ -78,7 +85,7 @@ const fetchTopTracks = createAsyncThunk(
         }
         
         
-        return tracks;
+        return {tracks:tracks,numOfTracks:numOfTracks,timeRange:timeRange};
     }
 )
 
@@ -103,6 +110,7 @@ const initialState = {
     showGraph:false,
     allShortRangeTracks:[],
     allMedRangeTracks:[],
+    allLongRangeTracks:[],
     tracks:[],
     currentAlbum:0,
 } as SpofityState;
@@ -131,14 +139,26 @@ const spotifySlice = createSlice({
             state.currentAlbum = action.payload;
         },
         setCurrentTracks(state,action:PayloadAction<{timeRange:string,numOfTracks:number}>){
-            state.tracks = state[action.payload.timeRange as keyof typeof state].slice(0,action.payload.numOfTracks);
+            state.tracks = state[action.payload.timeRange as keyof SpofityArrayState].slice(0,action.payload.numOfTracks);
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchTopTracks.fulfilled, (state, action) => {
-                state.allMedRangeTracks = [...action.payload];
-                state.tracks = [...action.payload.slice(0,20)];
+                switch (action.payload.timeRange) {
+                    case 'short_term':
+                        state.allShortRangeTracks = [...action.payload.tracks];
+                        break;
+                    case 'medium_term':
+                        state.allMedRangeTracks = [...action.payload.tracks];
+                        break;
+                    case 'long_term':
+                        state.allLongRangeTracks = [...action.payload.tracks];
+                        break;
+                    default:
+                        break;
+                }
+                state.tracks = [...action.payload.tracks.slice(0,action.payload.numOfTracks)];
                 state.isLoading = false;
             })
             .addCase(fetchTopTracks.pending, (state,action) => {
@@ -154,6 +174,8 @@ export {fetchTopTracks,fetchTopAlbum};
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 export const selectLoading = (state: { spotifyAPI: { isLoading: boolean; }; }) => state.spotifyAPI.isLoading;
 export const selectAllShortRangeTracks = (state: { spotifyAPI: { allShortRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allShortRangeTracks;
+export const selectAllMedRangeTracks = (state: { spotifyAPI: { allMedRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allMedRangeTracks;
+export const selectAllLongRangeTracks = (state: { spotifyAPI: { allLongRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allLongRangeTracks;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
 export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
 export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 

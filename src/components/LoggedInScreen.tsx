@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
-import { fetchTopTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
+import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
@@ -16,17 +16,30 @@ const LoggedInScreen = () => {
     const timeRange = useSelector(selectTimeRange);
     const numOfTracks = useSelector(selectNumOfTracks);
     const showGraph = useSelector(selectShowGraph);
+    const allShortRangeTracks = useSelector(selectAllShortRangeTracks);
+    const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
+
     
-    useEffect(() => {
-        dispatch(fetchTopTracks({timeRange}));     
-    },[dispatch,timeRange]);
+    
+    // useEffect(() => {
+    //     dispatch(fetchTopTracks({timeRange}));     
+    // },[dispatch,timeRange]);
 
     useEffect(() => {
         const delayChange = setTimeout(() => {
-            dispatch(setCurrentTracks({timeRange:timeRange,numOfTracks:numOfTracks}));
+            if (timeRange ==='short_term' && allShortRangeTracks.length > 0) {
+                dispatch(setCurrentTracks({timeRange:'allShortRangeTracks',numOfTracks:numOfTracks}));
+            } else if(timeRange ==='medium_term'){
+                dispatch(setCurrentTracks({timeRange:'allMedRangeTracks',numOfTracks:numOfTracks}));
+            } else if (timeRange ==='long_term' && allLongRangeTracks.length > 0){
+                dispatch(setCurrentTracks({timeRange:'allLongRangeTracks',numOfTracks:numOfTracks}));
+            } else{
+                dispatch(fetchTopTracks({timeRange:timeRange,numOfTracks:numOfTracks})); 
+            }
+            
         }, 500);
         return () => clearTimeout(delayChange);
-    },[dispatch,numOfTracks,timeRange]);
+    },[allLongRangeTracks.length, allShortRangeTracks.length, dispatch, numOfTracks, timeRange]);
 
 
     return(
