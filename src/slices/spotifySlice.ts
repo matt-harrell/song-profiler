@@ -10,7 +10,8 @@ interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     showGraph:boolean;
-    allTracks:GenericObject[];
+    allShortRangeTracks:GenericObject[];
+    allMedRangeTracks:GenericObject[];
     tracks:GenericObject[];
     currentAlbum:number,
 }
@@ -100,7 +101,8 @@ const initialState = {
     isLoggedIn:false,
     isLoading:false,
     showGraph:false,
-    allTracks:[],
+    allShortRangeTracks:[],
+    allMedRangeTracks:[],
     tracks:[],
     currentAlbum:0,
 } as SpofityState;
@@ -128,14 +130,14 @@ const spotifySlice = createSlice({
         setCurrentAlbum(state,action){
             state.currentAlbum = action.payload;
         },
-        setCurrentTracks(state,action:PayloadAction<number>){
-            state.tracks = state.allTracks.slice(0,action.payload);
+        setCurrentTracks(state,action:PayloadAction<{timeRange:string,numOfTracks:number}>){
+            state.tracks = state[action.payload.timeRange as keyof typeof state].slice(0,action.payload.numOfTracks);
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchTopTracks.fulfilled, (state, action) => {
-                state.allTracks = [...action.payload];
+                state.allMedRangeTracks = [...action.payload];
                 state.tracks = [...action.payload.slice(0,20)];
                 state.isLoading = false;
             })
@@ -151,6 +153,7 @@ export {fetchTopTracks,fetchTopAlbum};
 // states
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 export const selectLoading = (state: { spotifyAPI: { isLoading: boolean; }; }) => state.spotifyAPI.isLoading;
+export const selectAllShortRangeTracks = (state: { spotifyAPI: { allShortRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allShortRangeTracks;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
 export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
 export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 

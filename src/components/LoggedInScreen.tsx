@@ -23,10 +23,10 @@ const LoggedInScreen = () => {
 
     useEffect(() => {
         const delayChange = setTimeout(() => {
-            dispatch(setCurrentTracks(numOfTracks));
+            dispatch(setCurrentTracks({timeRange:timeRange,numOfTracks:numOfTracks}));
         }, 500);
         return () => clearTimeout(delayChange);
-    },[dispatch,numOfTracks]);
+    },[dispatch,numOfTracks,timeRange]);
 
 
     return(
