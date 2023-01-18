@@ -35,7 +35,7 @@ const XYAxis = ({ xScale, yScale }:props) => {
         select(xAxis.current || '').select('.domain').attr('stroke',themeColors.backgroundColor.fontColor);
         select(xAxis.current || '').selectAll('.tick line').attr('stroke',themeColors.backgroundColor.fontColor);
         select(xAxis.current || '').selectAll('.tick text').attr('fill',themeColors.backgroundColor.fontColor);
-    },[themeColors.backgroundColor.fontColor])
+    },[themeColors.backgroundColor.fontColor,tracks])
 
 
     return (

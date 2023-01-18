@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { setTimeRange } from "../../slices/filterButtonsSlice";
+import { setCurrentAlbum } from "../../slices/spotifySlice";
 import TimeRangeButtonsComp from "./TimeRangeButtonsComp"
 
 const TimeRangeButtons = () => {
@@ -9,8 +10,9 @@ const TimeRangeButtons = () => {
 
     const handleChange = (event:React.MouseEvent<HTMLElement>,timeRangeString:string) => {
         if (timeRangeString === null){
-            timeRangeString = 'short_term'
+            timeRangeString = 'medium_term'
         }
+        dispatch(setCurrentAlbum(0))
         dispatch(setTimeRange(timeRangeString))
     }
 

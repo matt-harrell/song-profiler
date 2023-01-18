@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
-import { fetchTopTracks, selectShowGraph } from "../slices/spotifySlice";
+import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
@@ -16,15 +16,30 @@ const LoggedInScreen = () => {
     const timeRange = useSelector(selectTimeRange);
     const numOfTracks = useSelector(selectNumOfTracks);
     const showGraph = useSelector(selectShowGraph);
+    const allShortRangeTracks = useSelector(selectAllShortRangeTracks);
+    const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
+
     
-    // handles deplaying api called based on filtered button change
+    
+    // useEffect(() => {
+    //     dispatch(fetchTopTracks({timeRange}));     
+    // },[dispatch,timeRange]);
+
     useEffect(() => {
-        // time out prevents too many API calls
         const delayChange = setTimeout(() => {
-            dispatch(fetchTopTracks({timeRange,numOfTracks}))
+            if (timeRange ==='short_term' && allShortRangeTracks.length > 0) {
+                dispatch(setCurrentTracks({timeRange:'allShortRangeTracks',numOfTracks:numOfTracks}));
+            } else if(timeRange ==='medium_term'){
+                dispatch(setCurrentTracks({timeRange:'allMedRangeTracks',numOfTracks:numOfTracks}));
+            } else if (timeRange ==='long_term' && allLongRangeTracks.length > 0){
+                dispatch(setCurrentTracks({timeRange:'allLongRangeTracks',numOfTracks:numOfTracks}));
+            } else{
+                dispatch(fetchTopTracks({timeRange:timeRange,numOfTracks:numOfTracks})); 
+            }
+            
         }, 500);
         return () => clearTimeout(delayChange);
-    },[dispatch,timeRange,numOfTracks]);
+    },[allLongRangeTracks.length, allShortRangeTracks.length, dispatch, numOfTracks, timeRange]);
 
 
     return(

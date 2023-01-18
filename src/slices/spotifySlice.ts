@@ -1,18 +1,26 @@
 // create asyncThunk to grab Spofity data and format it
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GenericObject } from "../types";
 
 interface fetchTopTracksType{
     timeRange?:string;
-    numOfTracks?:number;
+    numOfTracks?: number;
 }
-
 interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     showGraph:boolean;
+    allShortRangeTracks:GenericObject[];
+    allMedRangeTracks:GenericObject[];
+    allLongRangeTracks:GenericObject[];
     tracks:GenericObject[];
     currentAlbum:number,
+}
+
+interface SpofityArrayState {
+    allShortRangeTracks:GenericObject[];
+    allMedRangeTracks:GenericObject[];
+    allLongRangeTracks:GenericObject[];
 }
 
 const fetchTopTracks = createAsyncThunk(
@@ -21,7 +29,7 @@ const fetchTopTracks = createAsyncThunk(
         const tracks:GenericObject[] = []; 
         const accessToken:any = window.location.href.match(/access_token=([^&]*)/); 
         
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=${numOfTracks}`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=50`, {
             headers: {
                 Authorization: `Bearer ${accessToken[1]}`,
             },
@@ -77,7 +85,7 @@ const fetchTopTracks = createAsyncThunk(
         }
         
         
-        return tracks;
+        return {tracks:tracks,numOfTracks:numOfTracks,timeRange:timeRange};
     }
 )
 
@@ -100,6 +108,9 @@ const initialState = {
     isLoggedIn:false,
     isLoading:false,
     showGraph:false,
+    allShortRangeTracks:[],
+    allMedRangeTracks:[],
+    allLongRangeTracks:[],
     tracks:[],
     currentAlbum:0,
 } as SpofityState;
@@ -126,12 +137,28 @@ const spotifySlice = createSlice({
         },
         setCurrentAlbum(state,action){
             state.currentAlbum = action.payload;
+        },
+        setCurrentTracks(state,action:PayloadAction<{timeRange:string,numOfTracks:number}>){
+            state.tracks = state[action.payload.timeRange as keyof SpofityArrayState].slice(0,action.payload.numOfTracks);
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchTopTracks.fulfilled, (state, action) => {
-                state.tracks = [...action.payload];
+                switch (action.payload.timeRange) {
+                    case 'short_term':
+                        state.allShortRangeTracks = [...action.payload.tracks];
+                        break;
+                    case 'medium_term':
+                        state.allMedRangeTracks = [...action.payload.tracks];
+                        break;
+                    case 'long_term':
+                        state.allLongRangeTracks = [...action.payload.tracks];
+                        break;
+                    default:
+                        break;
+                }
+                state.tracks = [...action.payload.tracks.slice(0,action.payload.numOfTracks)];
                 state.isLoading = false;
             })
             .addCase(fetchTopTracks.pending, (state,action) => {
@@ -146,9 +173,12 @@ export {fetchTopTracks,fetchTopAlbum};
 // states
 export const selectIsLoggedIn = (state: { spotifyAPI: { isLoggedIn: boolean; }; }) => state.spotifyAPI.isLoggedIn; 
 export const selectLoading = (state: { spotifyAPI: { isLoading: boolean; }; }) => state.spotifyAPI.isLoading;
+export const selectAllShortRangeTracks = (state: { spotifyAPI: { allShortRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allShortRangeTracks;
+export const selectAllMedRangeTracks = (state: { spotifyAPI: { allMedRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allMedRangeTracks;
+export const selectAllLongRangeTracks = (state: { spotifyAPI: { allLongRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allLongRangeTracks;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
 export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
 export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 
 
-export const {setIsLoggedIn,setShowGraph,nextAlbum,prevAlbum,setCurrentAlbum} = spotifySlice.actions;
+export const {setIsLoggedIn,setShowGraph,nextAlbum,prevAlbum,setCurrentAlbum,setCurrentTracks} = spotifySlice.actions;
 export default spotifySlice.reducer;
