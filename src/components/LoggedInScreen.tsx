@@ -6,6 +6,7 @@ import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice
 import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
+import RadarChartComp from "./RadarChart/RadarChart";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
 import ThemeFromImage from "./ThemeFromImage";
 import TimeRangeButtons from "./TimeRangeButtons/TimeRangeButtons";
@@ -56,7 +57,7 @@ const LoggedInScreen = () => {
                     <NumOfTrackSlider/>
                 </Grid>
                 <Grid item xs={12}>
-                    {showGraph ? <Histogram/> : <LinearProgress />}
+                    {showGraph ? <RadarChartComp/> : <LinearProgress />}
                 </Grid>
             </Grid>
         </>
