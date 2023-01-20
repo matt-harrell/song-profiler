@@ -2,6 +2,7 @@ import { scaleLinear } from "d3";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectTracks } from "../../slices/spotifySlice";
+import Axes from "./Axes";
 import Ticks from "./Ticks";
 
 
@@ -25,7 +26,7 @@ const RadarChartComp = () => {
         
         const data = [
             {
-                axes: [
+                AllSongs: [
                   {axis: "acousticness", value: findAverage(acousticnessValues)},
                   {axis: "danceability", value: findAverage(danceabilityValues)},
                   {axis: "energy", value: findAverage(energyValues)},  
@@ -54,6 +55,11 @@ const RadarChartComp = () => {
         // somehting like above for responsive ness
         <svg className="spider-chart" width={'100%'} viewBox={`0 0 ${width} ${height}`}>
             <Ticks
+                width={width}
+                height={height}
+                radialScale={radialScale}
+            />
+            <Axes
                 width={width}
                 height={height}
                 radialScale={radialScale}
