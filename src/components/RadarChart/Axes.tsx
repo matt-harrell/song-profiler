@@ -1,18 +1,19 @@
 import { NumberValue, ScaleLinear } from "d3";
 
 interface props {
+    features:string[],
     width:number,
     height:number,
     radialScale:ScaleLinear<number, number, never>
 }
 
-const Axes = ({width,height,radialScale}:props) => {
+const Axes = ({features,width,height,radialScale}:props) => {
 
-    const features = ["acousticness","danceability","energy","loudness", "valence"]
+    
 
-    function angleToCoordinate(angle: number, value: NumberValue){
-        let x = Math.cos(angle) * radialScale(value);
-        let y = Math.sin(angle) * radialScale(value);
+    const angleToCoordinate = (angle: number, value: NumberValue) => {
+        const x = Math.cos(angle) * radialScale(value);
+        const y = Math.sin(angle) * radialScale(value);
         return {"x": width / 2 + x, "y": height / 2 - y};
     }
 

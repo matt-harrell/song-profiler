@@ -1,8 +1,9 @@
 import { scaleLinear } from "d3";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTracks } from "../../slices/spotifySlice";
 import Axes from "./Axes";
+import DataPoints from "./DataPoints";
 import Ticks from "./Ticks";
 
 
@@ -10,6 +11,8 @@ const RadarChartComp = () => {
     const tracks = useSelector(selectTracks);
     const width = 1000;
     const height = 300;
+    const features = ["acousticness","danceability","energy","loudness", "valence"]
+    const [data,setData] = useState<any>([]);
 
     useEffect(() => {
         const acousticnessValues = tracks.map(track => track.acousticness);
@@ -24,17 +27,19 @@ const RadarChartComp = () => {
                 return add;
             }) / array.length)
         
-        const data = [
+        const dataArray = [
             {
-                AllSongs: [
-                  {axis: "acousticness", value: findAverage(acousticnessValues)},
-                  {axis: "danceability", value: findAverage(danceabilityValues)},
-                  {axis: "energy", value: findAverage(energyValues)},  
-                  {axis: "loudness", value: findAverage(loudnessValues)},  
-                  {axis: "valence", value: findAverage(valenceValues)}
-                ]
-              },
+            acousticness: findAverage(acousticnessValues),
+            danceability: findAverage(danceabilityValues),
+            energy:findAverage(energyValues),  
+            loudness:findAverage(loudnessValues),  
+            valence:findAverage(valenceValues)
+        }
         ]
+        console.log(dataArray);
+        
+
+        setData([...dataArray])
 
         
         
@@ -60,6 +65,14 @@ const RadarChartComp = () => {
                 radialScale={radialScale}
             />
             <Axes
+                features={features}
+                width={width}
+                height={height}
+                radialScale={radialScale}
+            />
+            <DataPoints
+                data={data}
+                features={features}
                 width={width}
                 height={height}
                 radialScale={radialScale}
