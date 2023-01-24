@@ -11,12 +11,17 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface FeatureData {
+    acousticness: number,
+    danceability: number,
+    energy:number,  
+    loudness:number,  
+    valence:number,
+}
+
 interface RadarChartData {
-    acousticness: number | number[],
-    danceability: number | number[],
-    energy:number | number[],  
-    loudness:number | number[],  
-    valence:number | number[],
+    nameOfTrack:string,
+    featureData:FeatureData,
 }
 
 interface RadarChartState {
@@ -24,20 +29,16 @@ interface RadarChartState {
     height:number,
     currentTrack:string,
     // if current track is === to "All Songs" then that is when we need to find average
-    data:RadarChartData,
+    data:RadarChartData[],
+    radarData:FeatureData[];
 }
 
 const initialState = {
     width:1000,
     height:300,
     currentTrack:'All Songs',
-    data:{
-        acousticness: 0,
-        danceability: 0,
-        energy:0,  
-        loudness:0,  
-        valence:0,
-    }
+    data:[],
+    radarData:[],
 } as RadarChartState;
 
 const radarChartSlice = createSlice({
@@ -47,7 +48,7 @@ const radarChartSlice = createSlice({
         setCurrentTrack(state,action:PayloadAction<string>){
             state.currentTrack = action.payload;
         },
-        setData(state,action){
+        addData(state,action){
             if (state.currentTrack === 'All Songs') {
 
                 const findAverage = (array:number[]) => Math.round(array.reduce((accumulator:number,currentValue:number) => {
@@ -55,24 +56,57 @@ const radarChartSlice = createSlice({
                     return add;
                 }) / array.length)
 
-                for (const feature in state.data) {
-                    state.data[feature as keyof typeof state.data] = findAverage(action.payload[feature as keyof typeof action.payload])
-                }
+
+                state.data.push({
+                    nameOfTrack:'All Songs',
+                    featureData:{
+                        acousticness: findAverage(action.payload.acousticness),
+                        danceability: findAverage(action.payload.danceability),
+                        energy:findAverage(action.payload.energy),  
+                        loudness:findAverage(action.payload.loudness),  
+                        valence:findAverage(action.payload.valence),
+                    }
+                })
+
+                state.radarData.push({
+                        acousticness: findAverage(action.payload.acousticness),
+                        danceability: findAverage(action.payload.danceability),
+                        energy:findAverage(action.payload.energy),  
+                        loudness:findAverage(action.payload.loudness),  
+                        valence:findAverage(action.payload.valence),
+                })
+
             } else {
-                for (const feature in state.data) {
-                    state.data[feature as keyof typeof state.data] = action.payload[feature as keyof typeof action.payload]
-                }
+                state.data.push({
+                    nameOfTrack:action.payload.nameOfTrack,
+                    featureData:{
+                        acousticness: action.payload.acousticness,
+                        danceability: action.payload.danceability,
+                        energy:action.payload.energy,  
+                        loudness:action.payload.loudness,  
+                        valence:action.payload.valence,
+                    }
+                })
+
+                state.radarData.push({
+                        acousticness: action.payload.acousticness,
+                        danceability: action.payload.danceability,
+                        energy:action.payload.energy,  
+                        loudness:action.payload.loudness,  
+                        valence:action.payload.valence,
+                })
             }
         }
 
     }
 })
 
-export const { setCurrentTrack, setData} = radarChartSlice.actions;
+export const { setCurrentTrack, addData} = radarChartSlice.actions;
 
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
 export const selectHeight = (state: { RadarChart: { height: number; }; }) => state.RadarChart.height;
 export const selectCurrentTrack = (state: { RadarChart: { currentTrack: string; }; }) => state.RadarChart.currentTrack;
-export const selectData = (state: { RadarChart: { data: RadarChartData; }; }) => state.RadarChart.data;
+export const selectData = (state: { RadarChart: { data: RadarChartData[]; }; }) => state.RadarChart.data;
+export const selectRadarData = (state: { RadarChart: { radarData: FeatureData[]; }; }) => state.RadarChart.radarData;
 
 export default radarChartSlice.reducer;
