@@ -4,18 +4,19 @@ interface props {
     features:string[],
     width:number,
     height:number,
-    radialScale:ScaleLinear<number, number, never>
+    radialScale:ScaleLinear<number, number, never>,
+    angleToCoordinate:(angle: number, value: NumberValue) => {"x": number, "y": number}
 }
 
-const Axes = ({features,width,height,radialScale}:props) => {
+const Axes = ({features,width,height,radialScale,angleToCoordinate}:props) => {
 
     
 
-    const angleToCoordinate = (angle: number, value: NumberValue) => {
-        const x = Math.cos(angle) * radialScale(value);
-        const y = Math.sin(angle) * radialScale(value);
-        return {"x": width / 2 + x, "y": height / 2 - y};
-    }
+    // const angleToCoordinate = (angle: number, value: NumberValue) => {
+    //     const x = Math.cos(angle) * radialScale(value);
+    //     const y = Math.sin(angle) * radialScale(value);
+    //     return {"x": width / 2 + x, "y": height / 2 - y};
+    // }
 
     const featureData = features.map((feature, index) => {
         const angle = (Math.PI / 2) + (2 * Math.PI * index / features.length);
