@@ -1,63 +1,51 @@
-import { scaleLinear } from "d3";
-import { useEffect,useState } from "react";
-import { useSelector } from "react-redux";
+import { NumberValue, scaleLinear } from "d3";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentTrack, selectHeight, selectWidth, addData, selectData } from "../../slices/radarChartSlice";
 import { selectTracks } from "../../slices/spotifySlice";
 import Axes from "./Axes";
 import DataPoints from "./DataPoints";
 import Ticks from "./Ticks";
 
-
 const RadarChartComp = () => {
+    const dispatch = useDispatch();
     const tracks = useSelector(selectTracks);
-    const width = 1000;
-    const height = 300;
-    const features = ["acousticness","danceability","energy","loudness", "valence"]
-    const [data,setData] = useState<any>([]);
+    const width = useSelector(selectWidth);
+    const height = useSelector(selectHeight);
+    const features = ["acousticness","danceability","energy","loudness", "valence"];
+    const data = useSelector(selectData);
+    
 
     useEffect(() => {
-        const acousticnessValues = tracks.map(track => track.acousticness);
-        const danceabilityValues = tracks.map(track => track.danceability);
-        const energyValues = tracks.map(track => track.energy);
-        const loudnessValues = tracks.map(track => track.loudness);
-        const valenceValues = tracks.map(track => track.valence);
+            const acousticnessValues = tracks.map(track => track.acousticness);
+            const danceabilityValues = tracks.map(track => track.danceability);
+            const energyValues = tracks.map(track => track.energy);
+            const loudnessValues = tracks.map(track => track.loudness);
+            const valenceValues = tracks.map(track => track.valence);
+    
+            dispatch(addData({
+                nameOfTrack:'All Songs',
+                acousticness: acousticnessValues,
+                danceability: danceabilityValues,
+                energy:energyValues,  
+                loudness:loudnessValues,  
+                valence:valenceValues,
+            }))
         
-
-        const findAverage = (array:number[]) => Math.round(array.reduce((accumulator:number,currentValue:number) => {
-                const add = accumulator + currentValue
-                return add;
-            }) / array.length)
-        
-        const dataArray = [
-            {
-            acousticness: findAverage(acousticnessValues),
-            danceability: findAverage(danceabilityValues),
-            energy:findAverage(energyValues),  
-            loudness:findAverage(loudnessValues),  
-            valence:findAverage(valenceValues)
-        }
-        ]
-        console.log(dataArray);
-        
-
-        setData([...dataArray])
-
-        
-        
-    },[tracks])
+    },[])
 
     const radialScale = scaleLinear()
         .domain([0,100])
         .range([0,2500]);
-    
-    
 
     
-
-
+    const angleToCoordinate = (angle: number, value: NumberValue) => {
+            const x = Math.cos(angle) * radialScale(value);
+            const y = Math.sin(angle) * radialScale(value);
+            return {"x": width / 2 + x, "y": height / 2 - y};
+        }
 
     return(
-        // <svg width={'100%'} viewBox={`0 0 ${width + 200} ${height + 30}`}>
-        // somehting like above for responsive ness
         <svg className="spider-chart" width={'100%'} viewBox={`0 0 ${width} ${height}`}>
             <Ticks
                 width={width}
@@ -69,13 +57,14 @@ const RadarChartComp = () => {
                 width={width}
                 height={height}
                 radialScale={radialScale}
+                angleToCoordinate={angleToCoordinate}
             />
             <DataPoints
-                data={data}
                 features={features}
                 width={width}
                 height={height}
                 radialScale={radialScale}
+                angleToCoordinate={angleToCoordinate}
             />
         </svg>
     )
