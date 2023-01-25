@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
+import { selectShowRadarChart } from "../slices/radarChartSlice";
 import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import RadarChartComp from "./RadarChart/RadarChart";
+import SelectSongs from "./RadarChart/SelectSongs/SelectSongs";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
 import ThemeFromImage from "./ThemeFromImage";
 import TimeRangeButtons from "./TimeRangeButtons/TimeRangeButtons";
@@ -19,6 +21,7 @@ const LoggedInScreen = () => {
     const showGraph = useSelector(selectShowGraph);
     const allShortRangeTracks = useSelector(selectAllShortRangeTracks);
     const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
+    const showRadarChart = useSelector(selectShowRadarChart);
 
     
     
@@ -54,7 +57,7 @@ const LoggedInScreen = () => {
                     <SelectAudiFeature/>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <NumOfTrackSlider/>
+                    {showRadarChart ? <SelectSongs/> : <NumOfTrackSlider/>}
                 </Grid>
                 <Grid item xs={12}>
                     {showGraph ? <RadarChartComp/> : <LinearProgress />}

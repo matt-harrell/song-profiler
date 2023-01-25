@@ -25,6 +25,7 @@ interface RadarChartData {
 }
 
 interface RadarChartState {
+    showRadarChart:boolean,
     width:number,
     height:number,
     currentTrack:string,
@@ -34,6 +35,7 @@ interface RadarChartState {
 }
 
 const initialState = {
+    showRadarChart:false,
     width:1000,
     height:300,
     currentTrack:'All Songs',
@@ -45,6 +47,9 @@ const radarChartSlice = createSlice({
     name:'RadarChart',
     initialState,
     reducers:{
+        setshowRadarChart(state,action:PayloadAction<boolean>){
+            state.showRadarChart = action.payload;
+        },
         setCurrentTrack(state,action:PayloadAction<string>){
             state.currentTrack = action.payload;
         },
@@ -101,8 +106,9 @@ const radarChartSlice = createSlice({
     }
 })
 
-export const { setCurrentTrack, addData} = radarChartSlice.actions;
+export const { setCurrentTrack, addData,setshowRadarChart} = radarChartSlice.actions;
 
+export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
 export const selectHeight = (state: { RadarChart: { height: number; }; }) => state.RadarChart.height;
 export const selectCurrentTrack = (state: { RadarChart: { currentTrack: string; }; }) => state.RadarChart.currentTrack;
