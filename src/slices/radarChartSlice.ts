@@ -46,7 +46,7 @@ export const { setCurrentTrack,setRadarData,setshowRadarChart} = radarChartSlice
 export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
 export const selectHeight = (state: { RadarChart: { height: number; }; }) => state.RadarChart.height;
-export const selectCurrentTrack = (state: { RadarChart: { currentTrack: string; }; }) => state.RadarChart.currentTrack;
+// export const selectCurrentTrack = (state: { RadarChart: { currentTrack: string; }; }) => state.RadarChart.currentTrack;
 export const selectRadarData = (state: { RadarChart: { radarData: FeatureData[]; }; }) => state.RadarChart.radarData;
 
 export default radarChartSlice.reducer;
