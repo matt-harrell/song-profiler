@@ -2,7 +2,7 @@ import { NumberValue, scaleLinear } from "d3";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumOfTracks } from "../../slices/filterButtonsSlice";
-import { selectCurrentTrack, selectHeight, selectWidth, addData, selectData, setshowRadarChart } from "../../slices/radarChartSlice";
+import { selectCurrentTrack, selectHeight, selectWidth, setRadarData, selectData, setshowRadarChart } from "../../slices/radarChartSlice";
 import { selectTracks, setCurrentAlbum } from "../../slices/spotifySlice";
 import Axes from "./Axes";
 import DataPoints from "./DataPoints";
@@ -29,15 +29,19 @@ const RadarChartComp = () => {
             const energyValues = tracks.map(track => track.energy);
             const loudnessValues = tracks.map(track => track.loudness);
             const valenceValues = tracks.map(track => track.valence);
+
+            const findAverage = (array:number[]) => Math.round(array.reduce((accumulator:number,currentValue:number) => {
+                            const add = accumulator + currentValue
+                            return add;
+                        }) / array.length)
     
-            dispatch(addData({
-                nameOfTrack:'All Songs',
-                acousticness: acousticnessValues,
-                danceability: danceabilityValues,
-                energy:energyValues,  
-                loudness:loudnessValues,  
-                valence:valenceValues,
-            }))
+            dispatch(setRadarData([{
+                acousticness: findAverage(acousticnessValues),
+                danceability: findAverage(danceabilityValues),
+                energy:findAverage(energyValues),  
+                loudness:findAverage(loudnessValues),  
+                valence:findAverage(valenceValues),
+            }]))
         
     },[])
 
