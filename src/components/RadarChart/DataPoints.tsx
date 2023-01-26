@@ -27,15 +27,16 @@ const DataPoints = ({features,width,height,radialScale, angleToCoordinate}:props
 
     const graph = useRef(null);
 
-    const theLine = line<{x:number,y:number}>()
-        .x(d => d.x)
-        .y(d => d.y)
+    
 
     
 
     
 
     useEffect(() => {
+        const theLine = line<{x:number,y:number}>()
+        .x(d => d.x)
+        .y(d => d.y)
 
         const getPathCoordinates = (dataPoint:axes) => {
             let coordinates = [];
@@ -54,7 +55,7 @@ const DataPoints = ({features,width,height,radialScale, angleToCoordinate}:props
             .datum(d => getPathCoordinates(d))
             .attr("d",theLine)
         }
-    },[radarData,theLine,features,angleToCoordinate])
+    },[radarData,features,angleToCoordinate])
 
     
 
