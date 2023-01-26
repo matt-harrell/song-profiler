@@ -101,12 +101,15 @@ const radarChartSlice = createSlice({
                         valence:action.payload.valence,
                 })
             }
+        },
+        setRadarData(state,action){
+            state.radarData = action.payload;
         }
 
     }
 })
 
-export const { setCurrentTrack, addData,setshowRadarChart} = radarChartSlice.actions;
+export const { setCurrentTrack,setRadarData,setshowRadarChart} = radarChartSlice.actions;
 
 export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
