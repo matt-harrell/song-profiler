@@ -11,15 +11,14 @@ interface RadarChartState {
     showRadarChart:boolean,
     width:number,
     height:number,
-    currentTrack:string,
     radarData:FeatureData[];
+
 }
 
 const initialState = {
     showRadarChart:false,
     width:1000,
     height:300,
-    currentTrack:'All Songs',
     data:[],
     radarData:[],
 } as RadarChartState;
