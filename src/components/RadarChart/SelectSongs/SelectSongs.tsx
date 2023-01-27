@@ -1,6 +1,7 @@
+import { prominent } from "color.js";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setRadarData } from "../../../slices/radarChartSlice";
+import { dataColor, setDataColors, setRadarData } from "../../../slices/radarChartSlice";
 import { selectTracks } from "../../../slices/spotifySlice";
 import SelectSongsComp from "./SelectSongsComp";
 
@@ -22,6 +23,7 @@ const SelectSongs = () => {
 
     const handleChange = (e:SyntheticEvent<Element, Event>,songs:string[]) => {
         let songsToPass = [];
+        let colorsToPass:dataColor[] = [];
         setValue([...songs]);
 
         if(songs.includes('All Songs')){
@@ -46,18 +48,38 @@ const SelectSongs = () => {
         }
 
         songs.forEach((song) => {
-            if(song !== "All Songs"){
+            if (song !== "All Songs") {
                 const songToAdd = tracks.find(track => track.name === song);
                 songsToPass.push({
                     acousticness: songToAdd?.acousticness,
                     danceability: songToAdd?.danceability,
-                    energy:songToAdd?.energy,  
-                    loudness:songToAdd?.loudness,  
-                    valence:songToAdd?.valence,
+                    energy: songToAdd?.energy,
+                    loudness: songToAdd?.loudness,
+                    valence: songToAdd?.valence,
                 })
+
+                const config = {
+                    amount: 1,
+                    format: 'hex',
+                    group: 30,
+
+                }
+
+                prominent(songToAdd?.albumImage, config)
+                    .then(color => {
+                        const colorObject = {
+                            songTitle: songToAdd?.name,
+                            color: color.toString(),
+                        }
+                        colorsToPass = [...colorsToPass, colorObject]
+                        dispatch(setDataColors(colorsToPass));
+                    }
+                    )
             }
         })
 
+        
+        
         dispatch(setRadarData(songsToPass))
         
     }
