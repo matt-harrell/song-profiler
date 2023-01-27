@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dataColor, setDataColors, setRadarData } from "../../../slices/radarChartSlice";
 import { selectTracks } from "../../../slices/spotifySlice";
+import { selectThemeColors } from "../../../slices/ThemeSlice";
 import SelectSongsComp from "./SelectSongsComp";
 
 const SelectSongs = () => {
@@ -11,6 +12,7 @@ const SelectSongs = () => {
     const tracks = useSelector(selectTracks)
     const [songTitles, setSongTitles] = useState<string[]>([])
     const [value, setValue] = useState<string[]>([]);
+    const themeColor = useSelector(selectThemeColors);
 
     useEffect(() => {
         const trackTitles = tracks.map(track => track.name)
@@ -45,6 +47,12 @@ const SelectSongs = () => {
                 loudness:findAverage(loudnessValues),  
                 valence:findAverage(valenceValues),
             })
+            const colorObject = {
+                songTitle: "All Songs",
+                color: themeColor.colorOne.color,
+            }
+            colorsToPass = [...colorsToPass, colorObject]
+            dispatch(setDataColors(colorsToPass));
         }
 
         songs.forEach((song) => {

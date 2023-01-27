@@ -1,7 +1,8 @@
 import  { NumberValue, ScaleLinear, selectAll,line } from "d3";
 import { useEffect,useRef } from "react";
-import { useSelector } from "react-redux";
-import { selectRadarData } from "../../slices/radarChartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDataColors, selectRadarData, setDataColors } from "../../slices/radarChartSlice";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface axes {
     acousticness: number;
@@ -21,13 +22,22 @@ interface props {
     angleToCoordinate:(angle: number, value: NumberValue) => {"x": number, "y": number}
 }
 
-const DataPoints = ({features,width,height,radialScale, angleToCoordinate}:props) => {
+const DataPoints = ({features, angleToCoordinate}:props) => {
 
+    const dispatch = useDispatch();
     const radarData = useSelector(selectRadarData);
+    const dataColors = useSelector(selectDataColors);
+    const themeColor = useSelector(selectThemeColors);
 
     const graph = useRef(null);
 
-    
+    useEffect(() => {
+        const colorObject = {
+            songTitle: "All Songs",
+            color: themeColor.colorOne.color,
+        }
+        dispatch(setDataColors([colorObject]));
+    },[themeColor.colorOne.color,dispatch])
 
     
 
@@ -65,8 +75,8 @@ const DataPoints = ({features,width,height,radialScale, angleToCoordinate}:props
                 <path
                     className="spider-path"
                     strokeWidth={3}
-                    stroke="black"
-                    fill="black"
+                    stroke={dataColors[index]?.color}
+                    fill={dataColors[index]?.color}
                     strokeOpacity={1}
                     opacity={.5}
                     key={index}
