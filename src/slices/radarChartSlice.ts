@@ -54,6 +54,6 @@ export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: bool
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
 export const selectHeight = (state: { RadarChart: { height: number; }; }) => state.RadarChart.height;
 export const selectRadarData = (state: { RadarChart: { radarData: FeatureData[]; }; }) => state.RadarChart.radarData;
-export const dataColors = (state: { RadarChart: { dataColors: dataColor[]; }; }) => state.RadarChart.dataColors;
+export const selectDataColors = (state: { RadarChart: { dataColors: dataColor[]; }; }) => state.RadarChart.dataColors;
 
 export default radarChartSlice.reducer;
