@@ -34,7 +34,8 @@ const DataPoints = ({features, angleToCoordinate}:props) => {
     useEffect(() => {
         const colorObject = {
             songTitle: "All Songs",
-            color: themeColor.colorOne.color,
+            currentColor: themeColor.colorOne.color,
+            defaultColor:themeColor.colorOne.color,
         }
         dispatch(setDataColors([colorObject]));
     },[themeColor.colorOne.color,dispatch])
@@ -75,8 +76,8 @@ const DataPoints = ({features, angleToCoordinate}:props) => {
                 <path
                     className="spider-path"
                     strokeWidth={3}
-                    stroke={dataColors[index]?.color}
-                    fill={dataColors[index]?.color}
+                    stroke={dataColors[index]?.currentColor}
+                    fill={dataColors[index]?.currentColor}
                     strokeOpacity={1}
                     opacity={.5}
                     key={index}

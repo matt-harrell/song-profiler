@@ -3,9 +3,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface dataColor {
     songTitle:string,
-    color:string,
+    currentColor:string,
+    defaultColor:string,
 }
-interface FeatureData {
+export interface FeatureData {
     acousticness: number,
     danceability: number,
     energy:number,  
@@ -17,9 +18,7 @@ interface RadarChartState {
     width:number,
     height:number,
     radarData:FeatureData[],
-    dataColors:dataColor[];
-
-
+    dataColors:dataColor[],
 }
 
 const initialState = {
