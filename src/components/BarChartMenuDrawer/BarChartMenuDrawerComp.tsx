@@ -38,7 +38,7 @@ interface MenuDrawerCompProps {
     
 }
 
-const MenuDrawerComp = ({
+const BarChartMenuDrawerComp = ({
         open,
         themeColors,
         isLoading,
@@ -415,4 +415,4 @@ const MenuDrawerComp = ({
     ); 
 }
 
-export default MenuDrawerComp;
+export default BarChartMenuDrawerComp;
