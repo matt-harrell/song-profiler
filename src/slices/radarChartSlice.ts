@@ -43,6 +43,9 @@ const radarChartSlice = createSlice({
         setDataColors(state,action:PayloadAction<dataColor[]>){
             state.dataColors = action.payload;
         },
+        changeDataColor(state,action:PayloadAction<{index:number,color:string}>){
+            state.dataColors[action.payload.index].currentColor = action.payload.color;
+        }
 
     }
 })
