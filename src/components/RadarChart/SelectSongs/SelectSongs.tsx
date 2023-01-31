@@ -53,7 +53,7 @@ const SelectSongs = () => {
                     const colorObject = {
                         songTitle: songToAdd?.name,
                         currentColor: 'color that user will decide via theme menu',
-                        defaultColor:dataColors[i].currentColor,
+                        defaultColor:dataColors[i].defaultColor,
                     }
                     colorsToPass = [...colorsToPass, colorObject]
                     dispatch(setDataColors(colorsToPass));
@@ -94,13 +94,23 @@ const SelectSongs = () => {
                     loudness:findAverage(loudnessValues),  
                     valence:findAverage(valenceValues),
                 })
-                const colorObject = {
-                    songTitle: "All Songs",
-                    currentColor: themeColor.colorOne.color,
-                    defaultColor:themeColor.colorOne.color,
+                if (dataColors.find(color => color.songTitle === 'All Songs')) {
+                    const colorObject = {
+                        songTitle: "All Songs",
+                        currentColor: 'color use can change',
+                        defaultColor:themeColor.colorOne.color,
+                    }
+                    colorsToPass = [...colorsToPass, colorObject]
+                    dispatch(setDataColors(colorsToPass));
+                } else {
+                    const colorObject = {
+                        songTitle: "All Songs",
+                        currentColor: themeColor.colorOne.color,
+                        defaultColor:themeColor.colorOne.color,
+                    }
+                    colorsToPass = [...colorsToPass, colorObject]
+                    dispatch(setDataColors(colorsToPass));
                 }
-                colorsToPass = [...colorsToPass, colorObject]
-                dispatch(setDataColors(colorsToPass));
             }
         })
 
