@@ -9,13 +9,16 @@ import MenuBar from './components/MenuBar/MenuBar';
 import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
 import { selectThemeColors } from './slices/ThemeSlice';
 import BarChartMenuDrawer from './components/BarChartMenuDrawer/BarChartMenuDrawer';
+import { selectShowRadarChart } from './slices/radarChartSlice';
+import RadarMenuDrawer from './components/RadarMenuDrawer/RadarMenuDrawer';
 
 function App() {
 
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const themeColors = useSelector(selectThemeColors);
-  const isLoading = useSelector(selectLoading)
+  const isLoading = useSelector(selectLoading);
+  const showRadarChart = useSelector(selectShowRadarChart);
 
   useEffect(() => {
     const accessToken = window.location.href.match(/access_token=([^&]*)/); 
@@ -30,7 +33,7 @@ function App() {
     <ThemeComp>
       <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
         <MenuBar/>
-        <BarChartMenuDrawer/>
+        {showRadarChart ? <RadarMenuDrawer/> : <BarChartMenuDrawer/>}
         {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
       </div>
     </ThemeComp>
