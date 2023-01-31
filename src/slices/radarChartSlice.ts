@@ -45,12 +45,16 @@ const radarChartSlice = createSlice({
         },
         changeDataColor(state,action:PayloadAction<{index:number,color:string}>){
             state.dataColors[action.payload.index].currentColor = action.payload.color;
+        },
+        changeBothDataColors(state,action:PayloadAction<{index:number,color:string}>){
+            state.dataColors[action.payload.index].currentColor = action.payload.color;
+            state.dataColors[action.payload.index].defaultColor = action.payload.color;
         }
 
     }
 })
 
-export const { setRadarData,setshowRadarChart,setDataColors,changeDataColor} = radarChartSlice.actions;
+export const { setRadarData,setshowRadarChart,setDataColors,changeDataColor, changeBothDataColors} = radarChartSlice.actions;
 
 export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;

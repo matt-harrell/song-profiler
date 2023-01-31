@@ -1,4 +1,3 @@
-import { color, index } from "d3";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";

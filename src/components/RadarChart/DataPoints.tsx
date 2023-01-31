@@ -1,7 +1,7 @@
 import  { NumberValue, ScaleLinear, selectAll,line } from "d3";
 import { useEffect,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDataColors, selectRadarData, setDataColors } from "../../slices/radarChartSlice";
+import { changeBothDataColors, selectDataColors, selectRadarData, setDataColors } from "../../slices/radarChartSlice";
 import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface axes {
@@ -32,12 +32,17 @@ const DataPoints = ({features, angleToCoordinate}:props) => {
     const graph = useRef(null);
 
     useEffect(() => {
-        const colorObject = {
-            songTitle: "All Songs",
-            currentColor: themeColor.colorOne.color,
-            defaultColor:themeColor.colorOne.color,
+        if(dataColors.length === 0){
+            const colorObject = {
+                songTitle: "All Songs",
+                currentColor: themeColor.colorOne.color,
+                defaultColor:themeColor.colorOne.color,
+            }
+            dispatch(setDataColors([colorObject]));
+        }else{
+            const i = dataColors.findIndex((color) => color.songTitle === 'All Songs');
+            dispatch(changeBothDataColors({index:i,color:themeColor.colorOne.color}))
         }
-        dispatch(setDataColors([colorObject]));
     },[themeColor.colorOne.color,dispatch])
 
     
