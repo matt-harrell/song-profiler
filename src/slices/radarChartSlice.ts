@@ -50,7 +50,7 @@ const radarChartSlice = createSlice({
     }
 })
 
-export const { setRadarData,setshowRadarChart,setDataColors} = radarChartSlice.actions;
+export const { setRadarData,setshowRadarChart,setDataColors,changeDataColor} = radarChartSlice.actions;
 
 export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;

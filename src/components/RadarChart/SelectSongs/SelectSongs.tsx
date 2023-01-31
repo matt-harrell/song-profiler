@@ -49,10 +49,10 @@ const SelectSongs = () => {
                 
                 
                 if(dataColors.find(color => color.songTitle === songToAdd?.name)){
-                    const i = dataColors.findIndex((color) => color.songTitle === songToAdd?.name)
+                    const i = dataColors.findIndex((color) => color.songTitle === songToAdd?.name);
                     const colorObject = {
                         songTitle: songToAdd?.name,
-                        currentColor: 'color that user will decide via theme menu',
+                        currentColor: dataColors[i].currentColor,
                         defaultColor:dataColors[i].defaultColor,
                     }
                     colorsToPass = [...colorsToPass, colorObject]
@@ -95,9 +95,10 @@ const SelectSongs = () => {
                     valence:findAverage(valenceValues),
                 })
                 if (dataColors.find(color => color.songTitle === 'All Songs')) {
+                    const i = dataColors.findIndex((color) => color.songTitle === 'All Songs');
                     const colorObject = {
                         songTitle: "All Songs",
-                        currentColor: 'color use can change',
+                        currentColor: dataColors[i].currentColor,
                         defaultColor:themeColor.colorOne.color,
                     }
                     colorsToPass = [...colorsToPass, colorObject]

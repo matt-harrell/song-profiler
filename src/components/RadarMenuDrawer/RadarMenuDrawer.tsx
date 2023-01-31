@@ -1,6 +1,8 @@
+import { color, index } from "d3";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
+import { selectDataColors,changeDataColor } from "../../slices/radarChartSlice";
 import { selectLoading } from "../../slices/spotifySlice";
 import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../slices/ThemeSlice";
 import BarChartMenuDrawerComp from "./RadarMenuDrawerComp";
@@ -20,6 +22,7 @@ const RadarMenuDrawer = () => {
     // const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
+    const dataColors = useSelector(selectDataColors);
     
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'backgroundColor',color:backgroundColor}))
@@ -37,43 +40,6 @@ const RadarMenuDrawer = () => {
     useEffect(() => {
         setMainThemeColor(themeColors.colorOne.color)
     },[themeColors.colorOne.color]);
-
-
-    // useEffect(() => {
-    //     dispatch(changeThemeColors({themeColor:'colorTwo',color:danceabilityColor}))
-    // },[danceabilityColor, dispatch]);
-
-    // useEffect(() => {
-    //     setDanceabilityColor(themeColors.colorTwo.color)
-    // },[themeColors.colorTwo.color]);
-
-
-    // useEffect(() => {
-    //     dispatch(changeThemeColors({themeColor:'colorThree',color:energyColor}))
-    // },[energyColor, dispatch]);
-
-    // useEffect(() => {
-    //     setEnergyColor(themeColors.colorThree.color)
-    // },[themeColors.colorThree.color]);
-
-
-    // useEffect(() => {
-    //     dispatch(changeThemeColors({themeColor:'colorFour',color:loudnessColor}))
-    // },[loudnessColor, dispatch]);
-
-    // useEffect(() => {
-    //     setLoudnessColor(themeColors.colorFour.color)
-    // },[themeColors.colorFour.color]);
-
-
-    // useEffect(() => {
-    //     dispatch(changeThemeColors({themeColor:'colorFive',color:valenceColor}))
-    // },[valenceColor, dispatch]);
-
-    // useEffect(() => {
-    //     setValenceColor(themeColors.colorFive.color)
-    // },[themeColors.colorFive.color]);
-
 
     useEffect(() => {
         dispatch(changeFontColors({themeColor:'backgroundColor',color:mainFontColor}))
@@ -107,38 +73,6 @@ const RadarMenuDrawer = () => {
         setMainThemeColor(albumDefaultColors.colorOne.color);
     }
 
-    // const handleDanceabilityColorChange = (e:string) => {
-    //     setDanceabilityColor(e)
-    // }
-
-    // const handleDanceabilityColorReset = () => {
-    //     setDanceabilityColor(albumDefaultColors.colorTwo.color);
-    // }
-
-    // const handleEnergyColorChange = (e:string) => {
-    //     setEnergyColor(e)
-    // }
-
-    // const handleEnergyColorReset = () => {
-    //     setEnergyColor(albumDefaultColors.colorThree.color);
-    // }
-
-    // const handleLoudnessColorChange = (e:string) => {
-    //     setLoudnessColor(e)
-    // }
-
-    // const handleLoudnessColorReset = () => {
-    //     setLoudnessColor(albumDefaultColors.colorFour.color);
-    // }
-
-    // const handleValenceColorChange = (e:string) => {
-    //     setValenceColor(e);
-    // }
-
-    // const handleValenceColorReset = () => {
-    //     setValenceColor(albumDefaultColors.colorFive.color);
-    // }
-
     const handleMainFontColorChange = (e:string) => {
         setMainFontColor(e)
     }
@@ -155,15 +89,21 @@ const RadarMenuDrawer = () => {
         setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
     }
 
+    const handleSongColorChange = (color:string,index:number) => {
+        dispatch(changeDataColor({index:index,color:color}))
+    }
+    const handleSongColorResest = (index:number) => {
+        dispatch(changeDataColor({index:index,color:dataColors[index].defaultColor}))
+    }
+
     const handleResetAll = () => {
         setBackgroundColor(albumDefaultColors.backgroundColor.color);
         setMainThemeColor(albumDefaultColors.colorOne.color);
-        // setDanceabilityColor(albumDefaultColors.colorTwo.color);
-        // setEnergyColor(albumDefaultColors.colorThree.color);
-        // setLoudnessColor(albumDefaultColors.colorFour.color);
-        // setValenceColor(albumDefaultColors.colorFive.color);
         setMainFontColor(albumDefaultColors.backgroundColor.fontColor);
         setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
+        for (let index = 0; index < dataColors.length; index++) {
+            handleSongColorResest(index)
+        }
     }
     
     const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -180,14 +120,19 @@ const RadarMenuDrawer = () => {
             mainThemeColor={mainThemeColor}
             mainFontColor={mainFontColor}
             secondaryFontColor={secondaryFontColor}
+            dataColors={dataColors}
+
             handleBackgroundColorChange={handleBackgroundColorChange}
             handleMainThemeColorChange={handleMainThemeColorChange}
             handleMainFontColorChange={handleMainFontColorChange}
             handleSecondaryFontColorChange={handleSecondaryFontColorChange}
+            handleSongColorChange={handleSongColorChange}
+
             handleBackgroundColorReset={handleBackgroundColorReset}
             handleMainThemeColorReset={handleMainThemeColorReset}
             handleMainFontReset={handleMainFontReset}
             handleSecondaryFontReset={handleSecondaryFontReset}
+            handleSongColorResest={handleSongColorResest}
             handleResetAll={handleResetAll}
         />
     );
