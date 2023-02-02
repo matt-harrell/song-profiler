@@ -49,7 +49,7 @@ const LoggedInScreen = () => {
     return(
         <>
             <ThemeFromImage/>
-            <Grid container spacing={2} paddingTop={4}>
+            <Grid container spacing={2} paddingTop={4} paddingX={2}>
                 <Grid item xs={12} md={4}>
                     <TimeRangeButtons/>
                 </Grid>

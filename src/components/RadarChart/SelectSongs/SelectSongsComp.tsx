@@ -17,7 +17,7 @@ const SelectSongsComp = ({songTitles,value,handleChange}:props) => {
             getOptionLabel={(option) => option}
             defaultValue={[songTitles[0]]}
             value={value}
-            sx={{maxWidth:'80%'}}
+            sx={{maxWidth:'30em',marginX:'auto'}}
             onChange={handleChange}
             renderInput={(params) => (
                 <TextField
