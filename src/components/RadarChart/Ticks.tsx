@@ -1,5 +1,7 @@
 import { ScaleLinear, selectAll } from "d3";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectThemeColors } from "../../slices/ThemeSlice";
 
 interface props {
     width:number,
@@ -10,6 +12,7 @@ interface props {
 const Ticks = ({width,height,radialScale}:props) => {
 
     const ticks = [20,40,60,80,100];
+    const themeColors = useSelector(selectThemeColors)
 
     useEffect(() => {
         selectAll(".tick-label")
@@ -24,14 +27,15 @@ const Ticks = ({width,height,radialScale}:props) => {
                     <text
                         x={width / 2 + 5}
                         y={height / 2 - radialScale(tick) - 12}
-                        className='tick-label'  
+                        className='tick-label'
+                        fill={themeColors.backgroundColor.fontColor}  
                     >
                     </text> 
                     <circle
                         cx={width/2}
                         cy={height/2}
                         fill="none"
-                        stroke="gray"
+                        stroke={themeColors.backgroundColor.fontColor + 90}
                         r={radialScale(tick) + 10}
                     >
                     </circle>
