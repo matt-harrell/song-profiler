@@ -1,13 +1,15 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Chip, TextField } from "@mui/material";
 import { SyntheticEvent } from "react";
+import { dataColor } from "../../../slices/radarChartSlice";
 
 interface props{
     songTitles:string[],
     value:string[],
+    dataColors:dataColor[];
     handleChange: (e: SyntheticEvent<Element, Event>, songs: string[]) => void,
 }
 
-const SelectSongsComp = ({songTitles,value,handleChange}:props) => {
+const SelectSongsComp = ({songTitles,value,dataColors,handleChange}:props) => {
 
     return(
         <Autocomplete
@@ -27,6 +29,16 @@ const SelectSongsComp = ({songTitles,value,handleChange}:props) => {
                     placeholder="Songs"
                 />
             )}
+            renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                    <Chip
+                        sx={{backgroundColor:`${dataColors[dataColors.findIndex((color) => color.songTitle === option)]?.currentColor+50}`}}
+                        label={`${option}`}
+                        {...getTagProps({ index })}
+
+                    />
+                ))
+            }
         />
     );
 }

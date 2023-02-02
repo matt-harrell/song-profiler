@@ -13,7 +13,7 @@ const SelectSongs = () => {
     const [songTitles, setSongTitles] = useState<string[]>([])
     const [value, setValue] = useState<string[]>([]);
     const themeColor = useSelector(selectThemeColors);
-    const dataColors = useSelector(selectDataColors)
+    const dataColors = useSelector(selectDataColors);
 
     useEffect(() => {
         const trackTitles = tracks.map(track => track.name)
@@ -125,6 +125,7 @@ const SelectSongs = () => {
         <SelectSongsComp
             songTitles={songTitles}
             value={value}
+            dataColors={dataColors}
             handleChange={handleChange}
         />
     );
