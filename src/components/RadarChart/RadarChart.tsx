@@ -2,7 +2,7 @@ import { NumberValue, scaleLinear } from "d3";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumOfTracks } from "../../slices/filterButtonsSlice";
-import { selectHeight, selectWidth, setRadarData, setshowRadarChart } from "../../slices/radarChartSlice";
+import { selectHeight, selectWidth, setRadarData, setshowRadarChart, setWidth } from "../../slices/radarChartSlice";
 import { selectTracks, setCurrentAlbum } from "../../slices/spotifySlice";
 import Axes from "./Axes";
 import DataPoints from "./DataPoints";
@@ -14,6 +14,18 @@ const RadarChartComp = () => {
     const width = useSelector(selectWidth);
     const height = useSelector(selectHeight);
     const features = ["acousticness","danceability","energy","loudness", "valence"];
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.screen.availWidth > 768) {
+                dispatch(setWidth(1000))
+            } else {
+                dispatch(setWidth(410))
+            }
+        }
+        handleResize();
+        window.addEventListener('resize',handleResize)
+    },[])
 
     useEffect(() => {
         dispatch(setshowRadarChart(true))
