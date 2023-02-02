@@ -15,10 +15,6 @@ const RadarMenuDrawer = () => {
     const albumDefaultColors = useSelector(selectDefaultAlbumColors);
     const [backgroundColor, setBackgroundColor] = useState(themeColors.backgroundColor.color);
     const [mainThemeColor, setMainThemeColor] = useState(themeColors.colorOne.color);
-    // const [danceabilityColor, setDanceabilityColor] = useState(themeColors.colorTwo.color);
-    // const [energyColor, setEnergyColor] = useState(themeColors.colorThree.color);
-    // const [loudnessColor, setLoudnessColor] = useState(themeColors.colorFour.color);
-    // const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
     const dataColors = useSelector(selectDataColors);
