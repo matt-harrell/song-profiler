@@ -1,5 +1,5 @@
 import { Grid, LinearProgress } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
@@ -22,12 +22,8 @@ const LoggedInScreen = () => {
     const allShortRangeTracks = useSelector(selectAllShortRangeTracks);
     const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
     const showRadarChart = useSelector(selectShowRadarChart);
+    const [chart,setChart] = useState(<LinearProgress />);
 
-    
-    
-    // useEffect(() => {
-    //     dispatch(fetchTopTracks({timeRange}));     
-    // },[dispatch,timeRange]);
 
     useEffect(() => {
         const delayChange = setTimeout(() => {
@@ -45,6 +41,17 @@ const LoggedInScreen = () => {
         return () => clearTimeout(delayChange);
     },[allLongRangeTracks.length, allShortRangeTracks.length, dispatch, numOfTracks, timeRange]);
 
+    useEffect(() => {
+        if (showGraph && showRadarChart) {
+            setChart(<RadarChartComp/>)
+        } else if(showGraph && !showRadarChart){
+            setChart(<Histogram/>)
+        } else{
+            setChart(<LinearProgress />)
+        }
+
+    },[showGraph,showRadarChart])
+
 
     return(
         <>
@@ -60,7 +67,7 @@ const LoggedInScreen = () => {
                     {showRadarChart ? <SelectSongs/> : <NumOfTrackSlider/>}
                 </Grid>
                 <Grid item xs={12}>
-                    {showGraph ? <RadarChartComp/> : <LinearProgress />}
+                    {chart}
                 </Grid>
             </Grid>
         </>
