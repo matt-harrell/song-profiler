@@ -9,11 +9,11 @@ const TimeRangeButtons = () => {
 
 
     const handleChange = (event:React.MouseEvent<HTMLElement>,timeRangeString:string) => {
-        if (timeRangeString === null){
-            timeRangeString = 'medium_term'
+        if (timeRangeString !== null){
+            dispatch(setCurrentAlbum(0))
+            dispatch(setTimeRange(timeRangeString))
         }
-        dispatch(setCurrentAlbum(0))
-        dispatch(setTimeRange(timeRangeString))
+        
     }
 
 
