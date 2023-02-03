@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
 import { selectLoading } from "../../slices/spotifySlice";
 import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../slices/ThemeSlice";
-import MenuDrawerComp from "./MenuDrawerComp";
+import BarChartMenuDrawerComp from "./BarChartMenuDrawerComp";
 
-const MenuDrawer = () => {
+const BarChartMenuDrawer = () => {
 
     const dispatch = useDispatch();
     const open = useSelector(selectMenuOpen);
@@ -171,7 +171,7 @@ const MenuDrawer = () => {
     }
 
     return(
-        <MenuDrawerComp
+        <BarChartMenuDrawerComp
             open={open}
             themeColors={themeColors}
             isLoading={isLoading}
@@ -205,4 +205,4 @@ const MenuDrawer = () => {
     );
 }
 
-export default MenuDrawer;
+export default BarChartMenuDrawer;

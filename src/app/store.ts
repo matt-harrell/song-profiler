@@ -3,6 +3,7 @@ import spotifyReducer from '../slices/spotifySlice';
 import filterButtonsReducer from '../slices/filterButtonsSlice'
 import ThemeSliceReducer from '../slices/ThemeSlice';
 import MenuSliceReducer from '../slices/menuSlice';
+import RadarChartReducer from '../slices/radarChartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,8 @@ export const store = configureStore({
     filterButtons: filterButtonsReducer,
     themeSlice:ThemeSliceReducer,
     menu:MenuSliceReducer,
+    RadarChart:RadarChartReducer,
+
   },
 });
 

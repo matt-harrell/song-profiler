@@ -4,6 +4,7 @@ import { GenericObject } from "../../types";
 import SelectAlbum from "../SelectAlbum/SelectAlbum";
 import { HexColorPicker,HexColorInput } from "react-colorful";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import ChangeChart from "../ChangeChart/ChangeChart";
 
 interface MenuDrawerCompProps {
     open:boolean;
@@ -38,7 +39,7 @@ interface MenuDrawerCompProps {
     
 }
 
-const MenuDrawerComp = ({
+const BarChartMenuDrawerComp = ({
         open,
         themeColors,
         isLoading,
@@ -81,7 +82,7 @@ const MenuDrawerComp = ({
                 role="presentation"
             >
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static">
+                    <AppBar position="sticky">
                         <Toolbar>
                             <Typography
                                 variant="h6"
@@ -106,6 +107,9 @@ const MenuDrawerComp = ({
                         </Toolbar>
                     </AppBar>
                     <Box sx={{marginTop:4}}>
+                    <Typography variant="h5" component='h2' sx={{marginY:2,textAlign:'center'}}>Change the chart</Typography>
+                        <ChangeChart/>
+                        <Divider sx={{marginY:4}}/>
                         <SelectAlbum/>
                         <Divider sx={{marginY:4}}/>
                         <Typography variant="h4" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
@@ -415,4 +419,4 @@ const MenuDrawerComp = ({
     ); 
 }
 
-export default MenuDrawerComp;
+export default BarChartMenuDrawerComp;

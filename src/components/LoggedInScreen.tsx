@@ -1,11 +1,14 @@
 import { Grid, LinearProgress } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
+import { selectShowRadarChart } from "../slices/radarChartSlice";
 import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
+import RadarChartComp from "./RadarChart/RadarChart";
+import SelectSongs from "./RadarChart/SelectSongs/SelectSongs";
 import SelectAudiFeature from "./SelectAudioFeature/SelectAudiFeature";
 import ThemeFromImage from "./ThemeFromImage";
 import TimeRangeButtons from "./TimeRangeButtons/TimeRangeButtons";
@@ -18,12 +21,9 @@ const LoggedInScreen = () => {
     const showGraph = useSelector(selectShowGraph);
     const allShortRangeTracks = useSelector(selectAllShortRangeTracks);
     const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
+    const showRadarChart = useSelector(selectShowRadarChart);
+    const [chart,setChart] = useState(<LinearProgress />);
 
-    
-    
-    // useEffect(() => {
-    //     dispatch(fetchTopTracks({timeRange}));     
-    // },[dispatch,timeRange]);
 
     useEffect(() => {
         const delayChange = setTimeout(() => {
@@ -41,22 +41,33 @@ const LoggedInScreen = () => {
         return () => clearTimeout(delayChange);
     },[allLongRangeTracks.length, allShortRangeTracks.length, dispatch, numOfTracks, timeRange]);
 
+    useEffect(() => {
+        if (showGraph && showRadarChart) {
+            setChart(<RadarChartComp/>)
+        } else if(showGraph && !showRadarChart){
+            setChart(<Histogram/>)
+        } else{
+            setChart(<LinearProgress />)
+        }
+
+    },[showGraph,showRadarChart])
+
 
     return(
         <>
             <ThemeFromImage/>
-            <Grid container spacing={2} paddingTop={4}>
+            <Grid container spacing={2} paddingTop={4} paddingX={2}>
                 <Grid item xs={12} md={4}>
                     <TimeRangeButtons/>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <SelectAudiFeature/>
+                    {showRadarChart ? null : <SelectAudiFeature/>}
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <NumOfTrackSlider/>
+                    {showRadarChart ? <SelectSongs/> : <NumOfTrackSlider/>}
                 </Grid>
                 <Grid item xs={12}>
-                    {showGraph ? <Histogram/> : <LinearProgress />}
+                    {chart}
                 </Grid>
             </Grid>
         </>
