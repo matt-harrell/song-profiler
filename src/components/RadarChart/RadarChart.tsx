@@ -2,7 +2,7 @@ import { NumberValue, scaleLinear } from "d3";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNumOfTracks } from "../../slices/filterButtonsSlice";
-import { selectHeight, selectWidth, setRadarData, setshowRadarChart, setWidth } from "../../slices/radarChartSlice";
+import { selectHeight, selectWidth, setRadarData, setShowRadarChart, setWidth } from "../../slices/radarChartSlice";
 import { selectTracks, setCurrentAlbum } from "../../slices/spotifySlice";
 import Axes from "./Axes";
 import DataPoints from "./DataPoints";
@@ -28,7 +28,7 @@ const RadarChartComp = () => {
     },[])
 
     useEffect(() => {
-        dispatch(setshowRadarChart(true))
+        dispatch(setShowRadarChart(true))
         dispatch(setNumOfTracks(50));
         dispatch(setCurrentAlbum(0));
     },[])

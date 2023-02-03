@@ -22,7 +22,7 @@ interface RadarChartState {
 }
 
 const initialState = {
-    showRadarChart:false,
+    showRadarChart:true,
     width:410,
     height:300,
     data:[],
@@ -34,7 +34,7 @@ const radarChartSlice = createSlice({
     name:'RadarChart',
     initialState,
     reducers:{
-        setshowRadarChart(state,action:PayloadAction<boolean>){
+        setShowRadarChart(state,action:PayloadAction<boolean>){
             state.showRadarChart = action.payload;
         },
         setRadarData(state,action){
@@ -57,7 +57,7 @@ const radarChartSlice = createSlice({
     }
 })
 
-export const { setRadarData,setshowRadarChart,setDataColors,changeDataColor, changeBothDataColors,setWidth} = radarChartSlice.actions;
+export const { setRadarData,setShowRadarChart,setDataColors,changeDataColor, changeBothDataColors,setWidth} = radarChartSlice.actions;
 
 export const selectShowRadarChart = (state: { RadarChart: { showRadarChart: boolean; }; }) => state.RadarChart.showRadarChart;
 export const selectWidth = (state: { RadarChart: { width: number; }; }) => state.RadarChart.width;
