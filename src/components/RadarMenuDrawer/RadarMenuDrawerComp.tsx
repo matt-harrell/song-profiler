@@ -6,6 +6,8 @@ import { HexColorPicker,HexColorInput } from "react-colorful";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { dataColor } from "../../slices/radarChartSlice";
 import React from "react";
+import ChangeChartComp from "../ChangeChart/ChangeChartComp";
+import ChangeChart from "../ChangeChart/ChangeChart";
 
 interface MenuDrawerCompProps {
     open:boolean;
@@ -94,9 +96,12 @@ const RadarMenuDrawerComp = ({
                         </Toolbar>
                     </AppBar>
                     <Box sx={{marginTop:4}}>
+                        <Typography variant="h5" component='h2' sx={{marginY:2,textAlign:'center'}}>Change the chart</Typography>
+                        <ChangeChart/>
+                        <Divider sx={{marginY:4}}/>
                         <SelectAlbum/>
                         <Divider sx={{marginY:4}}/>
-                        <Typography variant="h4" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
+                        <Typography variant="h5" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
                         <Grid container spacing={3} sx={{paddingX:4}}>
 
                             <Grid item xs={2}>
