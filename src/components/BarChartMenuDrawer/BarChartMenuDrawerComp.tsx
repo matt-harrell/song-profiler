@@ -112,7 +112,7 @@ const BarChartMenuDrawerComp = ({
                         <Divider sx={{marginY:4}}/>
                         <SelectAlbum/>
                         <Divider sx={{marginY:4}}/>
-                        <Typography variant="h4" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
+                        <Typography variant="h5" component='h2' sx={{marginY:2,textAlign:'center'}}>Theme Colors</Typography>
                         <Grid container spacing={3} sx={{paddingX:4}}>
 
                             <Grid item xs={2}>
