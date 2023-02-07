@@ -6,7 +6,6 @@ import { HexColorPicker,HexColorInput } from "react-colorful";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { dataColor } from "../../slices/radarChartSlice";
 import React from "react";
-import ChangeChartComp from "../ChangeChart/ChangeChartComp";
 import ChangeChart from "../ChangeChart/ChangeChart";
 
 interface MenuDrawerCompProps {
