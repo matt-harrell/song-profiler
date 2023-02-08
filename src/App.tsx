@@ -9,6 +9,7 @@ import MenuBar from './components/MenuBar/MenuBar';
 import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
 import { selectThemeColors } from './slices/ThemeSlice';
 import Drawer from './components/Drawer/Drawer';
+import InfoDrawer from './components/InfoDrawer/InfoDrawer';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
         <MenuBar/>
         <Drawer/>
+        <InfoDrawer/>
         {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
       </div>
     </ThemeComp>
