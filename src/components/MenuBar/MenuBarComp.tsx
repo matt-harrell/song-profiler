@@ -4,15 +4,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import InfoIcon from '@mui/icons-material/Info';
 import { useSelector } from 'react-redux';
 import { selectThemeColors } from '../../slices/ThemeSlice';
 import { selectIsLoggedIn, selectShowGraph } from '../../slices/spotifySlice';
 
 interface MenuBarCompProps {
-    handleClick:() => void;
+    handleMenuClick:() => void;
+    handleInfoClick:() => void;
 }
 
-const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
+const MenuBarComp = ({handleMenuClick,handleInfoClick}:MenuBarCompProps) => {
 
     const themeColors = useSelector(selectThemeColors);
     const showGraph = useSelector(selectShowGraph);
@@ -29,7 +31,7 @@ const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
                             color="inherit"
                             aria-label="menu"
                             sx={{ mr: 2 }}
-                            onClick={handleClick}
+                            onClick={handleMenuClick}
                         >
                             <MenuIcon />
                         </IconButton>
@@ -44,6 +46,16 @@ const MenuBarComp = ({handleClick}:MenuBarCompProps) => {
                     >
                         My Favs
                     </Typography>
+                    <IconButton
+                            size="large"
+                            edge="end"
+                            color="inherit"
+                            aria-label="info"
+                            sx={{ ml: 2 }}
+                            onClick={handleInfoClick}
+                        >
+                            <InfoIcon />
+                        </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>
