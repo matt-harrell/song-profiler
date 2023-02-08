@@ -1,19 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface MenuState {
-    open:boolean,
+    menuOpen:boolean,
     showAlbum:boolean,
     albumAnimationDuration:number,
     isPrevDisabled:boolean,
     isNextDisabled:boolean,
+    isInfoDrawerOpen:boolean,
 }
 
 const initialState = {
-    open:false,
+    menuOpen:false,
     showAlbum:true,
     albumAnimationDuration:300,
     isPrevDisabled:true,
     isNextDisabled:false,
+    isInfoDrawerOpen:false,
 } as MenuState;
 
 const menuSlice = createSlice({
@@ -21,7 +23,7 @@ const menuSlice = createSlice({
     initialState,
     reducers:{
         toggleMenu(state,action){
-            state.open = action.payload;
+            state.menuOpen = action.payload;
         },
         setShowAlbum(state,action){
             state.showAlbum = action.payload;
@@ -32,16 +34,20 @@ const menuSlice = createSlice({
         setNextDisabled(state,action:PayloadAction<boolean>){
             state.isNextDisabled = action.payload;
         },
+        toggleInfoDrawer(state,action:PayloadAction<boolean>){
+            state.isInfoDrawerOpen = action.payload;
+        }
 
     }
 })
 
-export const selectMenuOpen = (state: { menu: { open: boolean; }; }) => state.menu.open;
+export const selectMenuOpen = (state: { menu: { menuOpen: boolean; }; }) => state.menu.menuOpen;
 export const selectShowAlbum = (state: { menu: { showAlbum: boolean; }; }) => state.menu.showAlbum;
 export const selectAlbumAnimationDuration = (state: { menu: { albumAnimationDuration: number; }; }) => state.menu.albumAnimationDuration;
 export const selectIsPrevDisabled = (state: { menu: { isPrevDisabled: boolean; }; }) => state.menu.isPrevDisabled;
 export const selectIsNextDisabled = (state: { menu: { isNextDisabled: boolean; }; }) => state.menu.isNextDisabled;
+export const selectIsInfoDrawerOpen = (state: { menu: { isInfoDrawerOpen: boolean; }; }) => state.menu.isInfoDrawerOpen;
 
-export const {toggleMenu,setShowAlbum,setPrevDisabled,setNextDisabled} = menuSlice.actions;
+export const {toggleMenu,setShowAlbum,setPrevDisabled,setNextDisabled,toggleInfoDrawer} = menuSlice.actions;
 
 export default menuSlice.reducer;
