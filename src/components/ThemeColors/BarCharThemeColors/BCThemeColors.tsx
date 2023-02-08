@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
-import { selectLoading } from "../../slices/spotifySlice";
-import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../slices/ThemeSlice";
-import BarChartMenuDrawerComp from "./BarChartMenuDrawerComp";
+import { selectThemeColors, selectDefaultAlbumColors, changeFontColors, changeThemeColors } from "../../../slices/ThemeSlice";
+import BCThemeColorsComp from "./BCThemeColorsComp"
 
-const BarChartMenuDrawer = () => {
+const BCThemeColors = () => {
 
     const dispatch = useDispatch();
-    const open = useSelector(selectMenuOpen);
-    const isLoading = useSelector(selectLoading)
     const themeColors = useSelector(selectThemeColors);
     const albumDefaultColors = useSelector(selectDefaultAlbumColors);
     const [backgroundColor, setBackgroundColor] = useState(themeColors.backgroundColor.color);
@@ -20,7 +16,7 @@ const BarChartMenuDrawer = () => {
     const [valenceColor, setValenceColor] = useState(themeColors.colorFive.color);
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
-    
+
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'backgroundColor',color:backgroundColor}))
     },[backgroundColor, dispatch]);
@@ -165,17 +161,10 @@ const BarChartMenuDrawer = () => {
         setMainFontColor(albumDefaultColors.backgroundColor.fontColor);
         setSecondaryFontColor(albumDefaultColors.colorOne.fontColor);
     }
-    
-    const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-        dispatch(toggleMenu(value));
-    }
 
     return(
-        <BarChartMenuDrawerComp
-            open={open}
+        <BCThemeColorsComp
             themeColors={themeColors}
-            isLoading={isLoading}
-            handleClose={handleClose}
             backgroundColor={backgroundColor}
             acousticnessColor={acousticnessColor}
             danceabilityColor={danceabilityColor}
@@ -203,6 +192,7 @@ const BarChartMenuDrawer = () => {
             handleResetAll={handleResetAll}
         />
     );
+
 }
 
-export default BarChartMenuDrawer;
+export default BCThemeColors;

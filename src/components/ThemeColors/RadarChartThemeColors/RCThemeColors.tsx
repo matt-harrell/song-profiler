@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMenuOpen, toggleMenu } from "../../slices/menuSlice";
-import { selectDataColors,changeDataColor } from "../../slices/radarChartSlice";
-import { selectLoading } from "../../slices/spotifySlice";
-import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../slices/ThemeSlice";
-import BarChartMenuDrawerComp from "./RadarMenuDrawerComp";
+import { changeDataColor, selectDataColors } from "../../../slices/radarChartSlice";
+import { changeFontColors, changeThemeColors, selectDefaultAlbumColors, selectThemeColors } from "../../../slices/ThemeSlice";
+import RCThemeColorsComp from "./RCThemeColorsComp";
 
-const RadarMenuDrawer = () => {
+const RCThemeColors = () => {
 
     const dispatch = useDispatch();
-    const open = useSelector(selectMenuOpen);
-    const isLoading = useSelector(selectLoading)
     const themeColors = useSelector(selectThemeColors);
     const albumDefaultColors = useSelector(selectDefaultAlbumColors);
     const [backgroundColor, setBackgroundColor] = useState(themeColors.backgroundColor.color);
@@ -18,7 +14,7 @@ const RadarMenuDrawer = () => {
     const [mainFontColor,setMainFontColor] = useState(themeColors.backgroundColor.fontColor);
     const [secondaryFontColor,setSecondaryFontColor] = useState(themeColors.colorOne.fontColor);
     const dataColors = useSelector(selectDataColors);
-    
+
     useEffect(() => {
         dispatch(changeThemeColors({themeColor:'backgroundColor',color:backgroundColor}))
     },[backgroundColor, dispatch]);
@@ -100,17 +96,10 @@ const RadarMenuDrawer = () => {
             handleSongColorResest(index)
         }
     }
-    
-    const handleClose = (value:boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-        dispatch(toggleMenu(value));
-    }
 
     return(
-        <BarChartMenuDrawerComp
-            open={open}
+        <RCThemeColorsComp
             themeColors={themeColors}
-            isLoading={isLoading}
-            handleClose={handleClose}
             backgroundColor={backgroundColor}
             mainThemeColor={mainThemeColor}
             mainFontColor={mainFontColor}
@@ -133,4 +122,4 @@ const RadarMenuDrawer = () => {
     );
 }
 
-export default RadarMenuDrawer;
+export default RCThemeColors;
