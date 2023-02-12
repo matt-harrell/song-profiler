@@ -55,7 +55,7 @@ const MenuBarComp = ({handleMenuClick,handleInfoClick}:MenuBarCompProps) => {
                             onClick={handleInfoClick}
                         >
                             <InfoIcon />
-                        </IconButton>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>

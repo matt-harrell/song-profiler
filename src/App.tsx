@@ -4,12 +4,12 @@ import './App.css';
 import { AppDispatch } from './app/store';
 import ThemeComp from './components/ThemeComp';
 import LoggedInScreen from './components/LoggedInScreen';
-import LoginButton from './components/LoginButton/LoginButton';
 import MenuBar from './components/MenuBar/MenuBar';
 import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
 import { selectThemeColors } from './slices/ThemeSlice';
 import Drawer from './components/Drawer/Drawer';
 import InfoDrawer from './components/InfoDrawer/InfoDrawer';
+import LoggedOutScreen from './components/LoggedOutScreen';
 
 function App() {
 
@@ -33,7 +33,7 @@ function App() {
         <MenuBar/>
         <Drawer/>
         <InfoDrawer/>
-        {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
+        {isLoggedIn ? <LoggedInScreen /> : <LoggedOutScreen/>}
       </div>
     </ThemeComp>
   );
