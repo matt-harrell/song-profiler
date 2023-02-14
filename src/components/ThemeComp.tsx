@@ -43,6 +43,13 @@ const ThemeComp = ({children}:props) => {
                         color:isLoading ? 'initial' : themeColors.backgroundColor.fontColor,
                     }
                 }
+            },
+            MuiAccordionSummary:{
+                styleOverrides:{
+                    root:{
+                        backgroundColor: themeColors.colorOne.color,
+                    }
+                },
             }
         }
     })

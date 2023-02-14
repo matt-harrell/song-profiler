@@ -1,22 +1,25 @@
 import { Accordion, AccordionSummary, Typography, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { GenericObject } from "../../types";
 
 interface CategoryAccordionCompProps  {
     expanded:string | boolean,
+    themeColors:GenericObject;
     handleChange:(panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => void,
 }
 
 
-const CategoryAccordionComp = ({expanded,handleChange}:CategoryAccordionCompProps) => {
+const CategoryAccordionComp = ({themeColors,expanded,handleChange}:CategoryAccordionCompProps) => {
     return(
         <>
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color:themeColors.colorOne.fontColor}}/>}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
+                    color={themeColors.colorOne.fontColor}
                 >
-                    <Typography>Acousticness</Typography>
+                    <Typography color={themeColors.colorOne.fontColor}>Acousticness</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
@@ -27,11 +30,11 @@ const CategoryAccordionComp = ({expanded,handleChange}:CategoryAccordionCompProp
 
             <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color:themeColors.colorOne.fontColor}}/>}
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                 >
-                    <Typography>Danceability</Typography>
+                    <Typography color={themeColors.colorOne.fontColor}>Danceability</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
@@ -42,11 +45,11 @@ const CategoryAccordionComp = ({expanded,handleChange}:CategoryAccordionCompProp
 
             <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color:themeColors.colorOne.fontColor}}/>}
                     aria-controls="panel3a-content"
                     id="panel3a-header"
                 >
-                    <Typography>Energy</Typography>
+                    <Typography color={themeColors.colorOne.fontColor}>Energy</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
@@ -57,11 +60,11 @@ const CategoryAccordionComp = ({expanded,handleChange}:CategoryAccordionCompProp
 
             <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color:themeColors.colorOne.fontColor}}/>}
                     aria-controls="panel4a-content"
                     id="panel4a-header"
                 >
-                    <Typography>Loudness</Typography>
+                    <Typography color={themeColors.colorOne.fontColor}>Loudness</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
@@ -72,11 +75,11 @@ const CategoryAccordionComp = ({expanded,handleChange}:CategoryAccordionCompProp
 
             <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color:themeColors.colorOne.fontColor}}/>}
                     aria-controls="panel5a-content"
                     id="panel5a-header"
                 >
-                    <Typography>Valence</Typography>
+                    <Typography color={themeColors.colorOne.fontColor}>Valence</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
