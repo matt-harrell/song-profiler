@@ -6,7 +6,7 @@ interface LoginButtonCompProps {
 
 const LoginButtonComp = ({handleClick}:LoginButtonCompProps) => {
     return(
-        <Button variant="contained" disableElevation onClick={handleClick} style={{marginTop:'1rem'}}>
+        <Button variant="contained" disableElevation onClick={handleClick} sx={{marginTop:2}}>
             Login
         </Button>
     );

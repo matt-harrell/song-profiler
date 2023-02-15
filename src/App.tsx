@@ -4,11 +4,12 @@ import './App.css';
 import { AppDispatch } from './app/store';
 import ThemeComp from './components/ThemeComp';
 import LoggedInScreen from './components/LoggedInScreen';
-import LoginButton from './components/LoginButton/LoginButton';
 import MenuBar from './components/MenuBar/MenuBar';
 import { fetchTopTracks, selectIsLoggedIn, setIsLoggedIn,selectLoading } from './slices/spotifySlice';
 import { selectThemeColors } from './slices/ThemeSlice';
 import Drawer from './components/Drawer/Drawer';
+import InfoDrawer from './components/InfoDrawer/InfoDrawer';
+import LoggedOutScreen from './components/LoggedOutScreen';
 
 function App() {
 
@@ -31,7 +32,8 @@ function App() {
       <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
         <MenuBar/>
         <Drawer/>
-        {isLoggedIn ? <LoggedInScreen /> : <LoginButton />}
+        <InfoDrawer/>
+        {isLoggedIn ? <LoggedInScreen /> : <LoggedOutScreen/>}
       </div>
     </ThemeComp>
   );
