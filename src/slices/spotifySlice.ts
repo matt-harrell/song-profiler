@@ -23,6 +23,8 @@ interface SpofityArrayState {
     allLongRangeTracks:GenericObject[];
 }
 
+// create AsyncThunk to call netlify function to to grab API key
+
 const fetchTopTracks = createAsyncThunk(
     'spotifyAPI/fetchTopTracks',
     async ({timeRange = 'medium_term',numOfTracks = 20}:fetchTopTracksType) => {
