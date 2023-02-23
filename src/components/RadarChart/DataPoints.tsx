@@ -43,7 +43,7 @@ const DataPoints = ({features, angleToCoordinate}:props) => {
             const i = dataColors.findIndex((color) => color.songTitle === 'All Songs');
             dispatch(changeBothDataColors({index:i,color:themeColor.colorOne.color}))
         }
-    },[themeColor.colorOne.color,dispatch])
+    },[themeColor.colorOne.color,dispatch,dataColors])
 
     
 

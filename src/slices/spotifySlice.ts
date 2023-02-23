@@ -10,6 +10,7 @@ interface SpofityState {
     isLoggedIn:boolean;
     isLoading:boolean;
     showGraph:boolean;
+    isRejected:boolean;
     allShortRangeTracks:GenericObject[];
     allMedRangeTracks:GenericObject[];
     allLongRangeTracks:GenericObject[];
@@ -108,6 +109,7 @@ const initialState = {
     isLoggedIn:false,
     isLoading:false,
     showGraph:false,
+    isRejected:false,
     allShortRangeTracks:[],
     allMedRangeTracks:[],
     allLongRangeTracks:[],
@@ -160,9 +162,15 @@ const spotifySlice = createSlice({
                 }
                 state.tracks = [...action.payload.tracks.slice(0,action.payload.numOfTracks)];
                 state.isLoading = false;
+                state.isRejected = false;
             })
             .addCase(fetchTopTracks.pending, (state,action) => {
                 state.isLoading = true;
+                state.isRejected = false;
+            })
+            .addCase(fetchTopTracks.rejected,(state,action) => {
+                state.isRejected = true;
+                state.isLoading = false;
             })
             
     }
@@ -178,7 +186,8 @@ export const selectAllMedRangeTracks = (state: { spotifyAPI: { allMedRangeTracks
 export const selectAllLongRangeTracks = (state: { spotifyAPI: { allLongRangeTracks: GenericObject[]; }; }) => state.spotifyAPI.allLongRangeTracks;
 export const selectTracks = (state: { spotifyAPI: { tracks: GenericObject[]; }; }) => state.spotifyAPI.tracks;
 export const selectCurrentAlbum = (state: { spotifyAPI: { currentAlbum: number; }; }) => state.spotifyAPI.currentAlbum;
-export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph; 
+export const selectShowGraph = (state: { spotifyAPI: { showGraph: boolean; }; }) => state.spotifyAPI.showGraph;
+export const selectisRejected = (state: { spotifyAPI: { isRejected: boolean; }; }) => state.spotifyAPI.isRejected;
 
 export const {setIsLoggedIn,setShowGraph,nextAlbum,prevAlbum,setCurrentAlbum,setCurrentTracks} = spotifySlice.actions;
 export default spotifySlice.reducer;

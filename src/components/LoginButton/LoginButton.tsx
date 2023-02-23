@@ -1,14 +1,21 @@
 import LoginButtonComp from "./LoginButtonComp";
-import { cleintId } from '../../API/keys';
 
 
 const LoginButton = () => {
     
-    const redirectURI: any = 'http://localhost:3000/';
+    // const redirectURI: any = 'http://localhost:3000/';
+    const redirectURI: any = 'https://spotify-profiler.netlify.app';
 
     let accessToken = "";
 
-    const getAccessToken = () => {
+
+    const getAccessToken = async () => {
+        // const clientId = getAPIKey();
+        const response = await fetch('/.netlify/functions/accessAPIKey');
+        const clientId = await response.json();
+       
+        
+
         if (accessToken) {
             return accessToken;
         }
@@ -21,14 +28,12 @@ const LoginButton = () => {
             window.history.pushState("Access Token", "", "/");
             return accessToken;
         } else {
-            const accessUrl: any = `https://accounts.spotify.com/authorize?client_id=${cleintId}&response_type=token&scope=user-top-read&redirect_uri=${redirectURI}`;
+            const accessUrl: any = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=user-top-read&redirect_uri=${redirectURI}`;
             window.location = accessUrl;
         }
     }
 
     const handleClick = () => {
-        // dispatch to redux store 
-        // redux store handles spotify API call
         getAccessToken();
     }
 

@@ -1,10 +1,11 @@
-import { Grid, LinearProgress } from "@mui/material";
+import { Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { selectNumOfTracks, selectTimeRange } from "../slices/filterButtonsSlice";
 import { selectShowRadarChart } from "../slices/radarChartSlice";
-import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectShowGraph, setCurrentTracks } from "../slices/spotifySlice";
+import { fetchTopTracks, selectAllLongRangeTracks, selectAllShortRangeTracks, selectisRejected, selectShowGraph, setCurrentTracks, setIsLoggedIn } from "../slices/spotifySlice";
 import Histogram from "./Histogram/Histogram";
 import NumOfTrackSlider from "./NumOfTrackSlider/NumNumOfTrackSlider";
 import RadarChartComp from "./RadarChart/RadarChart";
@@ -23,6 +24,7 @@ const LoggedInScreen = () => {
     const allLongRangeTracks = useSelector(selectAllLongRangeTracks);
     const showRadarChart = useSelector(selectShowRadarChart);
     const [chart,setChart] = useState(<LinearProgress />);
+    const isRejected = useSelector(selectisRejected);
 
 
     useEffect(() => {
@@ -53,23 +55,41 @@ const LoggedInScreen = () => {
     },[showGraph,showRadarChart])
 
 
+    const handleClick = () => {
+        dispatch(setIsLoggedIn(false))
+        // window.location.href = 'http://localhost:3000/';
+        window.location.href = 'https://spotify-profiler.netlify.app';
+    }
+
     return(
         <>
-            <ThemeFromImage/>
-            <Grid container spacing={2} paddingTop={4} paddingX={2}>
-                <Grid item xs={12} md={4}>
-                    <TimeRangeButtons/>
+        {isRejected ?
+            <Box>
+                <Typography variant="h3" component="p">Sorry we cannot log you in</Typography>
+                <Button variant="contained" disableElevation onClick={handleClick} sx={{marginTop:2}}>
+                    Go back to Login
+                </Button>
+            </Box> 
+            :
+            <>
+                <ThemeFromImage/>
+                <Grid container spacing={2} paddingTop={4} paddingX={2}>
+                    <Grid item xs={12} md={4}>
+                        <TimeRangeButtons/>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        {showRadarChart ? null : <SelectAudiFeature/>}
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        {showRadarChart ? <SelectSongs/> : <NumOfTrackSlider/>}
+                    </Grid>
+                    <Grid item xs={12}>
+                        {chart}
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    {showRadarChart ? null : <SelectAudiFeature/>}
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    {showRadarChart ? <SelectSongs/> : <NumOfTrackSlider/>}
-                </Grid>
-                <Grid item xs={12}>
-                    {chart}
-                </Grid>
-            </Grid>
+            </>
+        }
+            
         </>
     );
 }
