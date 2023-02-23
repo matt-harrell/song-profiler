@@ -12,6 +12,8 @@ const LoginButton = () => {
         // const clientId = getAPIKey();
         const response = await fetch('/.netlify/functions/accessAPIKey');
         const clientId = await response.json();
+       
+        
 
         if (accessToken) {
             return accessToken;
