@@ -55,7 +55,6 @@ const RadarChartComp = () => {
                 loudness:findAverage(loudnessValues),  
                 valence:findAverage(valenceValues),
             }]))
-            console.log('firing');
     },[tracks,dispatch])
 
     const radialScale = scaleLinear()
