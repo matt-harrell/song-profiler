@@ -8,10 +8,10 @@ interface props {
     height:number,
     radialScale:ScaleLinear<number, number, never>
 }
+const ticks = [20,40,60,80,100];
 
 const Ticks = ({width,height,radialScale}:props) => {
 
-    const ticks = [20,40,60,80,100];
     const themeColors = useSelector(selectThemeColors)
 
     useEffect(() => {

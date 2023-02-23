@@ -25,13 +25,15 @@ const RadarChartComp = () => {
         }
         handleResize();
         window.addEventListener('resize',handleResize)
-    },[])
+    },[dispatch])
 
     useEffect(() => {
         dispatch(setShowRadarChart(true))
         dispatch(setNumOfTracks(50));
         dispatch(setCurrentAlbum(0));
-    },[])
+        
+        
+    },[dispatch])
     
 
     useEffect(() => {
@@ -53,8 +55,8 @@ const RadarChartComp = () => {
                 loudness:findAverage(loudnessValues),  
                 valence:findAverage(valenceValues),
             }]))
-        
-    },[])
+            console.log('firing');
+    },[tracks,dispatch])
 
     const radialScale = scaleLinear()
         .domain([0,100])
