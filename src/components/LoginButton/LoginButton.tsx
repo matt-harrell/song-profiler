@@ -4,7 +4,7 @@ import LoginButtonComp from "./LoginButtonComp";
 const LoginButton = () => {
     
     // const redirectURI: any = 'http://localhost:3000/';
-    const redirectURI: any = 'https://spotify-profiler.netlify.app';
+    const redirectURI: any = 'https://song-profiler.netlify.app';
 
     let accessToken = "";
 

@@ -58,7 +58,7 @@ const LoggedInScreen = () => {
     const handleClick = () => {
         dispatch(setIsLoggedIn(false))
         // window.location.href = 'http://localhost:3000/';
-        window.location.href = 'https://spotify-profiler.netlify.app';
+        window.location.href = 'https://song-profiler.netlify.app';
     }
 
     return(
