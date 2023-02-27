@@ -7,7 +7,7 @@ const LoggedOutScreen = () => {
     return(
         <Box sx={{marginX:'auto',maxWidth:1080,textAlign:'left',marginY:3}}>
             <Typography variant="h2" component='h2' sx={{textAlign:'center'}}>
-                Welcome to myFavs!
+                Welcome to my Song Profiler!
             </Typography>
             <Typography component='p' sx={{marginTop:3,marginBottom:2}}>
                 This app will show your top songs and the Spotify audio profile for each song. 

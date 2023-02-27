@@ -44,7 +44,7 @@ const MenuBarComp = ({handleMenuClick,handleInfoClick}:MenuBarCompProps) => {
                             color:showGraph ? 'inherit' :  themeColors.colorOne.fontColor
                         }}
                     >
-                        My Favs
+                        Song Profiler
                     </Typography>
                     <IconButton
                             size="large"
