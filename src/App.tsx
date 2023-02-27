@@ -29,7 +29,7 @@ function App() {
 
   return (
     <ThemeComp>
-      <div className="App" style={{ backgroundColor: `${isLoading ? 'white' : themeColors.backgroundColor.color}` }}>
+      <div className="App" style={{ backgroundColor: `${isLoading ? '#191414' : themeColors.backgroundColor.color}` }}>
         <MenuBar/>
         <Drawer/>
         <InfoDrawer/>
