@@ -7,7 +7,7 @@ interface NumOfTrackSliderCompProps {
 
 const NumOfTrackSliderComp = ({ handleChange, numOfTracks }: NumOfTrackSliderCompProps) => {
     return (
-        <Box width={300}>
+        <Box width={300} sx={{marginX:'auto'}}>
             <Typography id="input-slider" gutterBottom>
                 Number of Songs
             </Typography>

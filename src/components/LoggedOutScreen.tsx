@@ -1,13 +1,13 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material"
 import LoginButton from "./LoginButton/LoginButton";
 import InfoIcon from '@mui/icons-material/Info';
 import CategoryAccordion from "./CategoryAccordion/CategoryAccordion";
 
 const LoggedOutScreen = () => {
     return(
-        <Box sx={{marginX:'auto',maxWidth:1080,textAlign:'left',marginY:3}}>
+        <Container maxWidth="md" sx={{paddingY:5}}>
             <Typography variant="h2" component='h2' sx={{textAlign:'center'}}>
-                Welcome to my Song Profiler!
+                Welcome to Song Profiler!
             </Typography>
             <Typography component='p' sx={{marginTop:3,marginBottom:2}}>
                 This app will show your top songs and the Spotify audio profile for each song. 
@@ -30,7 +30,7 @@ const LoggedOutScreen = () => {
             <Box sx={{textAlign:'center'}}>
                 <LoginButton />
             </Box>
-        </Box>
+        </Container>
     )
 }
 
