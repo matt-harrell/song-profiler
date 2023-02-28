@@ -15,8 +15,8 @@ const ThemeComp = ({children}:props) => {
     const theme = createTheme({
         palette:{
             primary:{
-                main: isLoading ? '#1976d2' : themeColors.colorOne.color,
-                contrastText:isLoading ? '#fff' : themeColors.colorOne.fontColor,
+                main: isLoading ? '#1db954' : themeColors.colorOne.color,
+                contrastText:isLoading ? '#ffffff' : themeColors.colorOne.fontColor,
             },
             text:{
                 primary:isLoading ? 'rgba(0,0,0,0.87)' : themeColors.backgroundColor.fontColor,
@@ -24,8 +24,8 @@ const ThemeComp = ({children}:props) => {
                 disabled:isLoading ? 'rgba(0,0,0,0.38)' : themeColors.backgroundColor.fontColor+'38',
             },
             background:{
-                paper:isLoading ? '#fff' : themeColors.backgroundColor.color,
-                default:isLoading ? '#fff' : themeColors.backgroundColor.color,
+                paper:isLoading ? '#191414' : themeColors.backgroundColor.color,
+                default:isLoading ? '#191414' : themeColors.backgroundColor.color,
             },
             divider:isLoading ? 'rgba(0,0,0,0.12)' : themeColors.backgroundColor.fontColor+'12'
         },

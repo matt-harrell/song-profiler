@@ -43,7 +43,8 @@ const DataPoints = ({features, angleToCoordinate}:props) => {
             const i = dataColors.findIndex((color) => color.songTitle === 'All Songs');
             dispatch(changeBothDataColors({index:i,color:themeColor.colorOne.color}))
         }
-    },[themeColor.colorOne.color,dispatch,dataColors])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[themeColor.colorOne.color,dispatch])
 
     
 

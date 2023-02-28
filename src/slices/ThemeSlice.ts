@@ -17,8 +17,8 @@ interface ThemeColors {
 
 const themeColors = {
     colorOne:{
-        color:'#1976d2',
-        fontColor:'#fff',
+        color:'#1db954',
+        fontColor:'#ffffff',
     },
     colorTwo:{
         color:'',
@@ -37,8 +37,8 @@ const themeColors = {
         fontColor:'',
     },
     backgroundColor:{
-        color:'#FFFFFF',
-        fontColor:'#000000',
+        color:'#191414',
+        fontColor:'#ffffff',
     }
 }
 
