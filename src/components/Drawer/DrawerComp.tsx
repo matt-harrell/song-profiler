@@ -50,7 +50,7 @@ const DrawerComp = ({open,themeColors,isLoading,showRadarChart,handleClose}:Draw
                             </IconButton>
                         </Toolbar>
                     </AppBar>
-                    <Box sx={{marginTop:4}}>
+                    <Box sx={{marginTop:4,paddingBottom:4}}>
                     <Typography variant="h5" component='h2' sx={{marginY:2,textAlign:'center'}}>Change chart</Typography>
                         <ChangeChart/>
                         <Divider sx={{marginY:4}}/>
