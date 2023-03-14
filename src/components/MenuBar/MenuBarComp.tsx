@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import InfoIcon from '@mui/icons-material/Info';
 import { useSelector } from 'react-redux';
 import { selectThemeColors } from '../../slices/ThemeSlice';
-import { selectIsLoggedIn, selectShowGraph } from '../../slices/spotifySlice';
+import { selectIsLoggedIn, selectisRejected, selectShowGraph } from '../../slices/spotifySlice';
 
 interface MenuBarCompProps {
     handleMenuClick:() => void;
@@ -18,13 +18,14 @@ const MenuBarComp = ({handleMenuClick,handleInfoClick}:MenuBarCompProps) => {
 
     const themeColors = useSelector(selectThemeColors);
     const showGraph = useSelector(selectShowGraph);
-    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    const isRejected = useSelector(selectisRejected);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="sticky">
                 <Toolbar>
-                    {isLoggedIn &&
+                    {isLoggedIn && !isRejected &&
                         <IconButton
                             size="large"
                             edge="start"
